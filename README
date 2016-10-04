@@ -1,0 +1,44 @@
+Pure Python 2.7/3.x GOST cryptographic functions library.
+
+GOST is GOvernment STandard of Russian Federation (and Soviet Union).
+
+* GOST 28147-89 (RFC 5830) block cipher with ECB, CNT (CTR), CFB, MAC,
+  CBC (RFC 4357) modes of operation
+* various 28147-89-related S-boxes included
+* GOST R 34.11-94 hash function (RFC 5831)
+* GOST R 34.11-2012 Стрибог (Streebog) hash function (RFC 6986)
+* GOST R 34.10-2001 (RFC 5832) public key signature function
+* GOST R 34.10-2012 (RFC 7091) public key signature function
+* various 34.10 curve parameters included
+* VKO 34.10-2001 Diffie-Hellman function (RFC 4357)
+* 28147-89 and CryptoPro key wrapping (RFC 4357)
+* 28147-89 CryptoPro key meshing for CFB mode (RFC 4357)
+* RFC 4491 (using GOST algorithms with X.509) compatibility helpers
+* GOST R 34.12-2015 128-bit block cipher Кузнечик (Kuznechik) (RFC 7801)
+* GOST R 34.13-2015 padding methods
+* PEP247-compatible hash/MAC functions
+
+Known problems: low performance and non time-constant calculations.
+
+Example X.509 compatible 34.10-2012 keypair generation, signing and
+verifying its signature:
+
+    >>> from pygost import x509
+    >>> prv, pub = x509.keypair_gen(urandom(64), mode=2012)
+    >>> data = b'some data'
+    >>> signature = x509.sign(prv, data, mode=2012)
+    >>> x509.verify(pub, data, signature, mode=2012)
+    True
+
+Other examples can be found in docstrings.
+
+PyGOST is free software: see the file COPYING for copying conditions.
+
+PyGOST'es home page is: http://www.cypherpunks.ru/pygost/
+
+Please send questions, bug reports and patches to
+https://lists.cypherpunks.ru/mailman/listinfo/gost
+mailing list. Announcements also go to this mailing list.
+
+Development Git source code repository currently is located here:
+http://git.cypherpunks.ru/cgit.cgi/pygost.git/

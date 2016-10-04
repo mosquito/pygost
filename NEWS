@@ -1,0 +1,39 @@
+2.3:
+    Typo and pylint fixes
+
+2.2:
+    34.13-2015 padding methods
+
+2.1:
+    Documentation and supplementary files refactoring
+
+2.0:
+    PEP-0247 compatible hashers and MAC
+
+1.0:
+    * Ability to specify curve in pygost.x509 module
+    * Ability to use 34.10-2012 in pygost.x509 functions
+
+    Renamed classes and modules:
+
+    * pygost.gost3410.SIZE_34100 -> pygost.gost3410.SIZE_3410_2001
+    * pygost.gost3410.SIZE_34112 -> pygost.gost3410.SIZE_3410_2012
+    * pygost.gost3411_12.GOST341112 -> pygost.gost3411_2012.GOST34112012
+
+0.16:
+    34.10-2012 TC26 curve parameters
+
+0.15:
+    PEP-0484 static typing hints
+
+0.14:
+    34.10-2012 workability fix
+
+0.13:
+    Python3 compatibility
+
+0.11:
+    GOST R 34.12-2015 Кузнечик (Kuznechik) implementation
+
+0.10:
+    CryptoPro and GOST key wrapping, CryptoPro key meshing
