@@ -35,6 +35,7 @@ Other examples can be found in docstrings.
 PyGOST is free software: see the file COPYING for copying conditions.
 
 PyGOST'es home page is: http://www.cypherpunks.ru/pygost/
+You can read about GOST algorithms more: http://www.cypherpunks.ru/gost/
 
 Please send questions, bug reports and patches to
 https://lists.cypherpunks.ru/mailman/listinfo/gost
