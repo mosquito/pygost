@@ -115,7 +115,7 @@ def verify_digest(public_key, digest, signature, mode=2001, curve_params=None):
         bytes2long(public_key[:size]),
         digest,
         signature,
-        size=MODE2SIZE[mode],
+        size=size,
     )
 
 
