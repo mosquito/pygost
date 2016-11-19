@@ -21,14 +21,27 @@ GOST is GOvernment STandard of Russian Federation (and Soviet Union).
 
 Known problems: low performance and non time-constant calculations.
 
-Example X.509 compatible 34.10-2012 keypair generation, signing and
-verifying its signature:
+Example 34.10-2012 keypair generation, signing and verifying:
 
-    >>> from pygost import x509
-    >>> prv, pub = x509.keypair_gen(urandom(64), mode=2012)
-    >>> data = b'some data'
-    >>> signature = x509.sign(prv, data, mode=2012)
-    >>> x509.verify(pub, data, signature, mode=2012)
+    >>> from pygost.gost3410 import CURVE_PARAMS
+    >>> from pygost.gost3410 import GOST3410Curve
+    >>> curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+    >>> from os import urandom
+    >>> prv_raw = urandom(32)
+    >>> from pygost.gost3410 import prv_unmarshal
+    >>> prv = prv_unmarshal(prv_raw)
+    >>> from pygost.gost3410 import public_key
+    >>> pub = public_key(curve, prv)
+    >>> from pygost.gost3410 import pub_marshal
+    >>> from pygost.utils import hexenc
+    >>> print "Public key is:", hexenc(pub_marshal(pub))
+    >>> from pygost import gost34112012256
+    >>> data_for_signing = b"some data"
+    >>> dgst = gost34112012256.new(data_for_signing).digest()
+    >>> from pygost.gost3410 import sign
+    >>> signature = sign(curve, prv, dgst, mode=2012)
+    >>> from pygost.gost3410 import verify
+    >>> verify(curve, pub, dgst, signature, mode=2012)
     True
 
 Other examples can be found in docstrings.

@@ -1,3 +1,19 @@
+3.0:
+    Many incompatible changes:
+
+    * gost3411_94 renamed to gost341194
+    * gost3411_2012 renamed and splitted to gost34112012256, gost34112012512
+    * GOST34112012 splitted to GOST34112012256, GOST34112012512
+    * gost3410.kek moved to separate gost3410_vko.vko_34102001
+    * 34.10-2012 VKO appeared in gost3410_vko, with test vectors
+    * 34.11-94 digest is reversed, to be compatible with HMAC and
+      PBKDF2 test vectors describe in TC26 documents
+    * 34.11-94 PBKDF2 test vectors added
+    * gost3410.prv_unmarshal, gost3410.pub_marshal, gost3410.pub_unmarshal
+      helpers added, removing the need of x509 module at all
+    * gost3410.verify expects (pubX, pubY) tuple, instead of two separate
+      pubX, pubY arguments
+
 2.4:
     Fixed 34.13 mypy stub
 
