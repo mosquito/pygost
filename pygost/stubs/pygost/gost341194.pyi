@@ -14,3 +14,6 @@ class GOST341194:
 
 
 def new(data: bytes=..., sbox: str=...) -> GOST341194: ...
+
+
+def pbkdf2(password: bytes, salt: bytes, iterations: int, dklen: int) -> bytes: ...

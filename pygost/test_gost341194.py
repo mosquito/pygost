@@ -21,11 +21,8 @@ import hmac
 
 from pygost import gost341194
 from pygost.gost341194 import GOST341194
-from pygost.utils import bytes2long
+from pygost.gost341194 import pbkdf2
 from pygost.utils import hexenc
-from pygost.utils import long2bytes
-from pygost.utils import strxor
-from pygost.utils import xrange
 
 
 class TestCopy(TestCase):
@@ -153,67 +150,37 @@ class TestVectorsCryptoPro(TestCase):
         )
 
 
-# This implementation is based on Python 3.5.2 source code.
-# PyGOST does not register itself in hashlib anyway, so use
-# pbkdf2_hmac directly.
-def pbkdf2_hmac(password, salt, iterations, dklen):
-    inner = GOST341194(sbox="GostR3411_94_CryptoProParamSet")
-    outer = GOST341194(sbox="GostR3411_94_CryptoProParamSet")
-    password = password + b'\x00' * (inner.block_size - len(password))
-    inner.update(strxor(password, len(password) * b"\x36"))
-    outer.update(strxor(password, len(password) * b"\x5C"))
-
-    def prf(msg):
-        icpy = inner.copy()
-        ocpy = outer.copy()
-        icpy.update(msg)
-        ocpy.update(icpy.digest())
-        return ocpy.digest()
-
-    dkey = b''
-    loop = 1
-    while len(dkey) < dklen:
-        prev = prf(salt + long2bytes(loop, 4))
-        rkey = bytes2long(prev)
-        for _ in xrange(iterations - 1):
-            prev = prf(prev)
-            rkey ^= bytes2long(prev)
-        loop += 1
-        dkey += long2bytes(rkey, inner.digest_size)
-    return dkey[:dklen]
-
-
 class TestPBKDF2(TestCase):
     """http://tc26.ru/methods/containers_v1/Addition_to_PKCS5_v1_0.pdf test vectors
     """
     def test_1(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(b"password", b"salt", 1, 32)),
+            hexenc(pbkdf2(b"password", b"salt", 1, 32)),
             "7314e7c04fb2e662c543674253f68bd0b73445d07f241bed872882da21662d58",
         )
 
     def test_2(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(b"password", b"salt", 2, 32)),
+            hexenc(pbkdf2(b"password", b"salt", 2, 32)),
             "990dfa2bd965639ba48b07b792775df79f2db34fef25f274378872fed7ed1bb3",
         )
 
     def test_3(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(b"password", b"salt", 4096, 32)),
+            hexenc(pbkdf2(b"password", b"salt", 4096, 32)),
             "1f1829a94bdff5be10d0aeb36af498e7a97467f3b31116a5a7c1afff9deadafe",
         )
 
     @skip("it takes too long")
     def test_4(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(b"password", b"salt", 16777216, 32)),
+            hexenc(pbkdf2(b"password", b"salt", 16777216, 32)),
             "a57ae5a6088396d120850c5c09de0a525100938a59b1b5c3f7810910d05fcd97",
         )
 
     def test_5(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(
+            hexenc(pbkdf2(
                 b"passwordPASSWORDpassword",
                 b"saltSALTsaltSALTsaltSALTsaltSALTsalt",
                 4096,
@@ -224,7 +191,7 @@ class TestPBKDF2(TestCase):
 
     def test_6(self):
         self.assertEqual(
-            hexenc(pbkdf2_hmac(
+            hexenc(pbkdf2(
                 b"pass\x00word",
                 b"sa\x00lt",
                 4096,

@@ -11,6 +11,7 @@
       helpers added, removing the need of x509 module at all
     * gost3410.verify expects (pubX, pubY) tuple, instead of two separate
       pubX, pubY arguments
+    * 34.11-94 based PBKDF2 function added
 
 2.4:
     Fixed 34.13 mypy stub
