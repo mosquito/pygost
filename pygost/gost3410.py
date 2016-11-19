@@ -29,11 +29,9 @@ from pygost.utils import long2bytes
 from pygost.utils import modinvert
 
 
-SIZE_3410_2001 = 32
-SIZE_3410_2012 = 64
 MODE2SIZE = {
-    2001: SIZE_3410_2001,
-    2012: SIZE_3410_2012,
+    2001: 32,
+    2012: 64,
 }
 
 
@@ -186,20 +184,17 @@ def public_key(curve, private_key):
     return curve.exp(private_key)
 
 
-def sign(curve, private_key, digest, size=SIZE_3410_2001):
+def sign(curve, private_key, digest, mode=2001):
     """ Calculate signature for provided digest
 
     :param GOST3410Curve curve: curve to use
     :param long private_key: private key
     :param digest: digest for signing
     :type digest: bytes, 32 or 64 bytes
-    :param size: signature size
-    :type size: 32 (for 34.10-2001) or 64 (for 34.10-2012)
     :return: signature
     :rtype: bytes, 64 or 128 bytes
     """
-    if len(digest) != size:
-        raise ValueError("Invalid digest length")
+    size = MODE2SIZE[mode]
     q = curve.q
     e = bytes2long(digest) % q
     if e == 0:
@@ -221,7 +216,7 @@ def sign(curve, private_key, digest, size=SIZE_3410_2001):
     return long2bytes(s, size) + long2bytes(r, size)
 
 
-def verify(curve, pubkeyX, pubkeyY, digest, signature, size=SIZE_3410_2001):
+def verify(curve, pubkeyX, pubkeyY, digest, signature, mode=2001):
     """ Verify provided digest with the signature
 
     :param GOST3410Curve curve: curve to use
@@ -231,12 +226,9 @@ def verify(curve, pubkeyX, pubkeyY, digest, signature, size=SIZE_3410_2001):
     :type digest: bytes, 32 or 64 bytes
     :param signature: signature to verify with
     :type signature: bytes, 64 or 128 bytes
-    :param size: signature size
-    :type size: 32 (for 34.10-2001) or 64 (for 34.10-2012)
     :rtype: bool
     """
-    if len(digest) != size:
-        raise ValueError("Invalid digest length")
+    size = MODE2SIZE[mode]
     if len(signature) != size * 2:
         raise ValueError("Invalid signature length")
     q = curve.q
@@ -294,6 +286,6 @@ def pub_unmarshal(pub, mode=2001):
     :type pub: bytes
     :rtype: (long, long)
     """
-    pub = pub[::-1]
     size = MODE2SIZE[mode]
+    pub = pub[::-1]
     return (bytes2long(pub[size:]), bytes2long(pub[:size]))

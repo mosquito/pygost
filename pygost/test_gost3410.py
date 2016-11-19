@@ -22,8 +22,6 @@ from pygost.gost3410 import CURVE_PARAMS
 from pygost.gost3410 import GOST3410Curve
 from pygost.gost3410 import public_key
 from pygost.gost3410 import sign
-from pygost.gost3410 import SIZE_3410_2001
-from pygost.gost3410 import SIZE_3410_2012
 from pygost.gost3410 import verify
 from pygost.utils import bytes2long
 from pygost.utils import long2bytes
@@ -84,8 +82,8 @@ class Test341001(TestCase):
         pubX, pubY = public_key(c, private_key)
         for _ in range(20):
             digest = urandom(32)
-            s = sign(c, private_key, digest, size=SIZE_3410_2001)
-            self.assertTrue(verify(c, pubX, pubY, digest, s, size=SIZE_3410_2001))
+            s = sign(c, private_key, digest, mode=2001)
+            self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2001))
 
 
 class Test34102012(TestCase):
@@ -217,9 +215,9 @@ class Test34102012(TestCase):
         pubX, pubY = public_key(c, private_key)
         self.assertEqual(long2bytes(pubX), public_key_x)
         self.assertEqual(long2bytes(pubY), public_key_y)
-        s = sign(c, private_key, digest, size=SIZE_3410_2012)
-        self.assertTrue(verify(c, pubX, pubY, digest, s, size=SIZE_3410_2012))
-        self.assertTrue(verify(c, pubX, pubY, digest, signature, size=SIZE_3410_2012))
+        s = sign(c, private_key, digest, mode=2012)
+        self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2012))
+        self.assertTrue(verify(c, pubX, pubY, digest, signature, mode=2012))
 
     def test_sequence(self):
         c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
@@ -227,6 +225,6 @@ class Test34102012(TestCase):
         pubX, pubY = public_key(c, private_key)
         for _ in range(20):
             digest = urandom(64)
-            s = sign(c, private_key, digest, size=SIZE_3410_2012)
-            self.assertTrue(verify(c, pubX, pubY, digest, s, size=SIZE_3410_2012))
+            s = sign(c, private_key, digest, mode=2012)
+            self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2012))
             self.assertNotIn(b"\x00" * 8, s)
