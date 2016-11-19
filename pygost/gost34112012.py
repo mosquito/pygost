@@ -271,4 +271,3 @@ class GOST34112012(PEP247):
         hsh = g(0, hsh, pack("<Q", n) + 56 * b"\x00")
         hsh = g(0, hsh, chk)
         return hsh[-self._digest_size:]
-
