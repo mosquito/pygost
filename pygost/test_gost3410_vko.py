@@ -23,10 +23,10 @@ from pygost.gost3410 import GOST3410Curve
 from pygost.gost3410 import prv_unmarshal
 from pygost.gost3410 import pub_unmarshal
 from pygost.gost3410 import public_key
+from pygost.gost3410_vko import kek_34102001
+from pygost.gost3410_vko import kek_34102012256
+from pygost.gost3410_vko import kek_34102012512
 from pygost.gost3410_vko import ukm_unmarshal
-from pygost.gost3410_vko import vko_34102001
-from pygost.gost3410_vko import vko_34102012256
-from pygost.gost3410_vko import vko_34102012512
 from pygost.utils import bytes2long
 from pygost.utils import hexdec
 
@@ -40,11 +40,11 @@ class TestVKO34102001(TestCase):
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
             pub2 = public_key(curve, prv2)
-            kek1 = vko_34102001(curve, prv1, pub2, ukm)
-            kek2 = vko_34102001(curve, prv2, pub1, ukm)
+            kek1 = kek_34102001(curve, prv1, pub2, ukm)
+            kek2 = kek_34102001(curve, prv2, pub1, ukm)
             self.assertEqual(kek1, kek2)
-            kek1 = vko_34102001(curve, prv1, pub1, ukm)
-            kek2 = vko_34102001(curve, prv2, pub2, ukm)
+            kek1 = kek_34102001(curve, prv1, pub1, ukm)
+            kek2 = kek_34102001(curve, prv2, pub2, ukm)
             self.assertNotEqual(kek1, kek2)
 
 
@@ -59,8 +59,8 @@ class TestVKO34102012256(TestCase):
         prvB = prv_unmarshal(hexdec("48c859f7b6f11585887cc05ec6ef1390cfea739b1a18c0d4662293ef63b79e3b8014070b44918590b4b996acfea4edfbbbcccc8c06edd8bf5bda92a51392d0db"))
         pubB = pub_unmarshal(hexdec("192fe183b9713a077253c72c8735de2ea42a3dbc66ea317838b65fa32523cd5efca974eda7c863f4954d1147f1f2b25c395fce1c129175e876d132e94ed5a65104883b414c9b592ec4dc84826f07d0b6d9006dda176ce48c391e3f97d102e03bb598bf132a228a45f7201aba08fc524a2d77e43a362ab022ad4028f75bde3b79"), mode=2012)
         vko = hexdec("c9a9a77320e2cc559ed72dce6f47e2192ccea95fa648670582c054c0ef36c221")
-        self.assertEqual(vko_34102012256(curve, prvA, pubB, ukm), vko)
-        self.assertEqual(vko_34102012256(curve, prvB, pubA, ukm), vko)
+        self.assertEqual(kek_34102012256(curve, prvA, pubB, ukm), vko)
+        self.assertEqual(kek_34102012256(curve, prvB, pubA, ukm), vko)
 
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
@@ -70,11 +70,11 @@ class TestVKO34102012256(TestCase):
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
             pub2 = public_key(curve, prv2)
-            kek1 = vko_34102012256(curve, prv1, pub2, ukm)
-            kek2 = vko_34102012256(curve, prv2, pub1, ukm)
+            kek1 = kek_34102012256(curve, prv1, pub2, ukm)
+            kek2 = kek_34102012256(curve, prv2, pub1, ukm)
             self.assertEqual(kek1, kek2)
-            kek1 = vko_34102012256(curve, prv1, pub1, ukm)
-            kek2 = vko_34102012256(curve, prv2, pub2, ukm)
+            kek1 = kek_34102012256(curve, prv1, pub1, ukm)
+            kek2 = kek_34102012256(curve, prv2, pub2, ukm)
             self.assertNotEqual(kek1, kek2)
 
 
@@ -89,8 +89,8 @@ class TestVKO34102012512(TestCase):
         prvB = prv_unmarshal(hexdec("48c859f7b6f11585887cc05ec6ef1390cfea739b1a18c0d4662293ef63b79e3b8014070b44918590b4b996acfea4edfbbbcccc8c06edd8bf5bda92a51392d0db"))
         pubB = pub_unmarshal(hexdec("192fe183b9713a077253c72c8735de2ea42a3dbc66ea317838b65fa32523cd5efca974eda7c863f4954d1147f1f2b25c395fce1c129175e876d132e94ed5a65104883b414c9b592ec4dc84826f07d0b6d9006dda176ce48c391e3f97d102e03bb598bf132a228a45f7201aba08fc524a2d77e43a362ab022ad4028f75bde3b79"), mode=2012)
         vko = hexdec("79f002a96940ce7bde3259a52e015297adaad84597a0d205b50e3e1719f97bfa7ee1d2661fa9979a5aa235b558a7e6d9f88f982dd63fc35a8ec0dd5e242d3bdf")
-        self.assertEqual(vko_34102012512(curve, prvA, pubB, ukm), vko)
-        self.assertEqual(vko_34102012512(curve, prvB, pubA, ukm), vko)
+        self.assertEqual(kek_34102012512(curve, prvA, pubB, ukm), vko)
+        self.assertEqual(kek_34102012512(curve, prvB, pubA, ukm), vko)
 
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
@@ -100,9 +100,9 @@ class TestVKO34102012512(TestCase):
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
             pub2 = public_key(curve, prv2)
-            kek1 = vko_34102012512(curve, prv1, pub2, ukm)
-            kek2 = vko_34102012512(curve, prv2, pub1, ukm)
+            kek1 = kek_34102012512(curve, prv1, pub2, ukm)
+            kek2 = kek_34102012512(curve, prv2, pub1, ukm)
             self.assertEqual(kek1, kek2)
-            kek1 = vko_34102012512(curve, prv1, pub1, ukm)
-            kek2 = vko_34102012512(curve, prv2, pub2, ukm)
+            kek1 = kek_34102012512(curve, prv1, pub1, ukm)
+            kek2 = kek_34102012512(curve, prv2, pub2, ukm)
             self.assertNotEqual(kek1, kek2)

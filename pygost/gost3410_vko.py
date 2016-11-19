@@ -33,7 +33,7 @@ def ukm_unmarshal(ukm):
     return bytes2long(ukm[::-1])
 
 
-def vko_34102001(curve, prv, pubkey, ukm):
+def kek_34102001(curve, prv, pubkey, ukm):
     """ Make Diffie-Hellman computation (34.10-2001, 34.11-94)
 
     :param GOST3410Curve curve: curve to use
@@ -53,7 +53,7 @@ def vko_34102001(curve, prv, pubkey, ukm):
     return GOST341194(pub_marshal(key), "GostR3411_94_CryptoProParamSet").digest()
 
 
-def vko_34102012256(curve, prv, pubkey, ukm=1):
+def kek_34102012256(curve, prv, pubkey, ukm=1):
     """ Make Diffie-Hellman computation (34.10-2012, 34.11-2012 256 bit)
 
     :param GOST3410Curve curve: curve to use
@@ -69,7 +69,7 @@ def vko_34102012256(curve, prv, pubkey, ukm=1):
     return GOST34112012256(pub_marshal(key, mode=2012)).digest()
 
 
-def vko_34102012512(curve, prv, pubkey, ukm=1):
+def kek_34102012512(curve, prv, pubkey, ukm=1):
     """ Make Diffie-Hellman computation (34.10-2012, 34.11-2012 512 bit)
 
     :param GOST3410Curve curve: curve to use
