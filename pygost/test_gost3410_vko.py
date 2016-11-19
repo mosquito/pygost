@@ -23,6 +23,7 @@ from pygost.gost3410 import GOST3410Curve
 from pygost.gost3410 import prv_unmarshal
 from pygost.gost3410 import pub_unmarshal
 from pygost.gost3410 import public_key
+from pygost.gost3410_vko import ukm_unmarshal
 from pygost.gost3410_vko import vko_34102001
 from pygost.gost3410_vko import vko_34102012256
 from pygost.gost3410_vko import vko_34102012512
@@ -34,7 +35,7 @@ class TestVKO34102001(TestCase):
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
         for _ in range(10):
-            ukm = urandom(8)
+            ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
@@ -52,7 +53,7 @@ class TestVKO34102012256(TestCase):
     """
     def test_vector(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
-        ukm = hexdec("1d80603c8544c727")
+        ukm = ukm_unmarshal(hexdec("1d80603c8544c727"))
         prvA = prv_unmarshal(hexdec("c990ecd972fce84ec4db022778f50fcac726f46708384b8d458304962d7147f8c2db41cef22c90b102f2968404f9b9be6d47c79692d81826b32b8daca43cb667"))
         pubA = pub_unmarshal(hexdec("aab0eda4abff21208d18799fb9a8556654ba783070eba10cb9abb253ec56dcf5d3ccba6192e464e6e5bcb6dea137792f2431f6c897eb1b3c0cc14327b1adc0a7914613a3074e363aedb204d38d3563971bd8758e878c9db11403721b48002d38461f92472d40ea92f9958c0ffa4c93756401b97f89fdbe0b5e46e4a4631cdb5a"), mode=2012)
         prvB = prv_unmarshal(hexdec("48c859f7b6f11585887cc05ec6ef1390cfea739b1a18c0d4662293ef63b79e3b8014070b44918590b4b996acfea4edfbbbcccc8c06edd8bf5bda92a51392d0db"))
@@ -64,7 +65,7 @@ class TestVKO34102012256(TestCase):
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
         for _ in range(10):
-            ukm = urandom(8)
+            ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
@@ -82,7 +83,7 @@ class TestVKO34102012512(TestCase):
     """
     def test_vector(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
-        ukm = hexdec("1d80603c8544c727")
+        ukm = ukm_unmarshal(hexdec("1d80603c8544c727"))
         prvA = prv_unmarshal(hexdec("c990ecd972fce84ec4db022778f50fcac726f46708384b8d458304962d7147f8c2db41cef22c90b102f2968404f9b9be6d47c79692d81826b32b8daca43cb667"))
         pubA = pub_unmarshal(hexdec("aab0eda4abff21208d18799fb9a8556654ba783070eba10cb9abb253ec56dcf5d3ccba6192e464e6e5bcb6dea137792f2431f6c897eb1b3c0cc14327b1adc0a7914613a3074e363aedb204d38d3563971bd8758e878c9db11403721b48002d38461f92472d40ea92f9958c0ffa4c93756401b97f89fdbe0b5e46e4a4631cdb5a"), mode=2012)
         prvB = prv_unmarshal(hexdec("48c859f7b6f11585887cc05ec6ef1390cfea739b1a18c0d4662293ef63b79e3b8014070b44918590b4b996acfea4edfbbbcccc8c06edd8bf5bda92a51392d0db"))
@@ -94,7 +95,7 @@ class TestVKO34102012512(TestCase):
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
         for _ in range(10):
-            ukm = urandom(8)
+            ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))
             prv2 = bytes2long(urandom(32))
             pub1 = public_key(curve, prv1)
