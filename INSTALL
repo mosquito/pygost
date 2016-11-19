@@ -3,16 +3,16 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature from official
 website:
 
-    % wget http://www.cypherpunks.ru/pygost/pygost-2.1.tar.xz
-    % wget http://www.cypherpunks.ru/pygost/pygost-2.1.tar.xz.sig
-    % gpg --verify pygost-2.1.tar.xz.sig pygost-2.1.tar.xz
-    % xz -d < pygost-2.1.tar.xz | tar xf -
-    % cd pygost-2.1
+    % wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz
+    % wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz.sig
+    % gpg --verify pygost-2.3.tar.xz.sig pygost-2.3.tar.xz
+    % xz -d < pygost-2.3.tar.xz | tar xf -
+    % cd pygost-2.3
     % python setup.py install
 
 But also you can use PIP (NO authentication is performed!):
 
-    % pip install pygost==2.1
+    % pip install pygost==2.3
 
 You have to verify downloaded tarballs integrity and authenticity to be
 sure that you retrieved trusted and untampered software. GNU Privacy
