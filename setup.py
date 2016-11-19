@@ -31,6 +31,7 @@ setup(
             "NEWS",
             "PUBKEY.asc",
             "README",
+            "THANKS",
             "VERSION",
         ],
     },
