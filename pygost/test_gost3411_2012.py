@@ -29,9 +29,9 @@ class TestCopy(TestCase):
     def runTest(self):
         m = GOST34112012256()
         c = m.copy()
-        m.update(b'foobar')
-        c.update(b'foo')
-        c.update(b'bar')
+        m.update(b"foobar")
+        c.update(b"foo")
+        c.update(b"bar")
         self.assertEqual(m.digest(), c.digest())
 
 

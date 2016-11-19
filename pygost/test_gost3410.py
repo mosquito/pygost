@@ -80,7 +80,7 @@ class Test341001(TestCase):
         self.assertTrue(verify(c, pubX, pubY, digest, signature))
 
     def test_sequence(self):
-        c = GOST3410Curve(*CURVE_PARAMS['GostR3410_2001_TestParamSet'])
+        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
         private_key = bytes2long(urandom(32))
         pubX, pubY = public_key(c, private_key)
         for _ in range(20):
@@ -223,19 +223,19 @@ class Test34102012(TestCase):
         self.assertTrue(verify(c, pubX, pubY, digest, signature, size=SIZE_3410_2012))
 
     def test_sequence(self):
-        c = GOST3410Curve(*CURVE_PARAMS['GostR3410_2012_TC26_ParamSetA'])
+        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
         private_key = bytes2long(urandom(64))
         pubX, pubY = public_key(c, private_key)
         for _ in range(20):
             digest = urandom(64)
             s = sign(c, private_key, digest, size=SIZE_3410_2012)
             self.assertTrue(verify(c, pubX, pubY, digest, s, size=SIZE_3410_2012))
-            self.assertNotIn(b'\x00' * 8, s)
+            self.assertNotIn(b"\x00" * 8, s)
 
 
 class TestVKO(TestCase):
     def test_sequence(self):
-        curve = GOST3410Curve(*CURVE_PARAMS['GostR3410_2001_TestParamSet'])
+        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
         for _ in range(20):
             ukm = urandom(8)
             prv1 = bytes2long(urandom(32))

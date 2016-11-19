@@ -74,7 +74,7 @@ def long2bytes(n, size=32):
         res = "0" + res
     s = hexdec(res)
     if len(s) != size:
-        s = (size - len(s)) * b'\x00' + s
+        s = (size - len(s)) * b"\x00" + s
     return s
 
 

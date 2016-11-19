@@ -282,14 +282,14 @@ def ecb(key, data, action, sbox=DEFAULT_SBOX):
         result.append(ns2block(action(
             sbox, key, block2ns(data[i:i + BLOCKSIZE])
         )))
-    return b''.join(result)
+    return b"".join(result)
 
 
 ecb_encrypt = partial(ecb, action=encrypt)
 ecb_decrypt = partial(ecb, action=decrypt)
 
 
-def cbc_encrypt(key, data, iv=8 * b'\x00', pad=True, sbox=DEFAULT_SBOX):
+def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX):
     """ CBC encryption mode of operation
 
     :param bytes key: encryption key
@@ -318,7 +318,7 @@ def cbc_encrypt(key, data, iv=8 * b'\x00', pad=True, sbox=DEFAULT_SBOX):
         ciphertext.append(ns2block(encrypt(sbox, key, block2ns(
             strxor(ciphertext[-1], data[i:i + BLOCKSIZE])
         ))))
-    return b''.join(ciphertext)
+    return b"".join(ciphertext)
 
 
 def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
@@ -348,17 +348,17 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
         ))
     if pad:
         last_block = bytearray(plaintext[-1])
-        pad_index = last_block.rfind(b'\x80')
+        pad_index = last_block.rfind(b"\x80")
         if pad_index == -1:
             raise ValueError("Invalid padding")
         for c in last_block[pad_index + 1:]:
             if c != 0:
                 raise ValueError("Invalid padding")
         plaintext[-1] = bytes(last_block[:pad_index])
-    return b''.join(plaintext)
+    return b"".join(plaintext)
 
 
-def cnt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX):
+def cnt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX):
     """ Counter mode of operation
 
     :param bytes key: encryption key
@@ -385,7 +385,7 @@ def cnt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX):
         n1 = addmod(n1, C2, 2 ** 32)
         n2 = addmod(n2, C1, 2 ** 32 - 1)
         gamma.append(ns2block(encrypt(sbox, key, (n1, n2))))
-    return strxor(b''.join(gamma), data[:size])
+    return strxor(b"".join(gamma), data[:size])
 
 
 MESH_CONST = hexdec("6900722264C904238D3ADB9646E92AC418FEAC9400ED0712C086DCC2EF4CA92B")
@@ -400,7 +400,7 @@ def meshing(key, iv, sbox=DEFAULT_SBOX):
     return key, iv
 
 
-def cfb_encrypt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX, mesh=False):
+def cfb_encrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     """ CFB encryption mode of operation
 
     :param bytes key: encryption key
@@ -433,10 +433,10 @@ def cfb_encrypt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX, mesh=False):
             data[i:i + BLOCKSIZE],
             ns2block(encrypt(sbox, key, block2ns(ciphertext[-1]))),
         ))
-    return b''.join(ciphertext[1:])[:size]
+    return b"".join(ciphertext[1:])[:size]
 
 
-def cfb_decrypt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX, mesh=False):
+def cfb_decrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     """ CFB decryption mode of operation
 
     :param bytes key: encryption key
@@ -474,4 +474,4 @@ def cfb_decrypt(key, data, iv=8 * b'\x00', sbox=DEFAULT_SBOX, mesh=False):
             data[i:i + BLOCKSIZE],
             ns2block(encrypt(sbox, key, block2ns(data[i - BLOCKSIZE:i]))),
         ))
-    return b''.join(plaintext)[:size]
+    return b"".join(plaintext)[:size]

@@ -35,7 +35,7 @@ def pad1(data, blocksize):
 
     Just fill up with zeros if necessary.
     """
-    return data + b'\x00' * pad_size(len(data), blocksize)
+    return data + b"\x00" * pad_size(len(data), blocksize)
 
 
 def pad2(data, blocksize):
@@ -43,7 +43,7 @@ def pad2(data, blocksize):
 
     Add one bit and then fill up with zeros.
     """
-    return data + b'\x80' + b'\x00' * pad_size(len(data) + 1, blocksize)
+    return data + b"\x80" + b"\x00" * pad_size(len(data) + 1, blocksize)
 
 
 def pad3(data, blocksize):

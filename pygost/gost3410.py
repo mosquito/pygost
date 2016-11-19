@@ -200,7 +200,7 @@ def kek(curve, private_key, ukm, pubkey):
     hash output.
     """
     key = curve.exp(private_key, pubkey[0], pubkey[1])
-    key = curve.exp(bytes2long(24 * b'\x00' + ukm), key[0], key[1])
+    key = curve.exp(bytes2long(24 * b"\x00" + ukm), key[0], key[1])
     return GOST341194(
         (long2bytes(key[1]) + long2bytes(key[0]))[::-1],
         "GostR3411_94_CryptoProParamSet"

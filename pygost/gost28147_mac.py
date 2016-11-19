@@ -51,7 +51,7 @@ class MAC(PEP247):
     """
     digest_size = digest_size
 
-    def __init__(self, key, data=b'', iv=8 * b'\x00', sbox=DEFAULT_SBOX):
+    def __init__(self, key, data=b"", iv=8 * b"\x00", sbox=DEFAULT_SBOX):
         """
         :param key: authentication key
         :type key: bytes, 32 bytes
@@ -100,5 +100,5 @@ class MAC(PEP247):
         return hexenc(self.digest())
 
 
-def new(key, data=b'', iv=8 * b'\x00', sbox=DEFAULT_SBOX):
+def new(key, data=b"", iv=8 * b"\x00", sbox=DEFAULT_SBOX):
     return MAC(key, data, iv, sbox)

@@ -37,15 +37,15 @@ from pygost.utils import xrange
 
 DEFAULT_SBOX = "GostR3411_94_TestParamSet"
 BLOCKSIZE = 32
-C2 = 32 * b'\x00'
-C3 = hexdec(b'ff00ffff000000ffff0000ff00ffff0000ff00ff00ff00ffff00ff00ff00ff00')
-C4 = 32 * b'\x00'
+C2 = 32 * b"\x00"
+C3 = hexdec(b"ff00ffff000000ffff0000ff00ffff0000ff00ff00ff00ffff00ff00ff00ff00")
+C4 = 32 * b"\x00"
 digest_size = 32
 
 
 def A(x):
     x4, x3, x2, x1 = x[0:8], x[8:16], x[16:24], x[24:32]
-    return b''.join((strxor(x1, x2), x4, x3, x2))
+    return b"".join((strxor(x1, x2), x4, x3, x2))
 
 
 def P(x):
@@ -73,7 +73,7 @@ def _chi(Y):
     )
     byx[0] = by1[0] ^ by2[0] ^ by3[0] ^ by4[0] ^ by13[0] ^ by16[0]
     byx[1] = by1[1] ^ by2[1] ^ by3[1] ^ by4[1] ^ by13[1] ^ by16[1]
-    return b''.join((
+    return b"".join((
         bytes(byx), y16, y15, y14, y13, y12, y11, y10, y9, y8, y7, y6, y5, y4, y3, y2
     ))
 
@@ -110,7 +110,7 @@ def _step(hin, m, sbox):
     s2 = ns2block(encrypt(sbox, k2[::-1], block2ns(h2[::-1])))[::-1]
     s3 = ns2block(encrypt(sbox, k3[::-1], block2ns(h3[::-1])))[::-1]
     s4 = ns2block(encrypt(sbox, k4[::-1], block2ns(h4[::-1])))[::-1]
-    s = b''.join((s4, s3, s2, s1))
+    s = b"".join((s4, s3, s2, s1))
 
     # Permute
     # H_out = chi^61(H_in XOR chi(m XOR chi^12(S)))
@@ -139,7 +139,7 @@ class GOST341194(PEP247):
     block_size = BLOCKSIZE
     digest_size = BLOCKSIZE
 
-    def __init__(self, data=b'', sbox=DEFAULT_SBOX):
+    def __init__(self, data=b"", sbox=DEFAULT_SBOX):
         """
         :param bytes data: provide initial data
         :param bytes sbox: S-box to use
@@ -161,22 +161,22 @@ class GOST341194(PEP247):
         """
         l = 0
         checksum = 0
-        h = 32 * b'\x00'
+        h = 32 * b"\x00"
         m = self.data
         for i in xrange(0, len(m), BLOCKSIZE):
             part = m[i:i + BLOCKSIZE][::-1]
             l += len(part) * 8
             checksum = addmod(checksum, int(hexenc(part), 16), 2 ** 256)
             if len(part) < BLOCKSIZE:
-                part = b'\x00' * (BLOCKSIZE - len(part)) + part
+                part = b"\x00" * (BLOCKSIZE - len(part)) + part
             h = _step(h, part, self.sbox)
-        h = _step(h, 24 * b'\x00' + pack(">Q", l), self.sbox)
+        h = _step(h, 24 * b"\x00" + pack(">Q", l), self.sbox)
 
         checksum = hex(checksum)[2:].rstrip("L")
         if len(checksum) % 2 != 0:
             checksum = "0" + checksum
         checksum = hexdec(checksum)
-        checksum = b'\x00' * (BLOCKSIZE - len(checksum)) + checksum
+        checksum = b"\x00" * (BLOCKSIZE - len(checksum)) + checksum
         h = _step(h, checksum, self.sbox)
         return h
 
@@ -184,5 +184,5 @@ class GOST341194(PEP247):
         return hexenc(self.digest())
 
 
-def new(data=b'', sbox=DEFAULT_SBOX):
+def new(data=b"", sbox=DEFAULT_SBOX):
     return GOST341194(data, sbox)

@@ -211,7 +211,7 @@ def L(data):
                 res64 ^= A[j]
             val <<= 1
         res.append(pack("<Q", res64))
-    return b''.join(res)
+    return b"".join(res)
 
 
 class GOST34112012(PEP247):
@@ -225,7 +225,7 @@ class GOST34112012(PEP247):
     """
     block_size = BLOCKSIZE
 
-    def __init__(self, data=b'', digest_size=64):
+    def __init__(self, data=b"", digest_size=64):
         """
         :param digest_size: hash digest size to compute
         :type digest_size: 32 or 64 bytes
@@ -248,8 +248,8 @@ class GOST34112012(PEP247):
     def digest(self):
         """ Get hash of the provided data
         """
-        hsh = BLOCKSIZE * (b'\x01' if self.digest_size == 32 else b'\x00')
-        chk = bytearray(BLOCKSIZE * b'\x00')
+        hsh = BLOCKSIZE * (b"\x01" if self.digest_size == 32 else b"\x00")
+        chk = bytearray(BLOCKSIZE * b"\x00")
         n = 0
         data = self.data
         for i in xrange(0, len(data) // BLOCKSIZE * BLOCKSIZE, BLOCKSIZE):
@@ -260,15 +260,15 @@ class GOST34112012(PEP247):
 
         # Padding
         padblock_size = len(data) * 8 - n
-        data += b'\x01'
+        data += b"\x01"
         padlen = BLOCKSIZE - len(data) % BLOCKSIZE
         if padlen != BLOCKSIZE:
-            data += b'\x00' * padlen
+            data += b"\x00" * padlen
 
         hsh = g(n, hsh, data[-BLOCKSIZE:])
         n += padblock_size
         chk = add512bit(chk, data[-BLOCKSIZE:])
-        hsh = g(0, hsh, pack("<Q", n) + 56 * b'\x00')
+        hsh = g(0, hsh, pack("<Q", n) + 56 * b"\x00")
         hsh = g(0, hsh, chk)
         return hsh[-self._digest_size:]
 

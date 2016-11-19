@@ -39,7 +39,7 @@ class ECBTest(TestCase):
         """ Test vectors from libgcl3
         """
         sbox = "Gost2814789_TestParamSet"
-        key = hexdec(b'0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd')
+        key = hexdec(b"0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
             0x0f, 0x0e, 0x0d, 0x0c, 0x0b, 0x0a, 0x09, 0x08,
@@ -118,14 +118,14 @@ class ECBTest(TestCase):
         """
         sbox = "AppliedCryptography"
         data = (
-            (b'BE5EC2006CFF9DCF52354959F1FF0CBFE95061B5A648C10387069C25997C0672', b'0DF82802B741A292', b'07F9027DF7F7DF89'),
-            (b'B385272AC8D72A5A8B344BC80363AC4D09BF58F41F540624CBCB8FDCF55307D7', b'1354EE9C0A11CD4C', b'4FB50536F960A7B1'),
-            (b'AEE02F609A35660E4097E546FD3026B032CD107C7D459977ADF489BEF2652262', b'6693D492C4B0CC39', b'670034AC0FA811B5'),
-            (b'320E9D8422165D58911DFC7D8BBB1F81B0ECD924023BF94D9DF7DCF7801240E0', b'99E2D13080928D79', b'8118FF9D3B3CFE7D'),
-            (b'C9F703BBBFC63691BFA3B7B87EA8FD5E8E8EF384EF733F1A61AEF68C8FFA265F', b'D1E787749C72814C', b'A083826A790D3E0C'),
-            (b'728FEE32F04B4C654AD7F607D71C660C2C2670D7C999713233149A1C0C17A1F0', b'D4C05323A4F7A7B5', b'4D1F2E6B0D9DE2CE'),
-            (b'35FC96402209500FCFDEF5352D1ABB038FE33FC0D9D58512E56370B22BAA133B', b'8742D9A05F6A3AF6', b'2F3BB84879D11E52'),
-            (b'D416F630BE65B7FE150656183370E07018234EE5DA3D89C4CE9152A03E5BFB77', b'F86506DA04E41CB8', b'96F0A5C77A04F5CE'),
+            (b"BE5EC2006CFF9DCF52354959F1FF0CBFE95061B5A648C10387069C25997C0672", b"0DF82802B741A292", b"07F9027DF7F7DF89"),
+            (b"B385272AC8D72A5A8B344BC80363AC4D09BF58F41F540624CBCB8FDCF55307D7", b"1354EE9C0A11CD4C", b"4FB50536F960A7B1"),
+            (b"AEE02F609A35660E4097E546FD3026B032CD107C7D459977ADF489BEF2652262", b"6693D492C4B0CC39", b"670034AC0FA811B5"),
+            (b"320E9D8422165D58911DFC7D8BBB1F81B0ECD924023BF94D9DF7DCF7801240E0", b"99E2D13080928D79", b"8118FF9D3B3CFE7D"),
+            (b"C9F703BBBFC63691BFA3B7B87EA8FD5E8E8EF384EF733F1A61AEF68C8FFA265F", b"D1E787749C72814C", b"A083826A790D3E0C"),
+            (b"728FEE32F04B4C654AD7F607D71C660C2C2670D7C999713233149A1C0C17A1F0", b"D4C05323A4F7A7B5", b"4D1F2E6B0D9DE2CE"),
+            (b"35FC96402209500FCFDEF5352D1ABB038FE33FC0D9D58512E56370B22BAA133B", b"8742D9A05F6A3AF6", b"2F3BB84879D11E52"),
+            (b"D416F630BE65B7FE150656183370E07018234EE5DA3D89C4CE9152A03E5BFB77", b"F86506DA04E41CB8", b"96F0A5C77A04F5CE"),
         )
         for key, pt, ct in data:
             key = hexdec(key)
@@ -137,10 +137,10 @@ class ECBTest(TestCase):
         """ Test vector from http://cryptomanager.com/tv.html
         """
         sbox = "GostR3411_94_TestParamSet"
-        key = hexdec(b'75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B')
+        key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
         self.assertEqual(
-            ecb_encrypt(key, hexdec(b'1122334455667788'), sbox=sbox),
-            hexdec(b'03251E14F9D28ACB'),
+            ecb_encrypt(key, hexdec(b"1122334455667788"), sbox=sbox),
+            hexdec(b"03251E14F9D28ACB"),
         )
 
 
@@ -148,25 +148,25 @@ class CFBTest(TestCase):
     def test_cryptomanager(self):
         """ Test vector from http://cryptomanager.com/tv.html
         """
-        key = hexdec(b'75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B')
+        key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
         sbox = "GostR3411_94_TestParamSet"
         self.assertEqual(
             cfb_encrypt(
                 key,
-                hexdec(b'112233445566778899AABBCCDD800000'),
-                iv=hexdec(b'0102030405060708'),
+                hexdec(b"112233445566778899AABBCCDD800000"),
+                iv=hexdec(b"0102030405060708"),
                 sbox=sbox,
             ),
-            hexdec(b'6EE84586DD2BCA0CAD3616940E164242'),
+            hexdec(b"6EE84586DD2BCA0CAD3616940E164242"),
         )
         self.assertEqual(
             cfb_decrypt(
                 key,
-                hexdec(b'6EE84586DD2BCA0CAD3616940E164242'),
-                iv=hexdec(b'0102030405060708'),
+                hexdec(b"6EE84586DD2BCA0CAD3616940E164242"),
+                iv=hexdec(b"0102030405060708"),
                 sbox=sbox,
             ),
-            hexdec(b'112233445566778899AABBCCDD800000'),
+            hexdec(b"112233445566778899AABBCCDD800000"),
         )
 
     def test_steps(self):
@@ -189,7 +189,7 @@ class CFBTest(TestCase):
 
         # Third non-full block
         step = encrypt(DEFAULT_SBOX, key, block2ns(step))
-        step = strxor(plaintext[16:] + 4 * b'\x00', ns2block(step))
+        step = strxor(plaintext[16:] + 4 * b"\x00", ns2block(step))
         self.assertEqual(step[:4], ciphertext[16:])
 
     def test_random(self):
@@ -209,7 +209,7 @@ class CTRTest(TestCase):
         """ Test vectors from libgcl3
         """
         sbox = "Gost2814789_TestParamSet"
-        key = hexdec(b'0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd')
+        key = hexdec(b"0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
             0x0f, 0x0e, 0x0d, 0x0c, 0x0b, 0x0a, 0x09, 0x08,
@@ -278,7 +278,7 @@ class CTRTest(TestCase):
             0x13, 0xc3, 0xfe, 0x1f, 0x8c, 0x55, 0x63, 0x09,
             0x1f, 0xcd, 0xd4, 0x28, 0xca,
         )))
-        iv = b'\x02\x01\x01\x01\x01\x01\x01\x01'
+        iv = b"\x02\x01\x01\x01\x01\x01\x01\x01"
         encrypted = cnt(key, plaintext, iv=iv, sbox=sbox)
         self.assertEqual(encrypted, ciphertext)
         decrypted = cnt(key, encrypted, iv=iv, sbox=sbox)
@@ -288,7 +288,7 @@ class CTRTest(TestCase):
         """ Test vectors 2 from libgcl3
         """
         sbox = "Gost2814789_TestParamSet"
-        key = hexdec(b'fc7ad2886f455b50d29008fa622b57d5c65b3c637202025799cadf0768519e8a')
+        key = hexdec(b"fc7ad2886f455b50d29008fa622b57d5c65b3c637202025799cadf0768519e8a")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
             0x0f, 0x0e, 0x0d, 0x0c, 0x0b, 0x0a, 0x09, 0x08,
@@ -307,7 +307,7 @@ class CTRTest(TestCase):
             0x13, 0xcc, 0x55, 0x38, 0xb5, 0x63, 0x32, 0xc5,
             0x23, 0xa4, 0xcb, 0x7d, 0x51,
         )))
-        iv = 8 * b'\x00'
+        iv = 8 * b"\x00"
         encrypted = cnt(key, plaintext, iv=iv, sbox=sbox)
         self.assertEqual(encrypted, ciphertext)
         decrypted = cnt(key, encrypted, iv=iv, sbox=sbox)
@@ -316,8 +316,8 @@ class CTRTest(TestCase):
 
 class CBCTest(TestCase):
     def test_pad_requirement(self):
-        key = 32 * b'x'
-        for s in (b'', b'foo', b'foobarbaz'):
+        key = 32 * b"x"
+        for s in (b"", b"foo", b"foobarbaz"):
             with self.assertRaises(ValueError):
                 cbc_encrypt(key, s, pad=False)
             with self.assertRaises(ValueError):
@@ -325,18 +325,18 @@ class CBCTest(TestCase):
 
     def test_passes(self):
         iv = urandom(8)
-        key = 32 * b'x'
-        for pt in (b'foo', b'foobarba', b'foobarbaz', 16 * b'x'):
+        key = 32 * b"x"
+        for pt in (b"foo", b"foobarba", b"foobarbaz", 16 * b"x"):
             ct = cbc_encrypt(key, pt, iv)
             dt = cbc_decrypt(key, ct)
             self.assertEqual(pt, dt)
 
     def test_iv_existence_check(self):
-        key = 32 * b'x'
+        key = 32 * b"x"
         with self.assertRaises(ValueError):
-            cbc_decrypt(key, 8 * b'x')
+            cbc_decrypt(key, 8 * b"x")
         iv = urandom(8)
-        cbc_decrypt(key, cbc_encrypt(key, 8 * b'x', iv))
+        cbc_decrypt(key, cbc_encrypt(key, 8 * b"x", iv))
 
 
 class CFBMeshingTest(TestCase):
@@ -345,7 +345,7 @@ class CFBMeshingTest(TestCase):
         self.iv = urandom(8)
 
     def test_single(self):
-        pt = b'\x00'
+        pt = b"\x00"
         ct = cfb_encrypt(self.key, pt, mesh=True)
         dec = cfb_decrypt(self.key, ct, mesh=True)
         self.assertEqual(pt, dec)
