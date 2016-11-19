@@ -18,10 +18,10 @@
 from unittest import TestCase
 import hmac
 
-from pygost import gost3411_2012_256
-from pygost import gost3411_2012_512
-from pygost.gost3411_2012_256 import GOST34112012256
-from pygost.gost3411_2012_512 import GOST34112012512
+from pygost import gost34112012256
+from pygost import gost34112012512
+from pygost.gost34112012256 import GOST34112012256
+from pygost.gost34112012512 import GOST34112012512
 from pygost.utils import hexdec
 
 
@@ -39,7 +39,7 @@ class TestHMAC(TestCase):
     """http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf test vectors
     """
     def test_256(self):
-        for digestmod in (GOST34112012256, gost3411_2012_256):
+        for digestmod in (GOST34112012256, gost34112012256):
             self.assertEqual(
                 hmac.new(
                     key=hexdec("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"),
@@ -50,7 +50,7 @@ class TestHMAC(TestCase):
             )
 
     def test_512(self):
-        for digestmod in (GOST34112012512, gost3411_2012_512):
+        for digestmod in (GOST34112012512, gost34112012512):
             self.assertEqual(
                 hmac.new(
                     key=hexdec("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"),

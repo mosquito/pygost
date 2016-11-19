@@ -1,7 +1,7 @@
 from pygost.gost3410 import pub_marshal
-from pygost.gost3411_2012_256 import GOST34112012256
-from pygost.gost3411_2012_512 import GOST34112012512
-from pygost.gost3411_94 import GOST341194
+from pygost.gost34112012256 import GOST34112012256
+from pygost.gost34112012512 import GOST34112012512
+from pygost.gost341194 import GOST341194
 from pygost.utils import bytes2long
 
 

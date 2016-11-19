@@ -19,8 +19,8 @@ from unittest import skip
 from unittest import TestCase
 import hmac
 
-from pygost import gost3411_94
-from pygost.gost3411_94 import GOST341194
+from pygost import gost341194
+from pygost.gost341194 import GOST341194
 from pygost.utils import bytes2long
 from pygost.utils import hexenc
 from pygost.utils import long2bytes
@@ -40,7 +40,7 @@ class TestCopy(TestCase):
 
 class TestHMACPEP247(TestCase):
     def runTest(self):
-        h = hmac.new(b"foo", digestmod=gost3411_94)
+        h = hmac.new(b"foo", digestmod=gost341194)
         h.update(b"foobar")
         h.digest()
 
