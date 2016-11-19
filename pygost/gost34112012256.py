@@ -4,7 +4,7 @@ This is implementation of :rfc:`6986`. Most function and variable names are
 taken according to specification's terminology.
 """
 
-from gost34112012 import GOST34112012
+from pygost.gost34112012 import GOST34112012
 
 
 class GOST34112012256(GOST34112012):
