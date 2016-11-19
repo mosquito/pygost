@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-""" GOST R 34.11-2012 (Streebog) hash function
+""" GOST R 34.11-2012 (Streebog) hash function common files
 
 This is implementation of :rfc:`6986`. Most function and variable names are
 taken according to specification's terminology.
@@ -274,7 +274,3 @@ class GOST34112012(PEP247):
 
     def hexdigest(self):
         return hexenc(self.digest())
-
-
-def new(data=b'', digest_size=64):
-    return GOST34112012(data, digest_size)
