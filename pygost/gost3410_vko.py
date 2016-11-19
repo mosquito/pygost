@@ -18,7 +18,7 @@ def vko_34102001(curve, prv, pubkey, ukm):
     :rtype: bytes, 32 bytes
 
     Shared Key Encryption Key computation is based on
-    :rfc:`4357` VKO GOST 34.10-2001 with little-endian
+    :rfc:`4357` VKO GOST R 34.10-2001 with little-endian
     hash output.
     """
     key = curve.exp(prv, pubkey[0], pubkey[1])

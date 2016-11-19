@@ -10,8 +10,8 @@ GOST is GOvernment STandard of Russian Federation (and Soviet Union).
 * GOST R 34.10-2001 (RFC 5832) public key signature function
 * GOST R 34.10-2012 (RFC 7091) public key signature function
 * various 34.10 curve parameters included
-* VKO 34.10-2001 Diffie-Hellman function (RFC 4357)
-* VKO 34.10-2012 Diffie-Hellman function
+* VKO GOST R 34.10-2001 Diffie-Hellman function (RFC 4357)
+* VKO GOST R 34.10-2012 Diffie-Hellman function
 * 28147-89 and CryptoPro key wrapping (RFC 4357)
 * 28147-89 CryptoPro key meshing for CFB mode (RFC 4357)
 * RFC 4491 (using GOST algorithms with X.509) compatibility helpers
