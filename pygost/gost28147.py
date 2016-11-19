@@ -161,7 +161,7 @@ def _K(s, _in):
 
     :param s: S-box
     :param _in: 32-bit word
-    :return: substituted 32-bit word
+    :returns: substituted 32-bit word
     """
     return (
         (s[0][(_in >> 0) & 0x0F] << 0) +
@@ -232,7 +232,7 @@ def xcrypt(seq, sbox, key, ns):
     :param bytes key: 256-bit encryption key
     :param ns: N1 and N2 integers
     :type ns: (int, int)
-    :return: resulting N1 and N2
+    :returns: resulting N1 and N2
     :rtype: (int, int)
     """
     s = SBOXES[sbox]
@@ -267,10 +267,10 @@ def ecb(key, data, action, sbox=DEFAULT_SBOX):
     :param bytes key: encryption key
     :param data: plaintext
     :type data: bytes, multiple of BLOCKSIZE
-    :param func action: encrypt/decrypt
+    :param func action: "encrypt"/"decrypt"
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
-    :return: ciphertext
+    :returns: ciphertext
     :rtype: bytes
     """
     validate_key(key)
@@ -299,7 +299,7 @@ def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX):
     :type bool pad: perform ISO/IEC 7816-4 padding
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
-    :return: ciphertext
+    :returns: ciphertext
     :rtype: bytes
 
     34.13-2015 padding method 2 is used.
@@ -331,7 +331,7 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
     :type bool pad: perform ISO/IEC 7816-4 unpadding after decryption
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
-    :return: plaintext
+    :returns: plaintext
     :rtype: bytes
     """
     validate_key(key)
@@ -367,7 +367,7 @@ def cnt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX):
     :type iv: bytes, BLOCKSIZE length
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
-    :return: ciphertext
+    :returns: ciphertext
     :rtype: bytes
 
     For decryption you use the same function again.
@@ -410,7 +410,7 @@ def cfb_encrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
     :param bool mesh: enable key meshing
-    :return: ciphertext
+    :returns: ciphertext
     :rtype: bytes
     """
     validate_key(key)
@@ -446,7 +446,7 @@ def cfb_decrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
     :param bool mesh: enable key meshing
-    :return: ciphertext
+    :returns: ciphertext
     :rtype: bytes
     """
     validate_key(key)

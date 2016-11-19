@@ -56,7 +56,7 @@ def bytes2long(raw):
     """ Deserialize big-endian bytes into long number
 
     :param bytes raw: binary string
-    :return: deserialized long number
+    :returns: deserialized long number
     :rtype: int
     """
     return int(hexenc(raw), 16)
@@ -66,7 +66,7 @@ def long2bytes(n, size=32):
     """ Serialize long number into big-endian bytestring
 
     :param long n: long number
-    :return: serialized bytestring
+    :returns: serialized bytestring
     :rtype: bytes
     """
     res = hex(int(n))[2:].rstrip("L")
@@ -81,7 +81,7 @@ def long2bytes(n, size=32):
 def modinvert(a, n):
     """ Modular multiplicative inverse
 
-    :return: inverse number. -1 if it does not exist
+    :returns: inverse number. -1 if it does not exist
 
     Realization is taken from:
     https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm

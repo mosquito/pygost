@@ -178,7 +178,7 @@ def public_key(curve, prv):
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
-    :return: public key's parts, X and Y
+    :returns: public key's parts, X and Y
     :rtype: (long, long)
     """
     return curve.exp(prv)
@@ -191,7 +191,7 @@ def sign(curve, prv, digest, mode=2001):
     :param long prv: private key
     :param digest: digest for signing
     :type digest: bytes, 32 or 64 bytes
-    :return: signature
+    :returns: signature
     :rtype: bytes, 64 or 128 bytes
     """
     size = MODE2SIZE[mode]

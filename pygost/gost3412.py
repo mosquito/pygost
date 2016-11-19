@@ -17,7 +17,8 @@
 """GOST 34.12-2015 128-bit block cipher Кузнечик (Kuznechik)
 
 :rfc:`7801`. Pay attention that 34.12-2015 also defines 64-bit block
-cipher Магма (Magma) -- it is **not** implemented here.
+cipher Магма (Magma) -- it is **not** implemented here, but in gost28147
+module.
 
 Several precalculations are performed during this module importing.
 """

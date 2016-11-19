@@ -37,7 +37,7 @@ def wrap_gost(ukm, kek, cek):
     :type kek: bytes, 32 bytes
     :param cek: content encryption key
     :type cek: bytes, 32 bytes
-    :return: wrapped key
+    :returns: wrapped key
     :rtype: bytes, 44 bytes
     """
     cek_mac = MAC(kek, data=cek, iv=ukm).digest()[:4]
@@ -52,7 +52,7 @@ def unwrap_gost(kek, data):
     :type kek: bytes, 32 bytes
     :param data: wrapped key
     :type data: bytes, 44 bytes
-    :return: unwrapped CEK
+    :returns: unwrapped CEK
     :rtype: 32 bytes
     """
     if len(data) != 44:
@@ -73,7 +73,7 @@ def wrap_cryptopro(ukm, kek, cek):
     :type kek: bytes, 32 bytes
     :param cek: content encryption key
     :type cek: bytes, 32 bytes
-    :return: wrapped key
+    :returns: wrapped key
     :rtype: bytes, 44 bytes
     """
     return wrap_gost(ukm, diversify(kek, bytearray(ukm)), cek)
@@ -86,7 +86,7 @@ def unwrap_cryptopro(kek, data):
     :type kek: bytes, 32 bytes
     :param data: wrapped key
     :type data: bytes, 44 bytes
-    :return: unwrapped CEK
+    :returns: unwrapped CEK
     :rtype: 32 bytes
     """
     if len(data) < 8:

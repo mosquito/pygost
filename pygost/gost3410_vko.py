@@ -10,11 +10,11 @@ def vko_34102001(curve, prv, pubkey, ukm):
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
+    :param pubkey: public key
+    :type pubkey: (long, long)
     :param ukm: UKM value (VKO-factor)
     :type ukm: bytes, 8 bytes
-    :param pubkey: public key's part
-    :type pubkey: (long, long)
-    :return: Key Encryption Key (shared key)
+    :returns: Key Encryption Key (shared key)
     :rtype: bytes, 32 bytes
 
     Shared Key Encryption Key computation is based on
@@ -31,11 +31,11 @@ def vko_34102012256(curve, prv, pubkey, ukm=b"\x00\x00\x00\x00\x00\x00\x00\01"):
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
+    :param pubkey: public key
+    :type pubkey: (long, long)
     :param ukm: UKM value (VKO-factor)
     :type ukm: bytes, 8 bytes
-    :param pubkey: public key's part
-    :type pubkey: (long, long)
-    :return: Key Encryption Key (shared key)
+    :returns: Key Encryption Key (shared key)
     :rtype: bytes, 32 bytes
     """
     key = curve.exp(prv, pubkey[0], pubkey[1])
@@ -48,11 +48,11 @@ def vko_34102012512(curve, prv, pubkey, ukm=b"\x00\x00\x00\x00\x00\x00\x00\01"):
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
+    :param pubkey: public key
+    :type pubkey: (long, long)
     :param ukm: UKM value (VKO-factor)
     :type ukm: bytes, 8 bytes
-    :param pubkey: public key's part
-    :type pubkey: (long, long)
-    :return: Key Encryption Key (shared key)
+    :returns: Key Encryption Key (shared key)
     :rtype: bytes, 32 bytes
     """
     key = curve.exp(prv, pubkey[0], pubkey[1])
