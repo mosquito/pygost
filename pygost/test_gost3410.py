@@ -20,7 +20,6 @@ from unittest import TestCase
 
 from pygost.gost3410 import CURVE_PARAMS
 from pygost.gost3410 import GOST3410Curve
-from pygost.gost3410 import kek
 from pygost.gost3410 import public_key
 from pygost.gost3410 import sign
 from pygost.gost3410 import SIZE_3410_2001
@@ -231,20 +230,3 @@ class Test34102012(TestCase):
             s = sign(c, private_key, digest, size=SIZE_3410_2012)
             self.assertTrue(verify(c, pubX, pubY, digest, s, size=SIZE_3410_2012))
             self.assertNotIn(b"\x00" * 8, s)
-
-
-class TestVKO(TestCase):
-    def test_sequence(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
-        for _ in range(20):
-            ukm = urandom(8)
-            prv1 = bytes2long(urandom(32))
-            prv2 = bytes2long(urandom(32))
-            pub1 = public_key(curve, prv1)
-            pub2 = public_key(curve, prv2)
-            kek1 = kek(curve, prv1, ukm, pub2)
-            kek2 = kek(curve, prv2, ukm, pub1)
-            self.assertEqual(kek1, kek2)
-            kek1 = kek(curve, prv1, ukm, pub1)
-            kek2 = kek(curve, prv2, ukm, pub2)
-            self.assertNotEqual(kek1, kek2)

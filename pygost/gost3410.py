@@ -23,7 +23,6 @@ key, digest and signature lengths.
 
 from os import urandom
 
-from pygost.gost3411_94 import GOST341194
 from pygost.utils import bytes2long
 from pygost.utils import hexdec
 from pygost.utils import long2bytes
@@ -32,6 +31,10 @@ from pygost.utils import modinvert
 
 SIZE_3410_2001 = 32
 SIZE_3410_2012 = 64
+MODE2SIZE = {
+    2001: SIZE_3410_2001,
+    2012: SIZE_3410_2012,
+}
 
 
 DEFAULT_CURVE = "GostR3410_2001_CryptoPro_A_ParamSet"
@@ -183,41 +186,17 @@ def public_key(curve, private_key):
     return curve.exp(private_key)
 
 
-def kek(curve, private_key, ukm, pubkey):
-    """ Make Diffie-Hellman computation
-
-    :param GOST3410Curve curve: curve to use
-    :param long private_key: private key
-    :param ukm: UKM value (VKO-factor)
-    :type ukm: bytes, 8 bytes
-    :param pubkey: public key's part
-    :type pubkey: (long, long)
-    :return: Key Encryption Key (shared key)
-    :rtype: bytes, 32 bytes
-
-    Shared Key Encryption Key computation is based on
-    :rfc:`4357` VKO GOST 34.10-2001 with little-endian
-    hash output.
-    """
-    key = curve.exp(private_key, pubkey[0], pubkey[1])
-    key = curve.exp(bytes2long(24 * b"\x00" + ukm), key[0], key[1])
-    return GOST341194(
-        (long2bytes(key[1]) + long2bytes(key[0]))[::-1],
-        "GostR3411_94_CryptoProParamSet"
-    ).digest()[::-1]
-
-
 def sign(curve, private_key, digest, size=SIZE_3410_2001):
     """ Calculate signature for provided digest
 
     :param GOST3410Curve curve: curve to use
     :param long private_key: private key
     :param digest: digest for signing
-    :type digest: bytes, 32 bytes
+    :type digest: bytes, 32 or 64 bytes
     :param size: signature size
     :type size: 32 (for 34.10-2001) or 64 (for 34.10-2012)
     :return: signature
-    :rtype: bytes, 64 bytes
+    :rtype: bytes, 64 or 128 bytes
     """
     if len(digest) != size:
         raise ValueError("Invalid digest length")
@@ -249,9 +228,9 @@ def verify(curve, pubkeyX, pubkeyY, digest, signature, size=SIZE_3410_2001):
     :param long pubkeyX: public key's X
     :param long pubkeyY: public key's Y
     :param digest: digest needed to check
-    :type digest: bytes, 32 bytes
+    :type digest: bytes, 32 or 64 bytes
     :param signature: signature to verify with
-    :type signature: bytes, 64 bytes
+    :type signature: bytes, 64 or 128 bytes
     :param size: signature size
     :type size: 32 (for 34.10-2001) or 64 (for 34.10-2012)
     :rtype: bool
@@ -288,3 +267,33 @@ def verify(curve, pubkeyX, pubkeyY, digest, signature, size=SIZE_3410_2001):
     lm %= q
     # This is not constant time comparison!
     return lm == r
+
+
+def prv_unmarshal(private_key):
+    """Unmarshal private key
+
+    :param bytes private_key: serialized private key
+    :rtype: long
+    """
+    return bytes2long(private_key[::-1])
+
+
+def pub_marshal(pub, mode=2001):
+    """Marshal public key
+
+    :type pub: (long, long)
+    :rtype: bytes
+    """
+    size = MODE2SIZE[mode]
+    return (long2bytes(pub[1], size) + long2bytes(pub[0], size))[::-1]
+
+
+def pub_unmarshal(pub, mode=2001):
+    """Unmarshal public key
+
+    :type pub: bytes
+    :rtype: (long, long)
+    """
+    pub = pub[::-1]
+    size = MODE2SIZE[mode]
+    return (bytes2long(pub[size:]), bytes2long(pub[:size]))
