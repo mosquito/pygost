@@ -1,6 +1,8 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
+from pygost.utils import hexenc
+
 
 # This function is taken from six package as is
 def add_metaclass(metaclass):
@@ -42,7 +44,7 @@ class PEP247(object):
         """Return the hash value as a string containing 8-bit data.
         """
 
-    @abstractmethod
     def hexdigest(self):
         """Return the hash value as a string containing hexadecimal digits.
         """
+        return hexenc(self.digest())

@@ -29,7 +29,6 @@ from pygost.gost28147 import validate_sbox
 from pygost.gost28147 import xcrypt
 from pygost.gost3413 import pad1
 from pygost.iface import PEP247
-from pygost.utils import hexenc
 from pygost.utils import strxor
 from pygost.utils import xrange
 
@@ -95,9 +94,6 @@ class MAC(PEP247):
                 )),
             )[::-1]
         return ns2block(prev)
-
-    def hexdigest(self):
-        return hexenc(self.digest())
 
 
 def new(key, data=b"", iv=8 * b"\x00", sbox=DEFAULT_SBOX):

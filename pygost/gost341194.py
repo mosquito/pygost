@@ -180,9 +180,6 @@ class GOST341194(PEP247):
         h = _step(h, checksum, self.sbox)
         return h[::-1]
 
-    def hexdigest(self):
-        return hexenc(self.digest())
-
 
 def new(data=b"", sbox=DEFAULT_SBOX):
     return GOST341194(data, sbox)
