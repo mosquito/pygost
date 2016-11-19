@@ -25,7 +25,7 @@ An entry for documentation:
 EOF
 
 cat <<EOF
-Subject: PyGOST $release release announcement
+Subject: [EN] PyGOST $release release announcement
 
 I am pleased to announce PyGOST $release release availability!
 
@@ -48,11 +48,45 @@ Source code and its signature for that version can be found here:
 
 Streebog-256 hash: $hashsb
 SHA256 hash: $hash
-GPG key ID: 0xE6FD1269CD0C009E PyGOST releases <pygost at cypherpunks dot ru>
-Fingerprint: F55A 7619 3A0C 323A A031  0E6B E6FD 1269 CD0C 009E
+GPG key: F55A 7619 3A0C 323A A031  0E6B E6FD 1269 CD0C 009E
+         PyGOST releases <pygost at cypherpunks dot ru>
 
 Please send questions regarding the use of PyGOST, bug reports and patches
 to mailing list: https://lists.cypherpunks.ru/mailman/listinfo/gost
+EOF
+
+cat <<EOF
+Subject: [RU] Состоялся релиз PyGOST $release
+
+Я рад сообщить о выходе релиза PyGOST $release!
+
+PyGOST это свободное программное обеспечение  реализующее
+криптографические функции ГОСТ на чистом Python. PyGOST это свободное
+программное обеспечение. ГОСТ это ГОсударственный СТандарт Российской
+Федерации (а также Советского Союз).
+
+------------------------ >8 ------------------------
+
+Основные усовершенствования в этом релизе:
+
+
+------------------------ >8 ------------------------
+
+Домашняя страница PyGOST: http://www.cypherpunks.ru/pygost/
+
+Исходный код и его подпись для этой версии могут быть найдены здесь:
+
+    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz ($size KiB)
+    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz.sig
+
+Streebog-256 хэш: $hashsb
+SHA256 хэш: $hash
+GPG ключа: F55A 7619 3A0C 323A A031  0E6B E6FD 1269 CD0C 009E
+           PyGOST releases <pygost at cypherpunks dot ru>
+
+Пожалуйста, все вопросы касающиеся использования PyGOST, отчёты об
+ошибках и патчи отправляйте в gost почтовую рассылку:
+https://lists.cypherpunks.ru/mailman/listinfo/gost
 EOF
 
 mv $tmp/$tarball $tmp/"$tarball".sig $cur/pygost.html/
