@@ -173,22 +173,22 @@ class GOST3410Curve(object):
         return tx, ty
 
 
-def public_key(curve, private_key):
+def public_key(curve, prv):
     """ Generate public key from the private one
 
     :param GOST3410Curve curve: curve to use
-    :param long private_key: private key
+    :param long prv: private key
     :return: public key's parts, X and Y
     :rtype: (long, long)
     """
-    return curve.exp(private_key)
+    return curve.exp(prv)
 
 
-def sign(curve, private_key, digest, mode=2001):
+def sign(curve, prv, digest, mode=2001):
     """ Calculate signature for provided digest
 
     :param GOST3410Curve curve: curve to use
-    :param long private_key: private key
+    :param long prv: private key
     :param digest: digest for signing
     :type digest: bytes, 32 or 64 bytes
     :return: signature
@@ -207,7 +207,7 @@ def sign(curve, private_key, digest, mode=2001):
         r %= q
         if r == 0:
             continue
-        d = private_key * r
+        d = prv * r
         k *= e
         s = (d + k) % q
         if s == 0:
@@ -260,13 +260,13 @@ def verify(curve, pub, digest, signature, mode=2001):
     return lm == r
 
 
-def prv_unmarshal(private_key):
+def prv_unmarshal(prv):
     """Unmarshal private key
 
-    :param bytes private_key: serialized private key
+    :param bytes prv: serialized private key
     :rtype: long
     """
-    return bytes2long(private_key[::-1])
+    return bytes2long(prv[::-1])
 
 
 def pub_marshal(pub, mode=2001):
