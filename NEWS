@@ -3,30 +3,30 @@
     * gost3411_2012 renamed and splitted to gost34112012256, gost34112012512
     * GOST34112012 splitted to GOST34112012256, GOST34112012512
     * gost3410.kek moved to separate gost3410_vko.kek_34102001
-    * 34.10-2012 VKO appeared in gost3410_vko, with test vectors
+    * VKO GOST R 34.10-2012 appeared in gost3410_vko, with test vectors
     * 34.11-94 digest is reversed, to be compatible with HMAC and
       PBKDF2 test vectors describe in TC26 documents
     * 34.11-94 PBKDF2 test vectors added
     * gost3410.prv_unmarshal, gost3410.pub_marshal, gost3410.pub_unmarshal
       helpers added, removing the need of x509 module at all
-    * gost3410.verify expects (pubX, pubY) tuple, instead of two separate
+    * gost3410.verify requires (pubX, pubY) tuple, instead of two separate
       pubX, pubY arguments
     * 34.11-94 based PBKDF2 function added
 
 2.4:
-    Fixed 34.13 mypy stub
+    Fixed 34.13 mypy stub.
 
 2.3:
-    Typo and pylint fixes
+    Typo and pylint fixes.
 
 2.2:
-    34.13-2015 padding methods
+    GOST R 34.13-2015 padding methods.
 
 2.1:
-    Documentation and supplementary files refactoring
+    Documentation and supplementary files refactoring.
 
 2.0:
-    PEP-0247 compatible hashers and MAC
+    PEP-0247 compatible hashers and MAC.
 
 1.0:
     * Ability to specify curve in pygost.x509 module
@@ -39,19 +39,19 @@
     * pygost.gost3411_12.GOST341112 -> pygost.gost3411_2012.GOST34112012
 
 0.16:
-    34.10-2012 TC26 curve parameters
+    34.10-2012 TC26 curve parameters.
 
 0.15:
-    PEP-0484 static typing hints
+    PEP-0484 static typing hints.
 
 0.14:
-    34.10-2012 workability fix
+    34.10-2012 workability fix.
 
 0.13:
-    Python3 compatibility
+    Python3 compatibility.
 
 0.11:
-    GOST R 34.12-2015 Кузнечик (Kuznechik) implementation
+    GOST R 34.12-2015 Кузнечик (Kuznechik) implementation.
 
 0.10:
-    CryptoPro and GOST key wrapping, CryptoPro key meshing
+    CryptoPro and GOST key wrapping, CryptoPro key meshing.

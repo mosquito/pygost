@@ -27,6 +27,7 @@ Currently supported algorithms are:
 @item various 28147-89-related S-boxes included
 @item GOST R 34.11-94 hash function
     (@url{https://tools.ietf.org/html/rfc5831.html, RFC 5831})
+@item GOST R 34.11-94 based @url{https://en.wikipedia.org/wiki/PBKDF2, PBKDF2} function
 @item GOST R 34.11-2012 Стрибог (Streebog) hash function
     (@url{https://tools.ietf.org/html/rfc6986.html, RFC 6986})
 @item GOST R 34.10-2001
@@ -36,8 +37,10 @@ Currently supported algorithms are:
     (@url{https://tools.ietf.org/html/rfc7091.html, RFC 7091})
     public key signature function
 @item various 34.10 curve parameters included
-@item VKO 34.10-2001 Diffie-Hellman function
+@item VKO GOST R 34.10-2001 Diffie-Hellman function
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
+@item VKO GOST R 34.10-2012 Diffie-Hellman function
+    (@url{http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf, ТК26})
 @item 28147-89 and CryptoPro key wrapping
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
 @item 28147-89 CryptoPro key meshing for CFB mode
@@ -50,15 +53,28 @@ Currently supported algorithms are:
 @item PEP247-compatible hash/MAC functions
 @end itemize
 
-Example X.509 compatible 34.10-2012 keypair generation, signing and
-verifying its signature:
+Example 34.10-2012 keypair generation, signing and verifying:
 
 @verbatim
->>> from pygost import x509
->>> prv, pub = x509.keypair_gen(urandom(64), mode=2012)
->>> data = b'some data'
->>> signature = x509.sign(prv, data, mode=2012)
->>> x509.verify(pub, data, signature, mode=2012)
+>>> from pygost.gost3410 import CURVE_PARAMS
+>>> from pygost.gost3410 import GOST3410Curve
+>>> curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+>>> from os import urandom
+>>> prv_raw = urandom(32)
+>>> from pygost.gost3410 import prv_unmarshal
+>>> prv = prv_unmarshal(prv_raw)
+>>> from pygost.gost3410 import public_key
+>>> pub = public_key(curve, prv)
+>>> from pygost.gost3410 import pub_marshal
+>>> from pygost.utils import hexenc
+>>> print "Public key is:", hexenc(pub_marshal(pub))
+>>> from pygost import gost34112012256
+>>> data_for_signing = b"some data"
+>>> dgst = gost34112012256.new(data_for_signing).digest()
+>>> from pygost.gost3410 import sign
+>>> signature = sign(curve, prv, dgst, mode=2012)
+>>> from pygost.gost3410 import verify
+>>> verify(curve, pub, dgst, signature, mode=2012)
 True
 @end verbatim
 
@@ -67,6 +83,81 @@ Please send questions, bug reports and patches to
 mailing list. Announcements also go to this mailing list.
 
 @insertcopying
+
+@node News
+@unnumbered News
+
+@table @strong
+@item 3.0
+    @itemize
+    @item @code{gost3411_94} renamed to @code{gost341194}
+    @item @code{gost3411_2012} renamed and splitted to
+        @code{gost34112012256}, @code{gost34112012512}
+    @item @code{GOST34112012} splitted to
+        @code{GOST34112012256}, @code{GOST34112012512}
+    @item @code{gost3410.kek} moved to separate
+        @code{gost3410_vko.kek_34102001}
+    @item VKO GOST R 34.10-2012 appeared in @code{gost3410_vko},
+        with test vectors
+    @item 34.11-94 digest is reversed, to be compatible with HMAC and
+        PBKDF2 test vectors describe in TC26 documents
+    @item 34.11-94 PBKDF2 test vectors added
+    @item @code{gost3410.prv_unmarshal},
+        @code{gost3410.pub_marshal},
+        @code{gost3410.pub_unmarshal}
+        helpers added, removing the need of @code{x509} module at all
+    @item @code{gost3410.verify} requires @code{(pubX, pubY)} tuple,
+        instead of two separate @code{pubX}, @code{pubY} arguments
+    @item 34.11-94 based PBKDF2 function added
+    @end itemize
+
+@item 2.4
+Fixed 34.13 mypy stub.
+
+@item 2.3
+Typo and pylint fixes.
+
+@item 2.2
+GOST R 34.13-2015 padding methods
+
+@item 2.1
+Documentation and supplementary files refactoring.
+
+@item 2.0
+PEP-0247 compatible hashers and MAC.
+
+@item 1.0
+    @itemize
+    @item Ability to specify curve in pygost.x509 module
+    @item Ability to use 34.10-2012 in pygost.x509 functions
+    @end itemize
+
+    Renamed classes and modules:
+
+    @itemize
+    @item pygost.gost3410.SIZE_34100 -> pygost.gost3410.SIZE_3410_2001
+    @item pygost.gost3410.SIZE_34112 -> pygost.gost3410.SIZE_3410_2012
+    @item pygost.gost3411_12.GOST341112 -> pygost.gost3411_2012.GOST34112012
+    @end itemize
+
+@item 0.16
+34.10-2012 TC26 curve parameters.
+
+@item 0.15
+PEP-0484 static typing hints.
+
+@item 0.14
+34.10-2012 workability fix.
+
+@item 0.13
+Python3 compatibility.
+
+@item 0.11
+GOST R 34.12-2015 Кузнечик (Kuznechik) implementation.
+
+@item 0.10
+CryptoPro and GOST key wrapping, CryptoPro key meshing.
+@end table
 
 @node Download
 @unnumbered Download
@@ -139,6 +230,6 @@ uid   PyGOST releases <pygost at cypherpunks dot ru>
 
 You can obtain development source code by cloning
 @url{http://git-scm.com/, Git}
-@url{https://git.cypherpunks.ru/cgit.cgi/pygost.git/, repository}.
+@url{https://git.cypherpunks.ru/cgit.cgi/pygost.git/}.
 
 @bye
