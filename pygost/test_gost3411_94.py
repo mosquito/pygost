@@ -15,11 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from unittest import skip
 from unittest import TestCase
 import hmac
 
 from pygost import gost3411_94
 from pygost.gost3411_94 import GOST341194
+from pygost.utils import bytes2long
+from pygost.utils import hexenc
+from pygost.utils import long2bytes
+from pygost.utils import strxor
+from pygost.utils import xrange
 
 
 class TestCopy(TestCase):
@@ -43,67 +49,55 @@ class TestVectors(TestCase):
     def test_empty(self):
         self.assertEqual(
             GOST341194(b"", "GostR3411_94_TestParamSet").hexdigest(),
-            "8d0f49492c91f45a68ff5c05d2c2b4ab78027b9aab5ce3feff5267c49cb985ce",
+            "ce85b99cc46752fffee35cab9a7b0278abb4c2d2055cff685af4912c49490f8d",
         )
 
     def test_a(self):
         self.assertEqual(
             GOST341194(b"a", "GostR3411_94_TestParamSet").hexdigest(),
-            "dd14f362cefd49f873a5c644431b87219c3449661f808ac8e9667c369e532cd4",
+            "d42c539e367c66e9c88a801f6649349c21871b4344c6a573f849fdce62f314dd",
         )
 
     def test_abc(self):
         self.assertEqual(
             GOST341194(b"abc", "GostR3411_94_TestParamSet").hexdigest(),
-            "1dd5a4067c49703b75bc75c9290f5ecbb5eb85229e7277a2b2b14fc4484313f3",
+            "f3134348c44fb1b2a277729e2285ebb5cb5e0f29c975bc753b70497c06a4d51d",
         )
 
     def test_message_digest(self):
         self.assertEqual(
             GOST341194(b"message digest", "GostR3411_94_TestParamSet").hexdigest(),
-            "4d9a88a416de2fdb72de483f27652b5869243dec59be0cb6992c8fb1ec3444ad",
+            "ad4434ecb18f2c99b60cbe59ec3d2469582b65273f48de72db2fde16a4889a4d",
         )
 
     def test_Us(self):
         self.assertEqual(
             GOST341194(128 * b"U", "GostR3411_94_TestParamSet").hexdigest(),
-            "a43357fee8a926d9522a06870a66251c553e2774a0851d0cef0c1825eda3a353",
+            "53a3a3ed25180cef0c1d85a074273e551c25660a87062a52d926a9e8fe5733a4",
         )
 
     def test_dog(self):
         self.assertEqual(
-            GOST341194(
-                b"The quick brown fox jumps over the lazy dog",
-                "GostR3411_94_TestParamSet",
-            ).hexdigest(),
-            "94421f6d370fa1d16ba7ac5e31296529c968047dca9bf4258ac59a0c41fab777",
+            GOST341194(b"The quick brown fox jumps over the lazy dog", "GostR3411_94_TestParamSet",).hexdigest(),
+            "77b7fa410c9ac58a25f49bca7d0468c9296529315eaca76bd1a10f376d1f4294",
         )
 
     def test_cog(self):
         self.assertEqual(
-            GOST341194(
-                b"The quick brown fox jumps over the lazy cog",
-                "GostR3411_94_TestParamSet",
-            ).hexdigest(),
-            "45c4ee4ee1d25091312135540d6702e6677f7a73b5da31e10b8bb7aadac4eba3",
+            GOST341194(b"The quick brown fox jumps over the lazy cog", "GostR3411_94_TestParamSet",).hexdigest(),
+            "a3ebc4daaab78b0be131dab5737a7f67e602670d543521319150d2e14eeec445",
         )
 
     def test_rfc32(self):
         self.assertEqual(
-            GOST341194(
-                b"This is message, length=32 bytes",
-                "GostR3411_94_TestParamSet",
-            ).hexdigest(),
-            "faff37a615a816691cff3ef8b68ca247e09525f39f8119832eb81975d366c4b1",
+            GOST341194(b"This is message, length=32 bytes", "GostR3411_94_TestParamSet",).hexdigest(),
+            "b1c466d37519b82e8319819ff32595e047a28cb6f83eff1c6916a815a637fffa",
         )
 
     def test_rfc50(self):
         self.assertEqual(
-            GOST341194(
-                b"Suppose the original message has length = 50 bytes",
-                "GostR3411_94_TestParamSet",
-            ).hexdigest(),
-            "0852f5623b89dd57aeb4781fe54df14eeafbc1350613763a0d770aa657ba1a47",
+            GOST341194(b"Suppose the original message has length = 50 bytes", "GostR3411_94_TestParamSet",).hexdigest(),
+            "471aba57a60a770d3a76130635c1fbea4ef14de51f78b4ae57dd893b62f55208",
         )
 
 
@@ -113,59 +107,128 @@ class TestVectorsCryptoPro(TestCase):
     def test_empty(self):
         self.assertEqual(
             GOST341194(b"", "GostR3411_94_CryptoProParamSet").hexdigest(),
-            "c056d64c2383c44a58139c9b560111ac133e43fb840f838714840ca33c5f1e98",
+            "981e5f3ca30c841487830f84fb433e13ac1101569b9c13584ac483234cd656c0",
         )
 
     def test_a(self):
         self.assertEqual(
             GOST341194(b"a", "GostR3411_94_CryptoProParamSet").hexdigest(),
-            "1130402fcfaaf1ef3c13e3173f105a715580f7c97900af37bf832128dd524ce7",
+            "e74c52dd282183bf37af0079c9f78055715a103f17e3133ceff1aacf2f403011",
         )
 
     def test_abc(self):
         self.assertEqual(
             GOST341194(b"abc", "GostR3411_94_CryptoProParamSet").hexdigest(),
-            "2cd42ff986293b167e994381ed59747414dd24953677762d39d718bf6d0585b2",
+            "b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c",
         )
 
     def test_message_digest(self):
         self.assertEqual(
-            GOST341194(
-                b"message digest",
-                "GostR3411_94_CryptoProParamSet",
-            ).hexdigest(),
-            "a01b72299bc39a540fd672a99a72b4bdfe74417386986efaeb01a42add4160bc",
+            GOST341194(b"message digest", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            "bc6041dd2aa401ebfa6e9886734174febdb4729aa972d60f549ac39b29721ba0",
         )
 
     def test_dog(self):
         self.assertEqual(
-            GOST341194(
-                b"The quick brown fox jumps over the lazy dog",
-                "GostR3411_94_CryptoProParamSet",
-            ).hexdigest(),
-            "760a8365d570476e787254761be7656774021b1f3de56f588c501a364a290490",
+            GOST341194(b"The quick brown fox jumps over the lazy dog", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            "9004294a361a508c586fe53d1f1b02746765e71b765472786e4770d565830a76",
         )
 
     def test_32(self):
         self.assertEqual(
-            GOST341194(
-                b"This is message, length=32 bytes",
-                "GostR3411_94_CryptoProParamSet",
-            ).hexdigest(),
-            "eb48de3e89e71bcb695fc752d617fae757f34fa77fa58ee114c5bdb7f7c2ef2c",
+            GOST341194(b"This is message, length=32 bytes", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            "2cefc2f7b7bdc514e18ea57fa74ff357e7fa17d652c75f69cb1be7893ede48eb",
         )
 
     def test_50(self):
         self.assertEqual(
-            GOST341194(
-                b"Suppose the original message has length = 50 bytes",
-                "GostR3411_94_CryptoProParamSet",
-            ).hexdigest(),
-            "1150a63031dc611a5f5e40d93153f74ebde8216f6792c25a91cfcabc5c0c73c3",
+            GOST341194(b"Suppose the original message has length = 50 bytes", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            "c3730c5cbccacf915ac292676f21e8bd4ef75331d9405e5f1a61dc3130a65011",
         )
 
     def test_Us(self):
         self.assertEqual(
             GOST341194(128 * b"U", "GostR3411_94_CryptoProParamSet").hexdigest(),
-            "e8c449f608104c512710cd37fded920df1e86b211623fa27f4bb914661c74a1c",
+            "1c4ac7614691bbf427fa2316216be8f10d92edfd37cd1027514c1008f649c4e8",
+        )
+
+
+# This implementation is based on Python 3.5.2 source code.
+# PyGOST does not register itself in hashlib anyway, so use
+# pbkdf2_hmac directly.
+def pbkdf2_hmac(password, salt, iterations, dklen):
+    inner = GOST341194(sbox="GostR3411_94_CryptoProParamSet")
+    outer = GOST341194(sbox="GostR3411_94_CryptoProParamSet")
+    password = password + b'\x00' * (inner.block_size - len(password))
+    inner.update(strxor(password, len(password) * b"\x36"))
+    outer.update(strxor(password, len(password) * b"\x5C"))
+
+    def prf(msg):
+        icpy = inner.copy()
+        ocpy = outer.copy()
+        icpy.update(msg)
+        ocpy.update(icpy.digest())
+        return ocpy.digest()
+
+    dkey = b''
+    loop = 1
+    while len(dkey) < dklen:
+        prev = prf(salt + long2bytes(loop, 4))
+        rkey = bytes2long(prev)
+        for _ in xrange(iterations - 1):
+            prev = prf(prev)
+            rkey ^= bytes2long(prev)
+        loop += 1
+        dkey += long2bytes(rkey, inner.digest_size)
+    return dkey[:dklen]
+
+
+class TestPBKDF2(TestCase):
+    """http://tc26.ru/methods/containers_v1/Addition_to_PKCS5_v1_0.pdf test vectors
+    """
+    def test_1(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(b"password", b"salt", 1, 32)),
+            "7314e7c04fb2e662c543674253f68bd0b73445d07f241bed872882da21662d58",
+        )
+
+    def test_2(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(b"password", b"salt", 2, 32)),
+            "990dfa2bd965639ba48b07b792775df79f2db34fef25f274378872fed7ed1bb3",
+        )
+
+    def test_3(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(b"password", b"salt", 4096, 32)),
+            "1f1829a94bdff5be10d0aeb36af498e7a97467f3b31116a5a7c1afff9deadafe",
+        )
+
+    @skip("it takes too long")
+    def test_4(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(b"password", b"salt", 16777216, 32)),
+            "a57ae5a6088396d120850c5c09de0a525100938a59b1b5c3f7810910d05fcd97",
+        )
+
+    def test_5(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(
+                b"passwordPASSWORDpassword",
+                b"saltSALTsaltSALTsaltSALTsaltSALTsalt",
+                4096,
+                40,
+            )),
+            "788358c69cb2dbe251a7bb17d5f4241f265a792a35becde8d56f326b49c85047b7638acb4764b1fd",
+        )
+
+    def test_6(self):
+        self.assertEqual(
+            hexenc(pbkdf2_hmac(
+                b"pass\x00word",
+                b"sa\x00lt",
+                4096,
+                20,
+            )),
+            "43e06c5590b08c0225242373127edf9c8e9c3291",
         )

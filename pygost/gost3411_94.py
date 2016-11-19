@@ -115,18 +115,18 @@ def _step(hin, m, sbox):
     # Permute
     # H_out = chi^61(H_in XOR chi(m XOR chi^12(S)))
     x = s
-    for _ in range(12):
+    for _ in xrange(12):
         x = _chi(x)
     x = strxor(x, m)
     x = _chi(x)
     x = strxor(hin, x)
-    for _ in range(61):
+    for _ in xrange(61):
         x = _chi(x)
     return x
 
 
 class GOST341194(PEP247):
-    """ GOST 34.11-94 little-endian hash
+    """ GOST 34.11-94 big-endian hash
 
     >>> m = GOST341194()
     >>> m.update("foo")
@@ -137,7 +137,7 @@ class GOST341194(PEP247):
     '3bd8a3a35917871dfa0d49f9e73e7c57eea028dc061133eb560849ea20c133af'
     """
     block_size = BLOCKSIZE
-    digest_size = BLOCKSIZE
+    digest_size = digest_size
 
     def __init__(self, data=b"", sbox=DEFAULT_SBOX):
         """
@@ -178,7 +178,7 @@ class GOST341194(PEP247):
         checksum = hexdec(checksum)
         checksum = b"\x00" * (BLOCKSIZE - len(checksum)) + checksum
         h = _step(h, checksum, self.sbox)
-        return h
+        return h[::-1]
 
     def hexdigest(self):
         return hexenc(self.digest())

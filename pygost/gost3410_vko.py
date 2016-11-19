@@ -23,7 +23,7 @@ def vko_34102001(curve, private_key, pubkey, ukm):
     """
     key = curve.exp(private_key, pubkey[0], pubkey[1])
     key = curve.exp(bytes2long(24 * b"\x00" + ukm), key[0], key[1])
-    return GOST341194(pub_marshal(key), "GostR3411_94_CryptoProParamSet").digest()[::-1]
+    return GOST341194(pub_marshal(key), "GostR3411_94_CryptoProParamSet").digest()
 
 
 def vko_34102012256(curve, private_key, pubkey, ukm=b"\x00\x00\x00\x00\x00\x00\x00\01"):
