@@ -120,10 +120,10 @@ class GOST3410Curve(object):
 
     >>> p, q, a, b, x, y = CURVE_PARAMS["GostR3410_2001_TestParamSet"]
     >>> curve = GOST3410Curve(p, q, a, b, x, y)
-    >>> priv = bytes2long(urandom(32))
-    >>> signature = sign(curve, priv, GOST341194(data).digest())
-    >>> pubX, pubY = public_key(curve, priv)
-    >>> verify(curve, pubX, pubY, GOST341194(data).digest(), signature)
+    >>> prv = prv_unmarshal(urandom(32))
+    >>> signature = sign(curve, prv, GOST341194(data).digest())
+    >>> pub = public_key(curve, prv)
+    >>> verify(curve, pub, GOST341194(data).digest(), signature)
     True
     """
     def __init__(self, p, q, a, b, x, y):
@@ -216,12 +216,11 @@ def sign(curve, private_key, digest, mode=2001):
     return long2bytes(s, size) + long2bytes(r, size)
 
 
-def verify(curve, pubkeyX, pubkeyY, digest, signature, mode=2001):
+def verify(curve, pub, digest, signature, mode=2001):
     """ Verify provided digest with the signature
 
     :param GOST3410Curve curve: curve to use
-    :param long pubkeyX: public key's X
-    :param long pubkeyY: public key's Y
+    :type pub: (long, long)
     :param digest: digest needed to check
     :type digest: bytes, 32 or 64 bytes
     :param signature: signature to verify with
@@ -244,7 +243,7 @@ def verify(curve, pubkeyX, pubkeyY, digest, signature, mode=2001):
     z1 = s * v % q
     z2 = q - r * v % q
     p1x, p1y = curve.exp(z1)
-    q1x, q1y = curve.exp(z2, pubkeyX, pubkeyY)
+    q1x, q1y = curve.exp(z2, pub[0], pub[1])
     lm = q1x - p1x
     if lm < 0:
         lm += p

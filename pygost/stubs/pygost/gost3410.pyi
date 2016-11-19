@@ -34,8 +34,7 @@ def sign(
 
 def verify(
     curve: GOST3410Curve,
-    pubkeyX: int,
-    pubkeyY: int,
+    pub: PublicKey,
     digest: bytes,
     signature: bytes,
     size: int=...,

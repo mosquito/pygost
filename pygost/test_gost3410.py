@@ -73,8 +73,8 @@ class Test341001(TestCase):
         self.assertEqual(long2bytes(pubX), public_key_x)
         self.assertEqual(long2bytes(pubY), public_key_y)
         s = sign(c, private_key, digest)
-        self.assertTrue(verify(c, pubX, pubY, digest, s))
-        self.assertTrue(verify(c, pubX, pubY, digest, signature))
+        self.assertTrue(verify(c, (pubX, pubY), digest, s))
+        self.assertTrue(verify(c, (pubX, pubY), digest, signature))
 
     def test_sequence(self):
         c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
@@ -83,7 +83,7 @@ class Test341001(TestCase):
         for _ in range(20):
             digest = urandom(32)
             s = sign(c, private_key, digest, mode=2001)
-            self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2001))
+            self.assertTrue(verify(c, (pubX, pubY), digest, s, mode=2001))
 
 
 class Test34102012(TestCase):
@@ -216,8 +216,8 @@ class Test34102012(TestCase):
         self.assertEqual(long2bytes(pubX), public_key_x)
         self.assertEqual(long2bytes(pubY), public_key_y)
         s = sign(c, private_key, digest, mode=2012)
-        self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2012))
-        self.assertTrue(verify(c, pubX, pubY, digest, signature, mode=2012))
+        self.assertTrue(verify(c, (pubX, pubY), digest, s, mode=2012))
+        self.assertTrue(verify(c, (pubX, pubY), digest, signature, mode=2012))
 
     def test_sequence(self):
         c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
@@ -226,5 +226,5 @@ class Test34102012(TestCase):
         for _ in range(20):
             digest = urandom(64)
             s = sign(c, private_key, digest, mode=2012)
-            self.assertTrue(verify(c, pubX, pubY, digest, s, mode=2012))
+            self.assertTrue(verify(c, (pubX, pubY), digest, s, mode=2012))
             self.assertNotIn(b"\x00" * 8, s)
