@@ -1,7 +1,7 @@
 3.0:
     * gost3411_94 renamed to gost341194
-    * gost3411_2012 renamed and splitted to gost34112012256, gost34112012512
-    * GOST34112012 splitted to GOST34112012256, GOST34112012512
+    * gost3411_2012 renamed and split to gost34112012256, gost34112012512
+    * GOST34112012 split to GOST34112012256, GOST34112012512
     * gost3410.kek moved to separate gost3410_vko.kek_34102001
     * VKO GOST R 34.10-2012 appeared in gost3410_vko, with test vectors
     * 34.11-94 digest is reversed, to be compatible with HMAC and

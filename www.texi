@@ -91,9 +91,9 @@ mailing list. Announcements also go to this mailing list.
 @item 3.0
     @itemize
     @item @code{gost3411_94} renamed to @code{gost341194}
-    @item @code{gost3411_2012} renamed and splitted to
+    @item @code{gost3411_2012} renamed and split to
         @code{gost34112012256}, @code{gost34112012512}
-    @item @code{GOST34112012} splitted to
+    @item @code{GOST34112012} split to
         @code{GOST34112012256}, @code{GOST34112012512}
     @item @code{gost3410.kek} moved to separate
         @code{gost3410_vko.kek_34102001}
