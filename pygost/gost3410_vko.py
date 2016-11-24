@@ -70,6 +70,9 @@ def kek_34102012256(curve, prv, pub, ukm=1):
     :param long ukm: user keying material, VKO-factor
     :returns: Key Encryption Key (shared key)
     :rtype: bytes, 32 bytes
+
+    Shared Key Encryption Key computation is based on
+    :rfc:`7836` VKO GOST R 34.10-2012.
     """
     return GOST34112012256(kek(curve, prv, pub, ukm, mode=2012)).digest()
 
@@ -84,5 +87,8 @@ def kek_34102012512(curve, prv, pub, ukm=1):
     :param long ukm: user keying material, VKO-factor
     :returns: Key Encryption Key (shared key)
     :rtype: bytes, 32 bytes
+
+    Shared Key Encryption Key computation is based on
+    :rfc:`7836` VKO GOST R 34.10-2012.
     """
     return GOST34112012512(kek(curve, prv, pub, ukm, mode=2012)).digest()

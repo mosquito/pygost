@@ -40,7 +40,7 @@ Currently supported algorithms are:
 @item VKO GOST R 34.10-2001 Diffie-Hellman function
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
 @item VKO GOST R 34.10-2012 Diffie-Hellman function
-    (@url{http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf, ТК26})
+    (@url{https://tools.ietf.org/html/rfc7836.html, RFC 7836})
 @item 28147-89 and CryptoPro key wrapping
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
 @item 28147-89 CryptoPro key meshing for CFB mode
