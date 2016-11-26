@@ -49,7 +49,7 @@ class TestVKO34102001(TestCase):
 
 
 class TestVKO34102012256(TestCase):
-    """http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf test vectors
+    """RFC 7836
     """
     def test_vector(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
@@ -79,7 +79,7 @@ class TestVKO34102012256(TestCase):
 
 
 class TestVKO34102012512(TestCase):
-    """http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf test vectors
+    """RFC 7836
     """
     def test_vector(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])

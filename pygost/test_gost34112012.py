@@ -36,7 +36,7 @@ class TestCopy(TestCase):
 
 
 class TestHMAC(TestCase):
-    """http://tc26.ru/methods/recommendation/%D0%A2%D0%9A26%D0%90%D0%9B%D0%93.pdf test vectors
+    """RFC 7836
     """
     def test_256(self):
         for digestmod in (GOST34112012256, gost34112012256):
