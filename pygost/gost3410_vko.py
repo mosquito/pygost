@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""Diffie-Hellman functions, VKO GOST R 34.10-2001/2012
+"""Key agreement functions, VKO GOST R 34.10-2001/2012
 """
 
 from pygost.gost3410 import pub_marshal
@@ -40,7 +40,7 @@ def kek(curve, prv, pub, ukm, mode):
 
 
 def kek_34102001(curve, prv, pub, ukm):
-    """ Make Diffie-Hellman computation (34.10-2001, 34.11-94)
+    """ Key agreement (34.10-2001, 34.11-94)
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
@@ -61,7 +61,7 @@ def kek_34102001(curve, prv, pub, ukm):
 
 
 def kek_34102012256(curve, prv, pub, ukm=1):
-    """ Make Diffie-Hellman computation (34.10-2012, 34.11-2012 256 bit)
+    """ Key agreement (34.10-2012, 34.11-2012 256 bit)
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
@@ -78,7 +78,7 @@ def kek_34102012256(curve, prv, pub, ukm=1):
 
 
 def kek_34102012512(curve, prv, pub, ukm=1):
-    """ Make Diffie-Hellman computation (34.10-2012, 34.11-2012 512 bit)
+    """ Key agreement (34.10-2012, 34.11-2012 512 bit)
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key

@@ -37,9 +37,9 @@ Currently supported algorithms are:
     (@url{https://tools.ietf.org/html/rfc7091.html, RFC 7091})
     public key signature function
 @item various 34.10 curve parameters included
-@item VKO GOST R 34.10-2001 Diffie-Hellman function
+@item VKO GOST R 34.10-2001 key agreement function
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
-@item VKO GOST R 34.10-2012 Diffie-Hellman function
+@item VKO GOST R 34.10-2012 key agreement function
     (@url{https://tools.ietf.org/html/rfc7836.html, RFC 7836})
 @item 28147-89 and CryptoPro key wrapping
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
