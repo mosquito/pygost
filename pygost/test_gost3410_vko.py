@@ -32,6 +32,17 @@ from pygost.utils import hexdec
 
 
 class TestVKO34102001(TestCase):
+    def test_vector(self):
+        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
+        ukm = ukm_unmarshal(hexdec("5172be25f852a233"))
+        prv1 = prv_unmarshal(hexdec("1df129e43dab345b68f6a852f4162dc69f36b2f84717d08755cc5c44150bf928"))
+        prv2 = prv_unmarshal(hexdec("5b9356c6474f913f1e83885ea0edd5df1a43fd9d799d219093241157ac9ed473"))
+        kek = hexdec("ee4618a0dbb10cb31777b4b86a53d9e7ef6cb3e400101410f0c0f2af46c494a6")
+        pub1 = public_key(curve, prv1)
+        pub2 = public_key(curve, prv2)
+        self.assertEqual(kek_34102001(curve, prv1, pub2, ukm), kek)
+        self.assertEqual(kek_34102001(curve, prv2, pub1, ukm), kek)
+
     def test_sequence(self):
         curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
         for _ in range(10):
