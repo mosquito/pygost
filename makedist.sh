@@ -14,7 +14,7 @@ gpg --detach-sign --sign --local-user E6FD1269CD0C009E pygost-"$release".tar.xz
 tarball=pygost-"$release".tar.xz
 size=$(( $(wc -c < $tarball) / 1024 ))
 hash=$(gpg --print-md SHA256 < $tarball)
-hashsb=$($HOME/work/gogost/gogost-streebog < $tarball)
+hashsb=$($HOME/work/gogost/streebog256 < $tarball)
 
 cat <<EOF
 An entry for documentation:
