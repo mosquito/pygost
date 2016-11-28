@@ -1,3 +1,6 @@
+3.1:
+    Fixed mypy stubs related to PEP247-successors.
+
 3.0:
     * gost3411_94 renamed to gost341194
     * gost3411_2012 renamed and split to gost34112012256, gost34112012512

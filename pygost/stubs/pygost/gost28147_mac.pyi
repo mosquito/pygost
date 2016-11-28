@@ -1,4 +1,7 @@
-class MAC:
+from pygost.iface import PEP247
+
+
+class MAC(PEP247):
     def __init__(
         self,
         key: bytes,

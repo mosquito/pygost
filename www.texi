@@ -88,6 +88,9 @@ mailing list. Announcements also go to this mailing list.
 @unnumbered News
 
 @table @strong
+@item 3.1
+Fixed mypy stubs related to PEP247-successors.
+
 @item 3.0
     @itemize
     @item @code{gost3411_94} renamed to @code{gost341194}

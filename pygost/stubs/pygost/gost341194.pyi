@@ -1,4 +1,7 @@
-class GOST341194:
+from pygost.iface import PEP247
+
+
+class GOST341194(PEP247):
     def __init__(self, data: bytes=..., sbox: str=...) -> None: ...
 
     @property
