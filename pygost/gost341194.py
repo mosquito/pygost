@@ -34,7 +34,7 @@ from pygost.utils import hexdec
 from pygost.utils import hexenc
 from pygost.utils import long2bytes
 from pygost.utils import strxor
-from pygost.utils import xrange
+from pygost.utils import xrange  # pylint: disable=redefined-builtin
 
 
 DEFAULT_SBOX = "GostR3411_94_TestParamSet"
@@ -161,18 +161,18 @@ class GOST341194(PEP247):
     def digest(self):
         """ Get hash of the provided data
         """
-        l = 0
+        _len = 0
         checksum = 0
         h = 32 * b"\x00"
         m = self.data
         for i in xrange(0, len(m), BLOCKSIZE):
             part = m[i:i + BLOCKSIZE][::-1]
-            l += len(part) * 8
+            _len += len(part) * 8
             checksum = addmod(checksum, int(hexenc(part), 16), 2 ** 256)
             if len(part) < BLOCKSIZE:
                 part = b"\x00" * (BLOCKSIZE - len(part)) + part
             h = _step(h, part, self.sbox)
-        h = _step(h, 24 * b"\x00" + pack(">Q", l), self.sbox)
+        h = _step(h, 24 * b"\x00" + pack(">Q", _len), self.sbox)
 
         checksum = hex(checksum)[2:].rstrip("L")
         if len(checksum) % 2 != 0:

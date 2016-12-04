@@ -20,7 +20,7 @@ from codecs import getencoder
 from sys import version_info
 
 
-xrange = range if version_info[0] == 3 else xrange
+xrange = range if version_info[0] == 3 else xrange  # pylint: disable=redefined-builtin
 
 
 def strxor(a, b):

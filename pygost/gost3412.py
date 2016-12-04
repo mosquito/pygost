@@ -24,7 +24,7 @@ Several precalculations are performed during this module importing.
 """
 
 from pygost.utils import strxor
-from pygost.utils import xrange
+from pygost.utils import xrange  # pylint: disable=redefined-builtin
 
 
 LC = bytearray((
@@ -75,7 +75,10 @@ def gf(a, b):
 # optimization.
 # Actually it can be computed only once and saved on the disk.
 ########################################################################
+
+
 GF = [bytearray(256) for _ in xrange(256)]
+
 for x in xrange(256):
     for y in xrange(256):
         GF[x][y] = gf(x, y)
@@ -104,7 +107,10 @@ def Linv(blk):
 # Precalculate values of the C -- it does not depend on key.
 # Actually it can be computed only once and saved on the disk.
 ########################################################################
+
+
 C = []
+
 for x in range(1, 33):
     y = bytearray(16)
     y[15] = x
