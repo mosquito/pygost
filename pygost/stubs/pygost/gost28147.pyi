@@ -1,7 +1,11 @@
 from typing import Callable
+from typing import Dict
 from typing import Sequence
 from typing import Tuple
 
+
+SBOXES = ...  # type: Dict[str, Tuple[Tuple[int, ...], ...]]
+BLOCKSIZE = ...  # type: int
 
 Words = Tuple[int, int]
 
@@ -37,6 +41,20 @@ def ecb(
     key: bytes,
     data: bytes,
     action: Callable[[str, bytes, Words], Words],
+    sbox: str=...,
+) -> bytes: ...
+
+
+def ecb_encrypt(
+    key: bytes,
+    data: bytes,
+    sbox: str=...,
+) -> bytes: ...
+
+
+def ecb_decrypt(
+    key: bytes,
+    data: bytes,
     sbox: str=...,
 ) -> bytes: ...
 
