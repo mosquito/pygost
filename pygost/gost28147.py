@@ -24,8 +24,8 @@ data lengths.
 
 from functools import partial
 
-from pygost.gost3413 import pad1
 from pygost.gost3413 import pad2
+from pygost.gost3413 import pad_size
 from pygost.utils import hexdec
 from pygost.utils import strxor
 from pygost.utils import xrange  # pylint: disable=redefined-builtin
@@ -378,14 +378,12 @@ def cnt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX):
     if not data:
         raise ValueError("No data supplied")
     n2, n1 = encrypt(sbox, key, block2ns(iv))
-    size = len(data)
-    data = pad1(data, BLOCKSIZE)
     gamma = []
-    for _ in xrange(0, len(data), BLOCKSIZE):
+    for _ in xrange(0, len(data) + pad_size(len(data), BLOCKSIZE), BLOCKSIZE):
         n1 = addmod(n1, C2, 2 ** 32)
         n2 = addmod(n2, C1, 2 ** 32 - 1)
         gamma.append(ns2block(encrypt(sbox, key, (n1, n2))))
-    return strxor(b"".join(gamma), data[:size])
+    return strxor(b"".join(gamma), data)
 
 
 MESH_CONST = hexdec("6900722264C904238D3ADB9646E92AC418FEAC9400ED0712C086DCC2EF4CA92B")
@@ -418,10 +416,8 @@ def cfb_encrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     validate_sbox(sbox)
     if not data:
         raise ValueError("No data supplied")
-    size = len(data)
-    data = pad1(data, BLOCKSIZE)
     ciphertext = [iv]
-    for i in xrange(0, len(data), BLOCKSIZE):
+    for i in xrange(0, len(data) + pad_size(len(data), BLOCKSIZE), BLOCKSIZE):
         if mesh and i >= MESH_MAX_DATA and i % MESH_MAX_DATA == 0:
             key, iv = meshing(key, ciphertext[-1], sbox=sbox)
             ciphertext.append(strxor(
@@ -433,7 +429,7 @@ def cfb_encrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
             data[i:i + BLOCKSIZE],
             ns2block(encrypt(sbox, key, block2ns(ciphertext[-1]))),
         ))
-    return b"".join(ciphertext[1:])[:size]
+    return b"".join(ciphertext[1:])
 
 
 def cfb_decrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
@@ -454,11 +450,9 @@ def cfb_decrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
     validate_sbox(sbox)
     if not data:
         raise ValueError("No data supplied")
-    size = len(data)
-    data = pad1(data, BLOCKSIZE)
     plaintext = []
     data = iv + data
-    for i in xrange(BLOCKSIZE, len(data), BLOCKSIZE):
+    for i in xrange(BLOCKSIZE, len(data) + pad_size(len(data), BLOCKSIZE), BLOCKSIZE):
         if (
                 mesh and
                 (i - BLOCKSIZE) >= MESH_MAX_DATA and
@@ -474,4 +468,4 @@ def cfb_decrypt(key, data, iv=8 * b"\x00", sbox=DEFAULT_SBOX, mesh=False):
             data[i:i + BLOCKSIZE],
             ns2block(encrypt(sbox, key, block2ns(data[i - BLOCKSIZE:i]))),
         ))
-    return b"".join(plaintext)[:size]
+    return b"".join(plaintext)
