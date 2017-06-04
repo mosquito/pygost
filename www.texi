@@ -49,7 +49,8 @@ Currently supported algorithms are:
     (using GOST algorithms with X.509) compatibility helpers
 @item GOST R 34.12-2015 128-bit block cipher Кузнечик (Kuznechik)
     (@url{https://tools.ietf.org/html/rfc7801.html, RFC 7801})
-@item GOST R 34.13-2015 padding methods
+@item GOST R 34.13-2015 padding methods and block cipher modes of operation
+      (ECB, CTR, OFB, CBC, CFB, MAC)
 @item PEP247-compatible hash/MAC functions
 @end itemize
 
@@ -88,6 +89,9 @@ mailing list. Announcements also go to this mailing list.
 @unnumbered News
 
 @table @strong
+@item 3.2
+34.13-2015 block cipher modes of operation implementations.
+
 @item 3.1
 Fixed mypy stubs related to PEP247-successors.
 

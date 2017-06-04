@@ -9,3 +9,4 @@ test:
 	PYTHONPATH=.. $(PYTHON) -m unittest test_gost3410_vko
 	PYTHONPATH=.. $(PYTHON) -m unittest test_wrap
 	PYTHONPATH=.. $(PYTHON) -m unittest test_gost3412
+	PYTHONPATH=.. $(PYTHON) -m unittest test_gost3413

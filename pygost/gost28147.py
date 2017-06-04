@@ -26,6 +26,7 @@ from functools import partial
 
 from pygost.gost3413 import pad2
 from pygost.gost3413 import pad_size
+from pygost.gost3413 import unpad2
 from pygost.utils import hexdec
 from pygost.utils import strxor
 from pygost.utils import xrange  # pylint: disable=redefined-builtin
@@ -347,14 +348,7 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
             data[i - BLOCKSIZE:i],
         ))
     if pad:
-        last_block = bytearray(plaintext[-1])
-        pad_index = last_block.rfind(b"\x80")
-        if pad_index == -1:
-            raise ValueError("Invalid padding")
-        for c in last_block[pad_index + 1:]:
-            if c != 0:
-                raise ValueError("Invalid padding")
-        plaintext[-1] = bytes(last_block[:pad_index])
+        plaintext[-1] = unpad2(plaintext[-1], BLOCKSIZE)
     return b"".join(plaintext)
 
 
