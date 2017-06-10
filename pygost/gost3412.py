@@ -121,7 +121,7 @@ def lp(blk):
     return L([PI[v] for v in blk])
 
 
-class GOST3412Kuz(object):
+class GOST3412Kuznechik(object):
     """GOST 34.12-2015 128-bit block cipher Кузнечик (Kuznechik)
     """
     def __init__(self, key):

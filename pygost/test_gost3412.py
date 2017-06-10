@@ -18,7 +18,7 @@
 from unittest import TestCase
 
 from pygost.gost3412 import C
-from pygost.gost3412 import GOST3412Kuz
+from pygost.gost3412 import GOST3412Kuznechik
 from pygost.gost3412 import L
 from pygost.gost3412 import PI
 from pygost.utils import hexdec
@@ -102,7 +102,7 @@ class KuznechikTest(TestCase):
         self.assertEqual(C[7], hexdec("f6593616e6055689adfba18027aa2a08"))
 
     def test_roundkeys(self):
-        ciph = GOST3412Kuz(self.key)
+        ciph = GOST3412Kuznechik(self.key)
         self.assertEqual(ciph.ks[0], hexdec("8899aabbccddeeff0011223344556677"))
         self.assertEqual(ciph.ks[1], hexdec("fedcba98765432100123456789abcdef"))
         self.assertEqual(ciph.ks[2], hexdec("db31485315694343228d6aef8cc78c44"))
@@ -115,9 +115,9 @@ class KuznechikTest(TestCase):
         self.assertEqual(ciph.ks[9], hexdec("72e9dd7416bcf45b755dbaa88e4a4043"))
 
     def test_encrypt(self):
-        ciph = GOST3412Kuz(self.key)
+        ciph = GOST3412Kuznechik(self.key)
         self.assertEqual(ciph.encrypt(self.plaintext), self.ciphertext)
 
     def test_decrypt(self):
-        ciph = GOST3412Kuz(self.key)
+        ciph = GOST3412Kuznechik(self.key)
         self.assertEqual(ciph.decrypt(self.ciphertext), self.plaintext)

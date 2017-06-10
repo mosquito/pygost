@@ -2,7 +2,7 @@ from os import urandom
 from random import randint
 from unittest import TestCase
 
-from pygost.gost3412 import GOST3412Kuz
+from pygost.gost3412 import GOST3412Kuznechik
 from pygost.gost3413 import _mac_ks
 from pygost.gost3413 import cbc_decrypt
 from pygost.gost3413 import cbc_encrypt
@@ -30,9 +30,9 @@ class Pad2Test(TestCase):
                 )
 
 
-class GOST3412KuzModesTest(TestCase):
+class GOST3412KuznechikModesTest(TestCase):
     key = hexdec("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef")
-    ciph = GOST3412Kuz(key)
+    ciph = GOST3412Kuznechik(key)
     plaintext = ""
     plaintext += "1122334455667700ffeeddccbbaa9988"
     plaintext += "00112233445566778899aabbcceeff0a"
@@ -58,7 +58,7 @@ class GOST3412KuzModesTest(TestCase):
     def test_ecb_symmetric(self):
         for _ in range(100):
             pt = pad2(urandom(randint(0, 16 * 2)), 16)
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             ct = ecb_encrypt(ciph.encrypt, 16, pt)
             self.assertSequenceEqual(ecb_decrypt(ciph.decrypt, 16, ct), pt)
 
@@ -82,7 +82,7 @@ class GOST3412KuzModesTest(TestCase):
         for _ in range(100):
             pt = urandom(randint(0, 16 * 2))
             iv = urandom(8)
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             ct = ctr(ciph.encrypt, 16, pt, iv)
             self.assertSequenceEqual(ctr(ciph.encrypt, 16, ct, iv), pt)
 
@@ -105,7 +105,7 @@ class GOST3412KuzModesTest(TestCase):
         for _ in range(100):
             pt = urandom(randint(0, 16 * 2))
             iv = urandom(16 * 2)
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             ct = ofb(ciph.encrypt, 16, pt, iv)
             self.assertSequenceEqual(ofb(ciph.encrypt, 16, ct, iv), pt)
 
@@ -128,7 +128,7 @@ class GOST3412KuzModesTest(TestCase):
         for _ in range(100):
             pt = pad2(urandom(randint(0, 16 * 2)), 16)
             iv = urandom(16 * 2)
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             ct = cbc_encrypt(ciph.encrypt, 16, pt, iv)
             self.assertSequenceEqual(cbc_decrypt(ciph.decrypt, 16, ct, iv), pt)
 
@@ -151,7 +151,7 @@ class GOST3412KuzModesTest(TestCase):
         for _ in range(100):
             pt = urandom(randint(0, 16 * 2))
             iv = urandom(16 * 2)
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             ct = cfb_encrypt(ciph.encrypt, 16, pt, iv)
             self.assertSequenceEqual(cfb_decrypt(ciph.encrypt, 16, ct, iv), pt)
 
@@ -167,5 +167,5 @@ class GOST3412KuzModesTest(TestCase):
     def test_mac_applies(self):
         for _ in range(100):
             data = urandom(randint(0, 16 * 2))
-            ciph = GOST3412Kuz(urandom(32))
+            ciph = GOST3412Kuznechik(urandom(32))
             mac(ciph.encrypt, 16, data)

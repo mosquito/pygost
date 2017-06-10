@@ -1,3 +1,6 @@
+3.3:
+    * GOST3412Kuz renamed to GOST3412Kuznezhik
+
 3.2:
     34.13-2015 block cipher modes of operation implementations.
 
