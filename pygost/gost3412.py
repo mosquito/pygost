@@ -14,15 +14,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""GOST 34.12-2015 128-bit block cipher Кузнечик (Kuznechik)
-
-:rfc:`7801`. Pay attention that 34.12-2015 also defines 64-bit block
-cipher Магма (Magma) -- it is **not** implemented here, but in gost28147
-module.
+"""GOST 34.12-2015 64 and 128 bit block ciphers (:rfc:`7801`)
 
 Several precalculations are performed during this module importing.
 """
 
+from pygost.gost28147 import block2ns as gost28147_block2ns
+from pygost.gost28147 import decrypt as gost28147_decrypt
+from pygost.gost28147 import encrypt as gost28147_encrypt
+from pygost.gost28147 import ns2block as gost28147_ns2block
 from pygost.utils import strxor
 from pygost.utils import xrange  # pylint: disable=redefined-builtin
 
@@ -152,3 +152,30 @@ class GOST3412Kuznechik(object):
         for i in range(9, 0, -1):
             blk = [PIinv[v] for v in Linv(bytearray(strxor(self.ks[i], blk)))]
         return bytes(strxor(self.ks[0], blk))
+
+
+class GOST3412Magma(object):
+    """GOST 34.12-2015 64-bit block cipher Магма (Magma)
+    """
+    def __init__(self, key):
+        """
+        :param key: encryption/decryption key
+        :type key: bytes, 32 bytes
+        """
+        # Backward compatibility key preparation for 28147-89 key schedule
+        self.key = b"".join(key[i * 4:i * 4 + 4][::-1] for i in range(8))
+        self.sbox = "Gost28147_tc26_ParamZ"
+
+    def encrypt(self, blk):
+        return gost28147_ns2block(gost28147_encrypt(
+            self.sbox,
+            self.key,
+            gost28147_block2ns(blk[::-1]),
+        ))[::-1]
+
+    def decrypt(self, blk):
+        return gost28147_ns2block(gost28147_decrypt(
+            self.sbox,
+            self.key,
+            gost28147_block2ns(blk[::-1]),
+        ))[::-1]

@@ -132,12 +132,12 @@ def ofb(encrypter, bs, data, iv):
 
     For decryption you use the same function again.
     """
-    if len(iv) != 2 * bs:
+    if len(iv) < 2 * bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
-    r = [iv[:bs], iv[bs:]]
+    r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     result = []
     for i in xrange(0, len(data) + pad_size(len(data), bs), bs):
-        r = [r[1], encrypter(r[0])]
+        r = r[1:] + [encrypter(r[0])]
         result.append(strxor(r[1], data[i:i + bs]))
     return b"".join(result)
 
@@ -152,13 +152,13 @@ def cbc_encrypt(encrypter, bs, pt, iv):
     """
     if not pt or len(pt) % bs != 0:
         raise ValueError("Plaintext is not blocksize aligned")
-    if len(iv) != 2 * bs:
+    if len(iv) < 2 * bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
-    r = [iv[:bs], iv[bs:]]
+    r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     ct = []
     for i in xrange(0, len(pt), bs):
         ct.append(encrypter(strxor(r[0], pt[i:i + bs])))
-        r = [r[1], ct[-1]]
+        r = r[1:] + [ct[-1]]
     return b"".join(ct)
 
 
@@ -172,14 +172,14 @@ def cbc_decrypt(decrypter, bs, ct, iv):
     """
     if not ct or len(ct) % bs != 0:
         raise ValueError("Ciphertext is not blocksize aligned")
-    if len(iv) != 2 * bs:
+    if len(iv) < 2 * bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
-    r = [iv[:bs], iv[bs:]]
+    r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     pt = []
     for i in xrange(0, len(ct), bs):
         blk = ct[i:i + bs]
         pt.append(strxor(r[0], decrypter(blk)))
-        r = [r[1], blk]
+        r = r[1:] + [blk]
     return b"".join(pt)
 
 
@@ -191,13 +191,13 @@ def cfb_encrypt(encrypter, bs, pt, iv):
     :param bytes pt: plaintext
     :param bytes iv: double blocksize-sized initialization vector
     """
-    if len(iv) != 2 * bs:
+    if len(iv) < 2 * bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
-    r = [iv[:bs], iv[bs:]]
+    r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     ct = []
     for i in xrange(0, len(pt) + pad_size(len(pt), bs), bs):
         ct.append(strxor(encrypter(r[0]), pt[i:i + bs]))
-        r = [r[1], ct[-1]]
+        r = r[1:] + [ct[-1]]
     return b"".join(ct)
 
 
@@ -209,14 +209,14 @@ def cfb_decrypt(encrypter, bs, ct, iv):
     :param bytes ct: ciphertext
     :param bytes iv: double blocksize-sized initialization vector
     """
-    if len(iv) != 2 * bs:
+    if len(iv) < 2 * bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
-    r = [iv[:bs], iv[bs:]]
+    r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     pt = []
     for i in xrange(0, len(ct) + pad_size(len(ct), bs), bs):
         blk = ct[i:i + bs]
         pt.append(strxor(encrypter(r[0]), blk))
-        r = [r[1], blk]
+        r = r[1:] + [blk]
     return b"".join(pt)
 
 

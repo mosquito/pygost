@@ -19,6 +19,7 @@ from unittest import TestCase
 
 from pygost.gost3412 import C
 from pygost.gost3412 import GOST3412Kuznechik
+from pygost.gost3412 import GOST3412Magma
 from pygost.gost3412 import L
 from pygost.gost3412 import PI
 from pygost.utils import hexdec
@@ -120,4 +121,18 @@ class KuznechikTest(TestCase):
 
     def test_decrypt(self):
         ciph = GOST3412Kuznechik(self.key)
+        self.assertEqual(ciph.decrypt(self.ciphertext), self.plaintext)
+
+
+class MagmaTest(TestCase):
+    key = hexdec("ffeeddccbbaa99887766554433221100f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
+    plaintext = hexdec("fedcba9876543210")
+    ciphertext = hexdec("4ee901e5c2d8ca3d")
+
+    def test_encrypt(self):
+        ciph = GOST3412Magma(self.key)
+        self.assertEqual(ciph.encrypt(self.plaintext), self.ciphertext)
+
+    def test_decrypt(self):
+        ciph = GOST3412Magma(self.key)
         self.assertEqual(ciph.decrypt(self.ciphertext), self.plaintext)

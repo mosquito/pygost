@@ -49,6 +49,7 @@ Currently supported algorithms are:
     (using GOST algorithms with X.509) compatibility helpers
 @item GOST R 34.12-2015 128-bit block cipher Кузнечик (Kuznechik)
     (@url{https://tools.ietf.org/html/rfc7801.html, RFC 7801})
+@item GOST R 34.12-2015 64-bit block cipher Магма (Magma)
 @item GOST R 34.13-2015 padding methods and block cipher modes of operation
       (ECB, CTR, OFB, CBC, CFB, MAC)
 @item PEP247-compatible hash/MAC functions
@@ -92,6 +93,8 @@ mailing list. Announcements also go to this mailing list.
 @item 3.3
     @itemize
     @item @code{GOST3412Kuz} renamed to @code{GOST3412Kuznezhik}
+    @item @code{GOST3412Magma} implements GOST R 34.12-2015 Magma 64-bit
+        block cipher
     @end itemize
 
 @item 3.2
