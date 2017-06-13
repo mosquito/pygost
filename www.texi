@@ -92,7 +92,7 @@ mailing list. Announcements also go to this mailing list.
 @table @strong
 @item 3.3
     @itemize
-    @item @code{GOST3412Kuz} renamed to @code{GOST3412Kuznezhik}
+    @item @code{GOST3412Kuz} renamed to @code{GOST3412Kuznechik}
     @item @code{GOST3412Magma} implements GOST R 34.12-2015 Magma 64-bit
         block cipher
     @end itemize

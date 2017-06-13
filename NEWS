@@ -1,5 +1,5 @@
 3.3:
-    * GOST3412Kuz renamed to GOST3412Kuznezhik
+    * GOST3412Kuz renamed to GOST3412Kuznechik
     * GOST3412Magma implements GOST R 34.12-2015 Magma 64-bit block cipher
 
 3.2:
