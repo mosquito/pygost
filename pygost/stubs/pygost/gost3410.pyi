@@ -2,6 +2,7 @@ from typing import Dict
 from typing import Tuple
 
 
+DEFAULT_CURVE = ...  # type: str
 CURVE_PARAMS = ...  # type: Dict[str, Tuple[bytes, bytes, bytes, bytes, bytes, bytes]]
 PublicKey = Tuple[int, int]
 
