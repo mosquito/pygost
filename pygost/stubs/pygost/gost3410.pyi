@@ -4,6 +4,7 @@ from typing import Tuple
 
 DEFAULT_CURVE = ...  # type: str
 CURVE_PARAMS = ...  # type: Dict[str, Tuple[bytes, bytes, bytes, bytes, bytes, bytes]]
+MODE2SIZE = ...  # type: Dict[int, int]
 PublicKey = Tuple[int, int]
 
 
