@@ -8,7 +8,7 @@ setup(
     description="Pure Python GOST cryptographic functions library",
     author="Sergey Matveev",
     author_email="stargrave@stargrave.org",
-    url="http://www.cypherpunks.ru/pygost/",
+    url="http://pygost.cypherpunks.ru/",
     license="GPLv3+",
     classifiers=[
         "Development Status :: 5 - Production/Stable",

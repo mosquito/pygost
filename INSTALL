@@ -3,8 +3,8 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature from official
 website:
 
-    % wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz
-    % wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz.sig
+    % wget http://pygost.cypherpunks.ru/pygost-2.3.tar.xz
+    % wget http://pygost.cypherpunks.ru/pygost-2.3.tar.xz.sig
     % gpg --verify pygost-2.3.tar.xz.sig pygost-2.3.tar.xz
     % xz -d < pygost-2.3.tar.xz | tar xf -
     % cd pygost-2.3

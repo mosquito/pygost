@@ -15,7 +15,9 @@ It is
 @url{https://www.gnu.org/philosophy/pragmatic.html, copylefted}
 @url{https://www.gnu.org/philosophy/free-sw.html, free software}:
 licenced under @url{https://www.gnu.org/licenses/gpl-3.0.html, GPLv3+}.
-You can read about GOST algorithms @url{http://www.cypherpunks.ru/gost/, more}.
+You can read about GOST algorithms @url{http://gost.cypherpunks.ru/, more}.
+
+Site is also available as @url{http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/, I2P service}.
 
 Currently supported algorithms are:
 
@@ -182,8 +184,8 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature:
 
 @verbatim
-% wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz
-% wget http://www.cypherpunks.ru/pygost/pygost-2.3.tar.xz.sig
+% wget http://pygost.cypherpunks.ru/pygost-2.3.tar.xz
+% wget http://pygost.cypherpunks.ru/pygost-2.3.tar.xz.sig
 % gpg --verify pygost-2.3.tar.xz.sig pygost-2.3.tar.xz
 % xz -d < pygost-2.3.tar.xz | tar xf -
 % cd pygost-2.3

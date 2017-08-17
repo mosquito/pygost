@@ -39,12 +39,14 @@ The main improvements for that release are:
 
 ------------------------ >8 ------------------------
 
-PyGOST'es home page is: http://www.cypherpunks.ru/pygost/
+PyGOST'es home page is: http://pygost.cypherpunks.ru/
+Also available as I2P service:
+http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/
 
 Source code and its signature for that version can be found here:
 
-    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz ($size KiB)
-    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz.sig
+    http://pygost.cypherpunks.ru/pygost-${release}.tar.xz ($size KiB)
+    http://pygost.cypherpunks.ru/pygost-${release}.tar.xz.sig
 
 Streebog-256 hash: $hashsb
 SHA256 hash: $hash
@@ -71,12 +73,14 @@ PyGOST это свободное программное обеспечение �
 
 ------------------------ >8 ------------------------
 
-Домашняя страница PyGOST: http://www.cypherpunks.ru/pygost/
+Домашняя страница PyGOST: http://pygost.cypherpunks.ru/
+Также доступная как I2P сервис:
+http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/
 
 Исходный код и его подпись для этой версии могут быть найдены здесь:
 
-    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz ($size KiB)
-    http://www.cypherpunks.ru/pygost/pygost-${release}.tar.xz.sig
+    http://pygost.cypherpunks.ru/pygost-${release}.tar.xz ($size KiB)
+    http://pygost.cypherpunks.ru/pygost-${release}.tar.xz.sig
 
 Streebog-256 хэш: $hashsb
 SHA256 хэш: $hash
