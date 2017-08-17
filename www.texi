@@ -92,6 +92,9 @@ mailing list. Announcements also go to this mailing list.
 @unnumbered News
 
 @table @strong
+@item 3.4
+Small mypy stubs related fixes.
+
 @item 3.3
     @itemize
     @item @code{GOST3412Kuz} renamed to @code{GOST3412Kuznechik}
