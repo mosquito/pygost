@@ -198,6 +198,11 @@ Preferable way is to download tarball with the signature:
 @multitable {XXXXX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
 @headitem Version @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
 
+@item 3.4 @tab 43 KiB
+@tab @url{pygost-3.4.tar.xz, link} @url{pygost-3.4.tar.xz.sig, sign}
+@tab @code{89715612 8A197071 AD7689FA 96F89304 19E42F76 87632309 B47E5FDE 1AD6126D}
+@tab @code{e590ddc7485e6f99658f26ac23cd2266648f27efa584a33f93abec8b80e1771d}
+
 @item 3.3 @tab 41 KiB
 @tab @url{pygost-3.3.tar.xz, link} @url{pygost-3.3.tar.xz.sig, sign}
 @tab @code{D118F539 537CCD5D 9CCE850E DD8EFD8E ACDA9D6E 0C113A0F C575574A F4BD452A}
