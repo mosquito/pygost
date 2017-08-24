@@ -10,7 +10,7 @@ setup(
     author_email="stargrave@stargrave.org",
     url="http://pygost.cypherpunks.ru/",
     license="GPLv3+",
-    classifiers=(
+    classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
@@ -19,7 +19,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Topic :: Security :: Cryptography",
         "Topic :: Software Development :: Libraries :: Python Modules",
-    ),
+    ],
     package_data={
         "pygost": ["stubs/**/*.pyi"],
     },
