@@ -6,6 +6,7 @@ setup(
     name="pygost",
     version=version,
     description="Pure Python GOST cryptographic functions library",
+    long_description=open("README", "rb").read().decode("utf-8"),
     author="Sergey Matveev",
     author_email="stargrave@stargrave.org",
     url="http://pygost.cypherpunks.ru/",

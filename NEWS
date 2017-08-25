@@ -1,3 +1,6 @@
+3.5:
+    Dummy release: added long description in package metadata.
+
 3.4:
     Small mypy stubs related fixes.
 
