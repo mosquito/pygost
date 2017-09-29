@@ -254,7 +254,7 @@ authenticity to be sure that you retrieved trusted and untampered
 software. @url{https://www.gnupg.org/, The GNU Privacy Guard} is used
 for that purpose.
 
-For the very first time it it necessary to get signing public key and
+For the very first time it is necessary to get signing public key and
 import it. It is provided below, but you should check alternative
 resources.
 
