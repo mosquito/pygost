@@ -1,0 +1,10 @@
+include AUTHORS
+include COPYING
+include COPYING.LESSER
+include INSTALL
+include NEWS
+include PUBKEY.asc
+include README
+include THANKS
+include VERSION
+recursive-include tests *.py *.pyi
