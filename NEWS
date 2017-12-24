@@ -1,3 +1,6 @@
+3.7:
+    Fixed 34.13-2015 OFB bug with IVs longer than 2 blocks.
+
 3.6:
     Fixed source files installation during setup.py install invocation.
 
