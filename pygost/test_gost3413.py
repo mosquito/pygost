@@ -18,6 +18,7 @@ from pygost.gost3413 import pad2
 from pygost.gost3413 import unpad2
 from pygost.utils import hexdec
 from pygost.utils import hexenc
+from pygost.utils import strxor
 
 
 class Pad2Test(TestCase):
@@ -109,6 +110,19 @@ class GOST3412KuznechikModesTest(TestCase):
             ciph = GOST3412Kuznechik(urandom(32))
             ct = ofb(ciph.encrypt, 16, pt, iv)
             self.assertSequenceEqual(ofb(ciph.encrypt, 16, ct, iv), pt)
+
+    def test_ofb_manual(self):
+        iv = [urandom(16) for _ in range(randint(2, 10))]
+        pt = [urandom(16) for _ in range(len(iv), len(iv) + randint(1, 10))]
+        ciph = GOST3412Kuznechik(urandom(32))
+        r = [ciph.encrypt(i) for i in iv]
+        for i in range(len(pt) - len(iv)):
+            r.append(ciph.encrypt(r[i]))
+        ct = [strxor(g, r) for g, r in zip(pt, r)]
+        self.assertSequenceEqual(
+            ofb(ciph.encrypt, 16, b"".join(pt), b"".join(iv)),
+            b"".join(ct),
+        )
 
     def test_cbc_vectors(self):
         ciphtext = ""

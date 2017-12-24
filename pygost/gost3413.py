@@ -138,7 +138,7 @@ def ofb(encrypter, bs, data, iv):
     result = []
     for i in xrange(0, len(data) + pad_size(len(data), bs), bs):
         r = r[1:] + [encrypter(r[0])]
-        result.append(strxor(r[1], data[i:i + bs]))
+        result.append(strxor(r[-1], data[i:i + bs]))
     return b"".join(result)
 
 
