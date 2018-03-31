@@ -17,8 +17,6 @@ It is
 licenced under @url{https://www.gnu.org/licenses/gpl-3.0.html, GPLv3+}.
 You can read about GOST algorithms @url{http://gost.cypherpunks.ru/, more}.
 
-Site is also available as @url{http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/, I2P service}.
-
 Currently supported algorithms are:
 
 @itemize

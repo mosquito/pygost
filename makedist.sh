@@ -40,8 +40,6 @@ The main improvements for that release are:
 ------------------------ >8 ------------------------
 
 PyGOST'es home page is: http://pygost.cypherpunks.ru/
-Also available as I2P service:
-http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/
 
 Source code and its signature for that version can be found here:
 
@@ -74,8 +72,6 @@ PyGOST это свободное программное обеспечение �
 ------------------------ >8 ------------------------
 
 Домашняя страница PyGOST: http://pygost.cypherpunks.ru/
-Также доступная как I2P сервис:
-http://ynvvto3unx63wbqmwg7mpdgy3ebven7ihhse6bh5yudwllugd6oa.b32.i2p/
 
 Исходный код и его подпись для этой версии могут быть найдены здесь:
 
