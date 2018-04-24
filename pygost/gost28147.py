@@ -318,8 +318,6 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
 
     :param bytes key: encryption key
     :param bytes data: ciphertext
-    :param iv: initialization vector
-    :type iv: bytes, BLOCKSIZE length
     :type bool pad: perform ISO/IEC 7816-4 unpadding after decryption
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
