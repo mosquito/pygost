@@ -5,6 +5,7 @@ taken according to specification's terminology.
 """
 
 from pygost.gost34112012 import GOST34112012
+from pygost.pbkdf2 import pbkdf2 as pbkdf2_base
 
 
 class GOST34112012512(GOST34112012):
@@ -14,3 +15,7 @@ class GOST34112012512(GOST34112012):
 
 def new(data=b''):
     return GOST34112012512(data)
+
+
+def pbkdf2(password, salt, iterations, dklen):
+    return pbkdf2_base(GOST34112012512, password, salt, iterations, dklen)

@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from unittest import skip
 from unittest import TestCase
 import hmac
 
@@ -22,7 +23,9 @@ from pygost import gost34112012256
 from pygost import gost34112012512
 from pygost.gost34112012256 import GOST34112012256
 from pygost.gost34112012512 import GOST34112012512
+from pygost.gost34112012512 import pbkdf2
 from pygost.utils import hexdec
+from pygost.utils import hexenc
 
 
 class TestCopy(TestCase):
@@ -82,4 +85,50 @@ class TestVectors(TestCase):
         self.assertEqual(
             GOST34112012256(m).digest(),
             hexdec("508f7e553c06501d749a66fc28c6cac0b005746d97537fa85d9e40904efed29d")[::-1]
+        )
+
+
+class TestPBKDF2(TestCase):
+    """http://tc26.ru/.../R_50.1.111-2016.pdf
+    """
+    def test_1(self):
+        self.assertEqual(
+            hexenc(pbkdf2(b"password", b"salt", 1, 64)),
+            "64770af7f748c3b1c9ac831dbcfd85c26111b30a8a657ddc3056b80ca73e040d2854fd36811f6d825cc4ab66ec0a68a490a9e5cf5156b3a2b7eecddbf9a16b47",
+        )
+
+    def test_2(self):
+        self.assertEqual(
+            hexenc(pbkdf2(b"password", b"salt", 2, 64)),
+            "5a585bafdfbb6e8830d6d68aa3b43ac00d2e4aebce01c9b31c2caed56f0236d4d34b2b8fbd2c4e89d54d46f50e47d45bbac301571743119e8d3c42ba66d348de",
+        )
+
+    def test_3(self):
+        self.assertEqual(
+            hexenc(pbkdf2(b"password", b"salt", 4096, 64)),
+            "e52deb9a2d2aaff4e2ac9d47a41f34c20376591c67807f0477e32549dc341bc7867c09841b6d58e29d0347c996301d55df0d34e47cf68f4e3c2cdaf1d9ab86c3",
+        )
+
+    @skip("it takes too long")
+    def test_4(self):
+        self.assertEqual(
+            hexenc(pbkdf2(b"password", b"salt", 1677216, 64)),
+            "49e4843bba76e300afe24c4d23dc7392def12f2c0e244172367cd70a8982ac361adb601c7e2a314e8cb7b1e9df840e36ab5615be5d742b6cf203fb55fdc48071",
+        )
+
+    def test_5(self):
+        self.assertEqual(
+            hexenc(pbkdf2(
+                b"passwordPASSWORDpassword",
+                b"saltSALTsaltSALTsaltSALTsaltSALTsalt",
+                4096,
+                100,
+            )),
+            "b2d8f1245fc4d29274802057e4b54e0a0753aa22fc53760b301cf008679e58fe4bee9addcae99ba2b0b20f431a9c5e50f395c89387d0945aedeca6eb4015dfc2bd2421ee9bb71183ba882ceebfef259f33f9e27dc6178cb89dc37428cf9cc52a2baa2d3a",
+        )
+
+    def test_6(self):
+        self.assertEqual(
+            hexenc(pbkdf2(b"pass\x00word", b"sa\x00lt", 4096, 64)),
+            "50df062885b69801a3c10248eb0a27ab6e522ffeb20c991c660f001475d73a4e167f782c18e97e92976d9c1d970831ea78ccb879f67068cdac1910740844e830",
         )
