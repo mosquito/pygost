@@ -128,11 +128,11 @@ def ofb(encrypter, bs, data, iv):
     :param encrypter: Encrypting function, that takes block as an input
     :param int bs: cipher's blocksize
     :param bytes data: plaintext/ciphertext
-    :param bytes iv: double blocksize-sized initialization vector
+    :param bytes iv: blocksize-sized initialization vector
 
     For decryption you use the same function again.
     """
-    if len(iv) < 2 * bs or len(iv) % bs != 0:
+    if len(iv) < bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
     r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     result = []
@@ -148,11 +148,11 @@ def cbc_encrypt(encrypter, bs, pt, iv):
     :param encrypter: Encrypting function, that takes block as an input
     :param int bs: cipher's blocksize
     :param bytes pt: already padded plaintext
-    :param bytes iv: double blocksize-sized initialization vector
+    :param bytes iv: blocksize-sized initialization vector
     """
     if not pt or len(pt) % bs != 0:
         raise ValueError("Plaintext is not blocksize aligned")
-    if len(iv) < 2 * bs or len(iv) % bs != 0:
+    if len(iv) < bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
     r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     ct = []
@@ -168,11 +168,11 @@ def cbc_decrypt(decrypter, bs, ct, iv):
     :param decrypter: Decrypting function, that takes block as an input
     :param int bs: cipher's blocksize
     :param bytes ct: ciphertext
-    :param bytes iv: double blocksize-sized initialization vector
+    :param bytes iv: blocksize-sized initialization vector
     """
     if not ct or len(ct) % bs != 0:
         raise ValueError("Ciphertext is not blocksize aligned")
-    if len(iv) < 2 * bs or len(iv) % bs != 0:
+    if len(iv) < bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
     r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     pt = []
@@ -189,9 +189,9 @@ def cfb_encrypt(encrypter, bs, pt, iv):
     :param encrypter: Encrypting function, that takes block as an input
     :param int bs: cipher's blocksize
     :param bytes pt: plaintext
-    :param bytes iv: double blocksize-sized initialization vector
+    :param bytes iv: blocksize-sized initialization vector
     """
-    if len(iv) < 2 * bs or len(iv) % bs != 0:
+    if len(iv) < bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
     r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     ct = []
@@ -207,9 +207,9 @@ def cfb_decrypt(encrypter, bs, ct, iv):
     :param encrypter: Encrypting function, that takes block as an input
     :param int bs: cipher's blocksize
     :param bytes ct: ciphertext
-    :param bytes iv: double blocksize-sized initialization vector
+    :param bytes iv: blocksize-sized initialization vector
     """
-    if len(iv) < 2 * bs or len(iv) % bs != 0:
+    if len(iv) < bs or len(iv) % bs != 0:
         raise ValueError("Invalid IV size")
     r = [iv[i:i + bs] for i in range(0, len(iv), bs)]
     pt = []

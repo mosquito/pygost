@@ -1,5 +1,6 @@
 3.8:
     * 34.11-2012 based PBKDF2 function added
+    * 34.13-2015 does not require double blocksized IVs
 
 3.7:
     Fixed 34.13-2015 OFB bug with IVs longer than 2 blocks.

@@ -94,6 +94,7 @@ mailing list. Announcements also go to this mailing list.
 @item 3.8
     @itemize
     @item 34.11-2012 based PBKDF2 function added
+    @item 34.13-2015 does not require double blocksized IVs
     @end itemize
 
 @item 3.7
