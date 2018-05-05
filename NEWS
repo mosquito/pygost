@@ -1,3 +1,6 @@
+3.9:
+    Add missing 34.11-2012 PBKDF2 typing stub.
+
 3.8:
     * 34.11-2012 based PBKDF2 function added
     * 34.13-2015 does not require double blocksized IVs

@@ -91,6 +91,9 @@ mailing list. Announcements also go to this mailing list.
 @unnumbered News
 
 @table @strong
+@item 3.9
+Add missing 34.11-2012 PBKDF2 typing stub.
+
 @item 3.8
     @itemize
     @item 34.11-2012 based PBKDF2 function added
