@@ -2,6 +2,8 @@ from pygost.iface import PEP247
 
 
 class GOST34112012256(PEP247):
+    block_size = ...  # type: int
+
     def __init__(self, data: bytes=...) -> None: ...
 
     @property

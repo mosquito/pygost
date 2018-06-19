@@ -2,6 +2,9 @@ from pygost.iface import PEP247
 
 
 class GOST341194(PEP247):
+    sbox = ...  # type: str
+    block_size = ...  # type: int
+
     def __init__(self, data: bytes=..., sbox: str=...) -> None: ...
 
     @property
