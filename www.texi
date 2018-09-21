@@ -91,6 +91,9 @@ mailing list. Announcements also go to this mailing list.
 @unnumbered News
 
 @table @strong
+@item 3.11
+Fixed PEP247 typing stub with invalid hexdigest method.
+
 @item 3.10
 Additional missing 34.11-* typing stubs.
 
