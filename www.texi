@@ -323,7 +323,6 @@ uid   PyGOST releases <pygost at cypherpunks dot ru>
 % gpg --keyserver hkp://keys.gnupg.net/ --recv-keys 0xE6FD1269CD0C009E
 % gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
 % gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
-% gpg --auto-key-locate pka --locate-keys pygost at cypherpunks dot ru
 @end verbatim
 
 @item
