@@ -19,7 +19,7 @@ release_date=$(date "+%Y-%m-%d")
 
 cat <<EOF
 An entry for documentation:
-@item $release @tab $release_date @tab $size KiB
+@item @ref{Release $release, $release} @tab $release_date @tab $size KiB
 @tab @url{pygost-${release}.tar.xz, link} @url{pygost-${release}.tar.xz.sig, sign}
 @tab @code{$hash}
 @tab @code{$hashsb}
