@@ -60,7 +60,7 @@ def kek_34102001(curve, prv, pub, ukm):
     ).digest()
 
 
-def kek_34102012256(curve, prv, pub, ukm=1):
+def kek_34102012256(curve, prv, pub, ukm=1, mode=2012):
     """ Key agreement (34.10-2012, 34.11-2012 256 bit)
 
     :param GOST3410Curve curve: curve to use
@@ -74,7 +74,7 @@ def kek_34102012256(curve, prv, pub, ukm=1):
     Shared Key Encryption Key computation is based on
     :rfc:`7836` VKO GOST R 34.10-2012.
     """
-    return GOST34112012256(kek(curve, prv, pub, ukm, mode=2012)).digest()
+    return GOST34112012256(kek(curve, prv, pub, ukm, mode=mode)).digest()
 
 
 def kek_34102012512(curve, prv, pub, ukm=1):
