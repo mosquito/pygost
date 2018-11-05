@@ -164,9 +164,9 @@ class GOST3410Curve(object):
         y = y or self.y
         tx = x
         ty = y
-        degree -= 1
         if degree == 0:
             raise ValueError("Bad degree value")
+        degree -= 1
         while degree != 0:
             if degree & 1 == 1:
                 tx, ty = self._add(tx, ty, x, y)

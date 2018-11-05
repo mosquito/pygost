@@ -8,6 +8,9 @@
     @itemize
     @item Added mode argument to @code{pygost.gost3410_vko.kek_34102012256},
         because 256-bit private keys can be used with that algorithm too.
+    @item Fix incorrect degree sanitizing in
+        @code{pygost.gost3410.GOST3410Curve.exp} preventing using of
+        @code{UKM=1} in @code{pygost.gost3410_vko.kek_*} functions.
     @end itemize
 
 @anchor{Release 3.11}
