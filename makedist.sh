@@ -15,10 +15,11 @@ tarball=pygost-"$release".tar.xz
 size=$(( $(wc -c < $tarball) / 1024 ))
 hash=$(gpg --print-md SHA256 < $tarball)
 hashsb=$($HOME/work/gogost/streebog256 < $tarball)
+release_date=$(date "+%Y-%m-%d")
 
 cat <<EOF
 An entry for documentation:
-@item $release @tab $size KiB
+@item $release @tab $release_date @tab $size KiB
 @tab @url{pygost-${release}.tar.xz, link} @url{pygost-${release}.tar.xz.sig, sign}
 @tab @code{$hash}
 @tab @code{$hashsb}

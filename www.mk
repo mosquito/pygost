@@ -2,7 +2,7 @@ all: pygost.html
 
 MAKEINFO ?= makeinfo
 
-pygost.html: www.texi
+pygost.html: *.texi
 	rm -f pygost.html/*.html
 	$(MAKEINFO) --html \
 		--set-customization-variable NO_CSS=1 \

@@ -1,0 +1,131 @@
+@node Download
+@unnumbered Download
+
+No additional dependencies except Python 2.7/3.x interpreter are required.
+
+Preferable way is to download tarball with the signature:
+
+@verbatim
+% wget http://pygost.cypherpunks.ru/pygost-3.8.tar.xz
+% wget http://pygost.cypherpunks.ru/pygost-3.8.tar.xz.sig
+% gpg --verify pygost-3.8.tar.xz.sig pygost-3.8.tar.xz
+% xz -d < pygost-3.8.tar.xz | tar xf -
+% cd pygost-3.8
+% python setup.py install
+@end verbatim
+
+@multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+@headitem Version @tab Date @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
+
+@item @ref{Release 3.11, 3.11} @tab 2018-09-21 @tab 44 KiB
+@tab @url{pygost-3.11.tar.xz, link} @url{pygost-3.11.tar.xz.sig, sign}
+@tab @code{34C092B7 78778DD4 1587BD31 AC62E7E6 3C45CEB8 7B664293 CCCA66DB 21147835}
+@tab @code{fdf1f96b93feb7ef5d6cd2f525a493bcd26933a1e15970f182d554595c2d2839}
+
+@item @ref{Release 3.10, 3.10} @tab 2018-06-23 @tab 44 KiB
+@tab @url{pygost-3.10.tar.xz, link} @url{pygost-3.10.tar.xz.sig, sign}
+@tab @code{8508C513 EBA78BA3 9D4BE5DA 42A2CE39 B0EB8998 9C9EBF20 5E100A1F B594AB10}
+@tab @code{357fe05d52f1d30e0972a3b7fa381bdc84be45ebcc01e59d921c78d8e3a456c0}
+
+@item @ref{Release 3.9, 3.9} @tab 2018-05-05 @tab 44 KiB
+@tab @url{pygost-3.9.tar.xz, link} @url{pygost-3.9.tar.xz.sig, sign}
+@tab @code{EA734025 6A892D4C 6272E577 B773CADA 6D5DEAB5 651D82D0 4721F92C 068CCC10}
+@tab @code{4302d934b9ccfbd63da4e3587eff322cbf6712fa45ffeb917fb831121a673dc9}
+
+@item @ref{Release 3.8, 3.8} @tab 2018-04-30 @tab 44 KiB
+@tab @url{pygost-3.8.tar.xz, link} @url{pygost-3.8.tar.xz.sig, sign}
+@tab @code{C8219F12 900B15D6 DA479157 BC48EE08 8BDF7FD0 548E02E4 16B44B6A 4A2FFDD3}
+@tab @code{0ad60ab474171cb72aa7282a77e5a87a3b8c6f958a0d781504dde2f82e7b839a}
+
+@item @ref{Release 3.7, 3.7} @tab 2017-12-24 @tab 43 KiB
+@tab @url{pygost-3.7.tar.xz, link} @url{pygost-3.7.tar.xz.sig, sign}
+@tab @code{2BE1647A 2ED7C794 7B80EBFA 32EB71B1 2AA95711 71CAA0CE E8319BF7 17361E28}
+@tab @code{b76ba4964a61b15a65be60c19d85063b88222fff881d9a9a8ff7dd8a07b2fc67}
+
+@item @ref{Release 3.6, 3.6} @tab 2017-11-28 @tab 43 KiB
+@tab @url{pygost-3.6.tar.xz, link} @url{pygost-3.6.tar.xz.sig, sign}
+@tab @code{37EA8A31 B308DBC6 B3229922 ABA0355F 46008BEC 2649BF98 11F62091 17BD94B3}
+@tab @code{47495afde7218e5d01160800daa0f9c786f5c95579686b0ce5a37fb7550bc735}
+
+@item @ref{Release 3.5, 3.5} @tab 2017-08-25 @tab 43 KiB
+@tab @url{pygost-3.5.tar.xz, link} @url{pygost-3.5.tar.xz.sig, sign}
+@tab @code{14E504AE 81E74DDD 122E5BF1 0B9E25D7 82D51AB6 5ED43533 0BF276A4 8A7C7AA4}
+@tab @code{eb2106523cf8ed1b462d7a0a57f771f94759047a7e0e5a0b96ee35b24293e264}
+
+@item @ref{Release 3.4, 3.4} @tab 2017-08-19 @tab 43 KiB
+@tab @url{pygost-3.4.tar.xz, link} @url{pygost-3.4.tar.xz.sig, sign}
+@tab @code{89715612 8A197071 AD7689FA 96F89304 19E42F76 87632309 B47E5FDE 1AD6126D}
+@tab @code{e590ddc7485e6f99658f26ac23cd2266648f27efa584a33f93abec8b80e1771d}
+
+@item @ref{Release 3.3, 3.3} @tab 2017-06-11 @tab 41 KiB
+@tab @url{pygost-3.3.tar.xz, link} @url{pygost-3.3.tar.xz.sig, sign}
+@tab @code{D118F539 537CCD5D 9CCE850E DD8EFD8E ACDA9D6E 0C113A0F C575574A F4BD452A}
+@tab @code{8400a3714b70dddfef03f6fe96325e73ac25db814d052a44dbd8f2ce5ddb05bb}
+
+@item @ref{Release 3.2, 3.2} @tab 2017-06-04 @tab 41 KiB
+@tab @url{pygost-3.2.tar.xz, link} @url{pygost-3.2.tar.xz.sig, sign}
+@tab @code{6779D1B1 A4E2B1C3 49CA39F8 425FC962 AF2ED133 BB495343 0F83764B E2624087}
+@tab @code{0a39880ad00ca11d112fef096b81a42a85ce4e5b25c48d1f643858b1e0c520d6}
+
+@item @ref{Release 3.1, 3.1} @tab 2016-11-28 @tab 39 KiB
+@tab @url{pygost-3.1.tar.xz, link} @url{pygost-3.1.tar.xz.sig, sign}
+@tab @code{ACCCF1A9 F4B345FF 01595248 5B793DAC FCF71D1F 32A6ABCF 32042DDB 20897BC5}
+@tab @code{823961b6c2a1abe83f6d828397002e68d711a08ce115f21ddff81a294882cd46}
+
+@item @ref{Release 3.0, 3.0} @tab 2016-11-21 @tab 39 KiB
+@tab @url{pygost-3.0.tar.xz, link} @url{pygost-3.0.tar.xz.sig, sign}
+@tab @code{0AB10703 6960962D 30BD1646 ACC8D44B E9CBD8A8 4F25DF25 91F26383 DE28875F}
+@tab @code{ef4729df62b4f615a154a9c35ccffaf6bb614a23067f4dd49d2993ec93bb6665}
+
+@item @ref{Release 2.4, 2.4} @tab 2016-10-13 @tab 37 KiB
+@tab @url{pygost-2.4.tar.xz, link} @url{pygost-2.4.tar.xz.sig, sign}
+@tab @code{94D14E99 3CF63973 6C8E78D0 5EBD0838 09A47624 C05A9878 11136301 C0A07264}
+@tab @code{b107b5ba043a2e4c30d9348e222b92218b8dff9d672964ffd04259c5261bc5a7}
+
+@item @ref{Release 2.3, 2.3} @tab 2016-10-04 @tab 37 KiB
+@tab @url{pygost-2.3.tar.xz, link} @url{pygost-2.3.tar.xz.sig, sign}
+@tab @code{FF2C7E78 F3677B45 EB472DC6 1837C72C 0BD72387 AB0A9DC7 AD88AD11 59589732}
+@tab @code{42cfd0cdf357997a909a9114ca14391b4c5e8b62e298675f899b80a8a26d690f}
+
+@end multitable
+
+But also you can use PIP (@strong{no} authentication is performed!):
+
+@verbatim
+% pip install pygost==3.7
+@end verbatim
+
+You @strong{have to} verify downloaded tarballs integrity and
+authenticity to be sure that you retrieved trusted and untampered
+software. @url{https://www.gnupg.org/, The GNU Privacy Guard} is used
+for that purpose.
+
+For the very first time it is necessary to get signing public key and
+import it. It is provided below, but you should check alternative
+resources.
+
+@verbatim
+pub   rsa2048/0xE6FD1269CD0C009E 2016-09-13
+      F55A 7619 3A0C 323A A031  0E6B E6FD 1269 CD0C 009E
+uid   PyGOST releases <pygost at cypherpunks dot ru>
+@end verbatim
+
+@itemize
+
+@item @url{https://lists.cypherpunks.ru/mailman/listinfo/gost, gost} maillist
+
+@item
+@verbatim
+% gpg --keyserver hkp://keys.gnupg.net/ --recv-keys 0xE6FD1269CD0C009E
+% gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
+% gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
+@end verbatim
+
+@item
+@verbatiminclude PUBKEY.asc
+
+@end itemize
+
+You can obtain development source code by cloning
+@url{http://git-scm.com/, Git}
+@url{https://git.cypherpunks.ru/cgit.cgi/pygost.git/}.

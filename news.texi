@@ -1,0 +1,131 @@
+@node News
+@unnumbered News
+
+@table @strong
+@anchor{Release 3.11}
+@item 3.11
+Fixed PEP247 typing stub with invalid hexdigest method.
+
+@anchor{Release 3.10}
+@item 3.10
+Additional missing 34.11-* typing stubs.
+
+@anchor{Release 3.9}
+@item 3.9
+Add missing 34.11-2012 PBKDF2 typing stub.
+
+@anchor{Release 3.8}
+@item 3.8
+    @itemize
+    @item 34.11-2012 based PBKDF2 function added
+    @item 34.13-2015 does not require double blocksized IVs
+    @end itemize
+
+@anchor{Release 3.7}
+@item 3.7
+Fixed 34.13-2015 OFB bug with IVs longer than 2 blocks.
+
+@anchor{Release 3.6}
+@item 3.6
+Fixed source files installation during @command{setup.py install} invocation.
+
+@anchor{Release 3.5}
+@item 3.5
+Dummy release: added long description in package metadata.
+
+@anchor{Release 3.4}
+@item 3.4
+    @itemize
+    @item Small mypy stubs related fixes
+    @item Licence changed from GNU GPLv3+ to GNU LGPLv3+
+    @end itemize
+
+@anchor{Release 3.3}
+@item 3.3
+    @itemize
+    @item @code{GOST3412Kuz} renamed to @code{GOST3412Kuznechik}
+    @item @code{GOST3412Magma} implements GOST R 34.12-2015 Magma 64-bit
+        block cipher
+    @end itemize
+
+@anchor{Release 3.2}
+@item 3.2
+34.13-2015 block cipher modes of operation implementations.
+
+@anchor{Release 3.1}
+@item 3.1
+Fixed mypy stubs related to PEP247-successors.
+
+@anchor{Release 3.0}
+@item 3.0
+    @itemize
+    @item @code{gost3411_94} renamed to @code{gost341194}
+    @item @code{gost3411_2012} renamed and split to
+        @code{gost34112012256}, @code{gost34112012512}
+    @item @code{GOST34112012} split to
+        @code{GOST34112012256}, @code{GOST34112012512}
+    @item @code{gost3410.kek} moved to separate
+        @code{gost3410_vko.kek_34102001}
+    @item VKO GOST R 34.10-2012 appeared in @code{gost3410_vko},
+        with test vectors
+    @item 34.11-94 digest is reversed, to be compatible with HMAC and
+        PBKDF2 test vectors describe in TC26 documents
+    @item 34.11-94 PBKDF2 test vectors added
+    @item @code{gost3410.prv_unmarshal},
+        @code{gost3410.pub_marshal},
+        @code{gost3410.pub_unmarshal}
+        helpers added, removing the need of @code{x509} module at all
+    @item @code{gost3410.verify} requires @code{(pubX, pubY)} tuple,
+        instead of two separate @code{pubX}, @code{pubY} arguments
+    @item 34.11-94 based PBKDF2 function added
+    @end itemize
+
+@anchor{Release 2.4}
+@item 2.4
+Fixed 34.13 mypy stub.
+
+@anchor{Release 2.3}
+@item 2.3
+Typo and pylint fixes.
+
+@item 2.2
+GOST R 34.13-2015 padding methods
+
+@item 2.1
+Documentation and supplementary files refactoring.
+
+@item 2.0
+PEP-0247 compatible hashers and MAC.
+
+@item 1.0
+    @itemize
+    @item Ability to specify curve in pygost.x509 module
+    @item Ability to use 34.10-2012 in pygost.x509 functions
+    @end itemize
+
+    Renamed classes and modules:
+
+    @itemize
+    @item pygost.gost3410.SIZE_34100 -> pygost.gost3410.SIZE_3410_2001
+    @item pygost.gost3410.SIZE_34112 -> pygost.gost3410.SIZE_3410_2012
+    @item pygost.gost3411_12.GOST341112 -> pygost.gost3411_2012.GOST34112012
+    @end itemize
+
+@item 0.16
+34.10-2012 TC26 curve parameters.
+
+@item 0.15
+PEP-0484 static typing hints.
+
+@item 0.14
+34.10-2012 workability fix.
+
+@item 0.13
+Python3 compatibility.
+
+@item 0.11
+GOST R 34.12-2015 Кузнечик (Kuznechik) implementation.
+
+@item 0.10
+CryptoPro and GOST key wrapping, CryptoPro key meshing.
+@end table
