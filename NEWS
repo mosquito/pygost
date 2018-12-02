@@ -1,6 +1,7 @@
 3.13:
     * Ability to explicitly specify used 28147-89 Sbox in
       pygost.wrap.* functions
+    * Ability to use key meshing in 28147-89 CBC mode
 
 3.12:
     * Added mode argument to pygost.gost3410_vko.kek_34102012256,

@@ -281,7 +281,7 @@ ecb_encrypt = partial(ecb, action=encrypt)
 ecb_decrypt = partial(ecb, action=decrypt)
 
 
-def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX):
+def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX, mesh=False):
     """ CBC encryption mode of operation
 
     :param bytes key: encryption key
@@ -291,6 +291,7 @@ def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX):
     :type bool pad: perform ISO/IEC 7816-4 padding
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
+    :param bool mesh: enable key meshing
     :returns: ciphertext
     :rtype: bytes
 
@@ -307,13 +308,15 @@ def cbc_encrypt(key, data, iv=8 * b"\x00", pad=True, sbox=DEFAULT_SBOX):
         raise ValueError("Data is not blocksize aligned")
     ciphertext = [iv]
     for i in xrange(0, len(data), BLOCKSIZE):
+        if mesh and i >= MESH_MAX_DATA and i % MESH_MAX_DATA == 0:
+            key, _ = meshing(key, iv, sbox=sbox)
         ciphertext.append(ns2block(encrypt(sbox, key, block2ns(
             strxor(ciphertext[-1], data[i:i + BLOCKSIZE])
         ))))
     return b"".join(ciphertext)
 
 
-def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
+def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX, mesh=False):
     """ CBC decryption mode of operation
 
     :param bytes key: encryption key
@@ -321,6 +324,7 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
     :type bool pad: perform ISO/IEC 7816-4 unpadding after decryption
     :param sbox: S-box parameters to use
     :type sbox: str, SBOXES'es key
+    :param bool mesh: enable key meshing
     :returns: plaintext
     :rtype: bytes
     """
@@ -330,8 +334,15 @@ def cbc_decrypt(key, data, pad=True, sbox=DEFAULT_SBOX):
         raise ValueError("Data is not blocksize aligned")
     if len(data) < 2 * BLOCKSIZE:
         raise ValueError("There is no either data, or IV in ciphertext")
+    iv = data[:BLOCKSIZE]
     plaintext = []
     for i in xrange(BLOCKSIZE, len(data), BLOCKSIZE):
+        if (
+                mesh and
+                (i - BLOCKSIZE) >= MESH_MAX_DATA and
+                (i - BLOCKSIZE) % MESH_MAX_DATA == 0
+        ):
+            key, _ = meshing(key, iv, sbox=sbox)
         plaintext.append(strxor(
             ns2block(decrypt(sbox, key, block2ns(data[i:i + BLOCKSIZE]))),
             data[i - BLOCKSIZE:i],

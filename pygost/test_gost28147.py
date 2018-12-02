@@ -338,6 +338,13 @@ class CBCTest(TestCase):
         iv = urandom(8)
         cbc_decrypt(key, cbc_encrypt(key, 8 * b"x", iv))
 
+    def test_meshing(self):
+        pt = urandom(MESH_MAX_DATA * 3)
+        key = urandom(32)
+        ct = cbc_encrypt(key, pt)
+        dt = cbc_decrypt(key, ct)
+        self.assertEqual(pt, dt)
+
 
 class CFBMeshingTest(TestCase):
     def setUp(self):

@@ -8,6 +8,7 @@
     @itemize
     @item Ability to explicitly specify used 28147-89 Sbox in
         @code{pygost.wrap.*} functions
+    @item Ability to use key meshing in 28147-89 CBC mode
     @end itemize
 
 @anchor{Release 3.12}
