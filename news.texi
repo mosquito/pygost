@@ -3,6 +3,13 @@
 
 @table @strong
 
+@anchor{Release 3.13}
+@item 3.13
+    @itemize
+    @item Ability to explicitly specify used 28147-89 Sbox in
+        @code{pygost.wrap.*} functions
+    @end itemize
+
 @anchor{Release 3.12}
 @item 3.12
     @itemize

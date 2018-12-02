@@ -23,12 +23,13 @@ from struct import pack
 from struct import unpack
 
 from pygost.gost28147 import cfb_encrypt
+from pygost.gost28147 import DEFAULT_SBOX
 from pygost.gost28147 import ecb_decrypt
 from pygost.gost28147 import ecb_encrypt
 from pygost.gost28147_mac import MAC
 
 
-def wrap_gost(ukm, kek, cek):
+def wrap_gost(ukm, kek, cek, sbox=DEFAULT_SBOX):
     """28147-89 key wrapping
 
     :param ukm: UKM
@@ -40,12 +41,12 @@ def wrap_gost(ukm, kek, cek):
     :returns: wrapped key
     :rtype: bytes, 44 bytes
     """
-    cek_mac = MAC(kek, data=cek, iv=ukm).digest()[:4]
-    cek_enc = ecb_encrypt(kek, cek)
+    cek_mac = MAC(kek, data=cek, iv=ukm, sbox=sbox).digest()[:4]
+    cek_enc = ecb_encrypt(kek, cek, sbox=sbox)
     return ukm + cek_enc + cek_mac
 
 
-def unwrap_gost(kek, data):
+def unwrap_gost(kek, data, sbox=DEFAULT_SBOX):
     """28147-89 key unwrapping
 
     :param kek: key encryption key
@@ -58,13 +59,13 @@ def unwrap_gost(kek, data):
     if len(data) != 44:
         raise ValueError("Invalid data length")
     ukm, cek_enc, cek_mac = data[:8], data[8:8 + 32], data[-4:]
-    cek = ecb_decrypt(kek, cek_enc)
-    if MAC(kek, data=cek, iv=ukm).digest()[:4] != cek_mac:
+    cek = ecb_decrypt(kek, cek_enc, sbox=sbox)
+    if MAC(kek, data=cek, iv=ukm, sbox=sbox).digest()[:4] != cek_mac:
         raise ValueError("Invalid MAC")
     return cek
 
 
-def wrap_cryptopro(ukm, kek, cek):
+def wrap_cryptopro(ukm, kek, cek, sbox=DEFAULT_SBOX):
     """CryptoPro key wrapping
 
     :param ukm: UKM
@@ -76,10 +77,10 @@ def wrap_cryptopro(ukm, kek, cek):
     :returns: wrapped key
     :rtype: bytes, 44 bytes
     """
-    return wrap_gost(ukm, diversify(kek, bytearray(ukm)), cek)
+    return wrap_gost(ukm, diversify(kek, bytearray(ukm)), cek, sbox=sbox)
 
 
-def unwrap_cryptopro(kek, data):
+def unwrap_cryptopro(kek, data, sbox=DEFAULT_SBOX):
     """CryptoPro key unwrapping
 
     :param kek: key encryption key
@@ -91,10 +92,14 @@ def unwrap_cryptopro(kek, data):
     """
     if len(data) < 8:
         raise ValueError("Invalid data length")
-    return unwrap_gost(diversify(kek, bytearray(data[:8])), data)
+    return unwrap_gost(
+        diversify(kek, bytearray(data[:8]), sbox=sbox),
+        data,
+        sbox=sbox,
+    )
 
 
-def diversify(kek, ukm):
+def diversify(kek, ukm, sbox=DEFAULT_SBOX):
     out = kek
     for i in range(8):
         s1, s2 = 0, 0
@@ -105,5 +110,5 @@ def diversify(kek, ukm):
             else:
                 s2 += k
         iv = pack("<I", s1 % 2 ** 32) + pack("<I", s2 % 2 ** 32)
-        out = cfb_encrypt(out, out, iv=iv)
+        out = cfb_encrypt(out, out, iv=iv, sbox=sbox)
     return out
