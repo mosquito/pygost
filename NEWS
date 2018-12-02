@@ -1,3 +1,9 @@
+3.12:
+    * Added mode argument to pygost.gost3410_vko.kek_34102012256,
+      because 256-bit private keys can be used with that algorithm too
+    * Fix incorrect degree sanitizing in pygost.gost3410.GOST3410Curve.exp
+      preventing using of UKM=1 in @code{pygost.gost3410_vko.kek_*} functions
+
 3.11:
     Fixed PEP247 typing stub with invalid hexdigest method.
 
