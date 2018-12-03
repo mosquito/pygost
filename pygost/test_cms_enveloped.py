@@ -158,6 +158,9 @@ class TestCMSEnveloped(TestCase):
     """KeyTransRecipientInfo-based test vectors from "Использование
     алгоритмов ГОСТ 28147-89, ГОСТ Р 34.11 и ГОСТ Р 34.10 в
     криптографических сообщениях формата CMS" (TK26CMS.pdf)
+
+    `PyDERASN <http://pyderasn.cypherpunks.ru/>`__ library is required
+    for CMS parsing.
     """
 
     def process_cms(
