@@ -44,7 +44,7 @@ Currently supported algorithms are:
     (@url{https://tools.ietf.org/html/rfc7836.html, RFC 7836})
 @item 28147-89 and CryptoPro key wrapping
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
-@item 28147-89 CryptoPro key meshing for CFB mode
+@item 28147-89 CryptoPro key meshing for CFB and CBC modes
     (@url{https://tools.ietf.org/html/rfc4357.html, RFC 4357})
 @item @url{https://tools.ietf.org/html/rfc4491.html, RFC 4491}
     (using GOST algorithms with X.509) compatibility helpers

@@ -15,7 +15,7 @@ GOST is GOvernment STandard of Russian Federation (and Soviet Union).
 * VKO GOST R 34.10-2001 key agreement function (RFC 4357)
 * VKO GOST R 34.10-2012 key agreement function (RFC 7836)
 * 28147-89 and CryptoPro key wrapping (RFC 4357)
-* 28147-89 CryptoPro key meshing for CFB mode (RFC 4357)
+* 28147-89 CryptoPro key meshing for CFB and CBC modes (RFC 4357)
 * RFC 4491 (using GOST algorithms with X.509) compatibility helpers
 * GOST R 34.12-2015 128-bit block cipher Кузнечик (Kuznechik) (RFC 7801)
 * GOST R 34.12-2015 64-bit block cipher Магма (Magma)
