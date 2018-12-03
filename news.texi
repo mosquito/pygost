@@ -3,6 +3,10 @@
 
 @table @strong
 
+@anchor{Release 3.14}
+@item 3.14
+Add missing typing stubs related to previous release.
+
 @anchor{Release 3.13}
 @item 3.13
     @itemize

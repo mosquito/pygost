@@ -1,3 +1,6 @@
+3.14:
+    Add missing typing stubs related to previous release.
+
 3.13:
     * Ability to explicitly specify used 28147-89 Sbox in
       pygost.wrap.* functions

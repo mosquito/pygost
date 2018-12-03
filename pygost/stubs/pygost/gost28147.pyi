@@ -65,6 +65,7 @@ def cbc_encrypt(
     iv: bytes=...,
     pad: bool=...,
     sbox: str=...,
+    mesh: bool=...,
 ) -> bytes: ...
 
 
@@ -73,6 +74,7 @@ def cbc_decrypt(
     data: bytes,
     pad: bool=...,
     sbox: str=...,
+    mesh: bool=...,
 ) -> bytes: ...
 
 

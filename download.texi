@@ -6,11 +6,11 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature:
 
 @verbatim
-% wget http://pygost.cypherpunks.ru/pygost-3.13.tar.xz
-% wget http://pygost.cypherpunks.ru/pygost-3.13.tar.xz.sig
-% gpg --verify pygost-3.13.tar.xz.sig pygost-3.13.tar.xz
-% xz -d < pygost-3.13.tar.xz | tar xf -
-% cd pygost-3.13
+% wget http://pygost.cypherpunks.ru/pygost-3.14.tar.xz
+% wget http://pygost.cypherpunks.ru/pygost-3.14.tar.xz.sig
+% gpg --verify pygost-3.14.tar.xz.sig pygost-3.14.tar.xz
+% xz -d < pygost-3.14.tar.xz | tar xf -
+% cd pygost-3.14
 % python setup.py install
 @end verbatim
 
@@ -102,7 +102,7 @@ Preferable way is to download tarball with the signature:
 But also you can use PIP (@strong{no} authentication is performed!):
 
 @verbatim
-% pip install pygost==3.13
+% pip install pygost==3.14
 @end verbatim
 
 You @strong{have to} verify downloaded tarballs integrity and
