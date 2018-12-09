@@ -9,7 +9,7 @@
     @item Licence changed back to GNU GPLv3+. GNU LGPLv3+ licenced
         versions are not available anymore
     @item More ASN.1-based test vectors
-        (`PyDERASN <http://pyderasn.cypherpunks.ru/>`__ dependency required)
+        (@url{http://pyderasn.cypherpunks.ru/, PyDERASN} dependency required)
     @end itemize
 
 @anchor{Release 3.14}
