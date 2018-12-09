@@ -1,6 +1,7 @@
 3.15:
     * Licence changed back to GNU GPLv3+.
       GNU LGPLv3+ licenced versions are not available anymore
+    * More ASN.1-based test vectors (PyDERASN dependency required)
 
 3.14:
     Add missing typing stubs related to previous release.

@@ -22,7 +22,7 @@ setup(
         "Topic :: Security :: Cryptography",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    packages=["pygost"],
+    packages=["pygost", "pygost.asn1schemas"],
     package_data={
         "pygost": ["stubs/**/*.pyi"],
     },
