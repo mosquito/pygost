@@ -1,6 +1,5 @@
 include AUTHORS
 include COPYING
-include COPYING.LESSER
 include INSTALL
 include NEWS
 include PUBKEY.asc
