@@ -30,30 +30,63 @@ from pyderasn import tag_ctxp
 
 from pygost.asn1schemas.cms import CMSVersion
 from pygost.asn1schemas.cms import ContentType
+from pygost.asn1schemas.cms import Gost2814789Parameters
+from pygost.asn1schemas.oids import id_data
+from pygost.asn1schemas.oids import id_encryptedData
+from pygost.asn1schemas.oids import id_Gost28147_89
+from pygost.asn1schemas.oids import id_pbes2
+from pygost.asn1schemas.oids import id_pbkdf2
 from pygost.asn1schemas.x509 import AlgorithmIdentifier
 
 
-class EncryptionAlgorithmIdentifier(AlgorithmIdentifier):
+class PBKDF2Salt(Choice):
     schema = (
-        ("algorithm", ObjectIdentifier()),
+        ("specified", OctetString()),
+        # ("otherSource", PBKDF2SaltSources()),
+    )
+
+
+id_hmacWithSHA1 = ObjectIdentifier("1.2.840.113549.2.7")
+
+
+class PBKDF2PRFs(AlgorithmIdentifier):
+    schema = (
+        ("algorithm", ObjectIdentifier(default=id_hmacWithSHA1)),
         ("parameters", Any(optional=True)),
     )
 
 
-class ContentEncryptionAlgorithmIdentifier(EncryptionAlgorithmIdentifier):
-    pass
+class IterationCount(Integer):
+    bounds = (1, float("+inf"))
+
+
+class KeyLength(Integer):
+    bounds = (1, float("+inf"))
+
+
+class PBKDF2Params(Sequence):
+    schema = (
+        ("salt", PBKDF2Salt()),
+        ("iterationCount", IterationCount(optional=True)),
+        ("keyLength", KeyLength(optional=True)),
+        ("prf", PBKDF2PRFs()),
+    )
 
 
 class PBES2KDFs(AlgorithmIdentifier):
     schema = (
-        ("algorithm", ObjectIdentifier()),
+        ("algorithm", ObjectIdentifier(defines=(
+            (("parameters",), {id_pbkdf2: PBKDF2Params()}),
+        ))),
         ("parameters", Any(optional=True)),
     )
 
 
 class PBES2Encs(AlgorithmIdentifier):
     schema = (
-        ("algorithm", ObjectIdentifier()),
+        ("algorithm", ObjectIdentifier(defines=(
+            (("parameters",), {id_Gost28147_89: Gost2814789Parameters()}),
+        ))),
         ("parameters", Any(optional=True)),
     )
 
@@ -62,6 +95,24 @@ class PBES2Params(Sequence):
     schema = (
         ("keyDerivationFunc", PBES2KDFs()),
         ("encryptionScheme", PBES2Encs()),
+    )
+
+
+class EncryptionAlgorithmIdentifier(AlgorithmIdentifier):
+    schema = (
+        ("algorithm", ObjectIdentifier(defines=(
+            (("parameters",), {id_pbes2: PBES2Params()}),
+        ))),
+        ("parameters", Any(optional=True)),
+    )
+
+
+class ContentEncryptionAlgorithmIdentifier(EncryptionAlgorithmIdentifier):
+    schema = (
+        ("algorithm", ObjectIdentifier(defines=(
+            (("parameters",), {id_pbes2: PBES2Params()}),
+        ))),
+        ("parameters", Any(optional=True)),
     )
 
 
@@ -106,7 +157,9 @@ class PKCS12Attributes(SetOf):
 
 class SafeBag(Sequence):
     schema = (
-        ("bagId", ObjectIdentifier()),
+        ("bagId", ObjectIdentifier(defines=(
+            (("bagValue",), {id_encryptedData: EncryptedData()}),
+        ))),
         ("bagValue", PKCS12BagSet(expl=tag_ctxc(0))),
         ("bagAttributes", PKCS12Attributes(optional=True)),
     )
@@ -123,7 +176,9 @@ class OctetStringSafeContents(Sequence):
 
 class AuthSafe(Sequence):
     schema = (
-        ("contentType", ContentType()),
+        ("contentType", ContentType(defines=(
+            (("content",), {id_data: OctetStringSafeContents()}),
+        ))),
         ("content", Any(expl=tag_ctxc(0))),
     )
 
@@ -160,37 +215,3 @@ class EncryptedPrivateKeyInfo(Sequence):
 
 class PKCS8ShroudedKeyBag(EncryptedPrivateKeyInfo):
     pass
-
-
-class PBKDF2Salt(Choice):
-    schema = (
-        ("specified", OctetString()),
-        # ("otherSource", PBKDF2SaltSources()),
-    )
-
-
-id_hmacWithSHA1 = ObjectIdentifier("1.2.840.113549.2.7")
-
-
-class PBKDF2PRFs(AlgorithmIdentifier):
-    schema = (
-        ("algorithm", ObjectIdentifier(default=id_hmacWithSHA1)),
-        ("parameters", Any(optional=True)),
-    )
-
-
-class IterationCount(Integer):
-    bounds = (1, float("+inf"))
-
-
-class KeyLength(Integer):
-    bounds = (1, float("+inf"))
-
-
-class PBKDF2Params(Sequence):
-    schema = (
-        ("salt", PBKDF2Salt()),
-        ("iterationCount", IterationCount(optional=True)),
-        ("keyLength", KeyLength(optional=True)),
-        ("prf", PBKDF2PRFs()),
-    )

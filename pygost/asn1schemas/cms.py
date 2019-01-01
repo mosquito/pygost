@@ -29,6 +29,12 @@ from pyderasn import SetOf
 from pyderasn import tag_ctxc
 from pyderasn import tag_ctxp
 
+from pygost.asn1schemas.oids import id_digestedData
+from pygost.asn1schemas.oids import id_envelopedData
+from pygost.asn1schemas.oids import id_Gost28147_89
+from pygost.asn1schemas.oids import id_signedData
+from pygost.asn1schemas.oids import id_tc26_gost3410_2012_256
+from pygost.asn1schemas.oids import id_tc26_gost3410_2012_512
 from pygost.asn1schemas.x509 import AlgorithmIdentifier
 from pygost.asn1schemas.x509 import SubjectPublicKeyInfo
 
@@ -48,8 +54,57 @@ class RecipientIdentifier(Choice):
     )
 
 
+class Gost2814789Key(OctetString):
+    bounds = (32, 32)
+
+
+class Gost2814789MAC(OctetString):
+    bounds = (4, 4)
+
+
+class Gost2814789EncryptedKey(Sequence):
+    schema = (
+        ("encryptedKey", Gost2814789Key()),
+        ("maskKey", Gost2814789Key(impl=tag_ctxp(0), optional=True)),
+        ("macKey", Gost2814789MAC()),
+    )
+
+
+class GostR34102001TransportParameters(Sequence):
+    schema = (
+        ("encryptionParamSet", ObjectIdentifier()),
+        ("ephemeralPublicKey", SubjectPublicKeyInfo(
+            impl=tag_ctxc(0),
+            optional=True,
+        )),
+        ("ukm", OctetString()),
+    )
+
+
+class GostR3410KeyTransport(Sequence):
+    schema = (
+        ("sessionEncryptedKey", Gost2814789EncryptedKey()),
+        ("transportParameters", GostR34102001TransportParameters(
+            impl=tag_ctxc(0),
+            optional=True,
+        )),
+    )
+
+
 class KeyEncryptionAlgorithmIdentifier(AlgorithmIdentifier):
-    pass
+    schema = (
+        ("algorithm", ObjectIdentifier(defines=(
+            (("..", "encryptedKey"), {
+                id_tc26_gost3410_2012_256: GostR3410KeyTransport(),
+                id_tc26_gost3410_2012_512: GostR3410KeyTransport(),
+            }),
+            (("..", "recipientEncryptedKeys", any, "encryptedKey"), {
+                id_tc26_gost3410_2012_256: Gost2814789EncryptedKey(),
+                id_tc26_gost3410_2012_512: Gost2814789EncryptedKey(),
+            }),
+        ))),
+        ("parameters", Any(optional=True)),
+    )
 
 
 class EncryptedKey(OctetString):
@@ -127,8 +182,24 @@ class RecipientInfos(SetOf):
     bounds = (1, float("+inf"))
 
 
+class Gost2814789IV(OctetString):
+    bounds = (8, 8)
+
+
+class Gost2814789Parameters(Sequence):
+    schema = (
+        ("iv", Gost2814789IV()),
+        ("encryptionParamSet", ObjectIdentifier()),
+    )
+
+
 class ContentEncryptionAlgorithmIdentifier(AlgorithmIdentifier):
-    pass
+    schema = (
+        ("algorithm", ObjectIdentifier(defines=(
+            (("parameters",), {id_Gost28147_89: Gost2814789Parameters()}),
+        ))),
+        ("parameters", Any(optional=True)),
+    )
 
 
 class EncryptedContent(OctetString):
@@ -150,61 +221,6 @@ class EnvelopedData(Sequence):
         ("recipientInfos", RecipientInfos()),
         ("encryptedContentInfo", EncryptedContentInfo()),
         # ("unprotectedAttrs", UnprotectedAttributes(impl=tag_ctxc(1), optional=True)),
-    )
-
-
-class ContentInfo(Sequence):
-    schema = (
-        ("contentType", ContentType()),
-        ("content", Any(expl=tag_ctxc(0))),
-    )
-
-
-class Gost2814789IV(OctetString):
-    bounds = (8, 8)
-
-
-class Gost2814789Parameters(Sequence):
-    schema = (
-        ("iv", Gost2814789IV()),
-        ("encryptionParamSet", ObjectIdentifier()),
-    )
-
-
-class Gost2814789Key(OctetString):
-    bounds = (32, 32)
-
-
-class Gost2814789MAC(OctetString):
-    bounds = (4, 4)
-
-
-class Gost2814789EncryptedKey(Sequence):
-    schema = (
-        ("encryptedKey", Gost2814789Key()),
-        ("maskKey", Gost2814789Key(impl=tag_ctxp(0), optional=True)),
-        ("macKey", Gost2814789MAC()),
-    )
-
-
-class GostR34102001TransportParameters(Sequence):
-    schema = (
-        ("encryptionParamSet", ObjectIdentifier()),
-        ("ephemeralPublicKey", SubjectPublicKeyInfo(
-            impl=tag_ctxc(0),
-            optional=True,
-        )),
-        ("ukm", OctetString()),
-    )
-
-
-class GostR3410KeyTransport(Sequence):
-    schema = (
-        ("sessionEncryptedKey", Gost2814789EncryptedKey()),
-        ("transportParameters", GostR34102001TransportParameters(
-            impl=tag_ctxc(0),
-            optional=True,
-        )),
     )
 
 
@@ -275,4 +291,17 @@ class DigestedData(Sequence):
         ("digestAlgorithm", DigestAlgorithmIdentifier()),
         ("encapContentInfo", EncapsulatedContentInfo()),
         ("digest", Digest()),
+    )
+
+
+class ContentInfo(Sequence):
+    schema = (
+        ("contentType", ContentType(defines=(
+            (("content",), {
+                id_digestedData: DigestedData(),
+                id_envelopedData: EnvelopedData(),
+                id_signedData: SignedData(),
+            }),
+        ))),
+        ("content", Any(expl=tag_ctxc(0))),
     )

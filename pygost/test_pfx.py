@@ -23,14 +23,11 @@ from unittest import TestCase
 from pygost.gost28147 import cfb_decrypt
 from pygost.gost34112012512 import GOST34112012512
 from pygost.gost34112012512 import pbkdf2 as gost34112012_pbkdf2
+from pygost.utils import hexdec
 
 
 try:
-    from pygost.asn1schemas.cms import Gost2814789Parameters
-    from pygost.asn1schemas.pfx import EncryptedData
     from pygost.asn1schemas.pfx import OctetStringSafeContents
-    from pygost.asn1schemas.pfx import PBES2Params
-    from pygost.asn1schemas.pfx import PBKDF2Params
     from pygost.asn1schemas.pfx import PFX
     from pygost.asn1schemas.pfx import PKCS8ShroudedKeyBag
 except ImportError:
@@ -86,12 +83,8 @@ G2ki9enTqos4KpUU0j9IDpl1UXiaA1YDIwUjlAp+81GkLmyt8Fw6Gt/X5JZySAY=
 
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        octet_string_safe_contents, tail = OctetStringSafeContents().decode(
-            bytes(pfx["authSafe"]["content"]),
-        )
-        self.assertSequenceEqual(tail, b"")
+        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
         outer_safe_contents = octet_string_safe_contents["safeContents"]
-
         octet_string_safe_contents, tail = OctetStringSafeContents().decode(
             bytes(outer_safe_contents[0]["bagValue"]),
         )
@@ -101,18 +94,9 @@ G2ki9enTqos4KpUU0j9IDpl1UXiaA1YDIwUjlAp+81GkLmyt8Fw6Gt/X5JZySAY=
             bytes(safe_bag["bagValue"]),
         )
         self.assertSequenceEqual(tail, b"")
-        pbes2_params, tail = PBES2Params().decode(
-            bytes(shrouded_key_bag["encryptionAlgorithm"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
-        pbkdf2_params, tail = PBKDF2Params().decode(
-            bytes(pbes2_params["keyDerivationFunc"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
-        enc_scheme_params, tail = Gost2814789Parameters().decode(
-            bytes(pbes2_params["encryptionScheme"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
+        _, pbes2_params = shrouded_key_bag["encryptionAlgorithm"]["parameters"].defined
+        _, pbkdf2_params = pbes2_params["keyDerivationFunc"]["parameters"].defined
+        _, enc_scheme_params = pbes2_params["encryptionScheme"]["parameters"].defined
 
         key = gost34112012_pbkdf2(
             password=self.password.encode("utf-8"),
@@ -152,28 +136,12 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
 
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        octet_string_safe_contents, tail = OctetStringSafeContents().decode(
-            bytes(pfx["authSafe"]["content"]),
-        )
-        self.assertSequenceEqual(tail, b"")
+        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
         outer_safe_contents = octet_string_safe_contents["safeContents"]
-
-        encrypted_data, tail = EncryptedData().decode(
-            bytes(outer_safe_contents[1]["bagValue"]),
-        )
-        self.assertSequenceEqual(tail, b"")
-        pbes2_params, _ = PBES2Params().decode(
-            bytes(encrypted_data["encryptedContentInfo"]["contentEncryptionAlgorithm"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
-        pbkdf2_params, tail = PBKDF2Params().decode(
-            bytes(pbes2_params["keyDerivationFunc"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
-        enc_scheme_params, tail = Gost2814789Parameters().decode(
-            bytes(pbes2_params["encryptionScheme"]["parameters"]),
-        )
-        self.assertSequenceEqual(tail, b"")
+        _, encrypted_data = outer_safe_contents[1]["bagValue"].defined
+        _, pbes2_params = encrypted_data["encryptedContentInfo"]["contentEncryptionAlgorithm"]["parameters"].defined
+        _, pbkdf2_params = pbes2_params["keyDerivationFunc"]["parameters"].defined
+        _, enc_scheme_params = pbes2_params["encryptionScheme"]["parameters"].defined
         key = gost34112012_pbkdf2(
             password=self.password.encode("utf-8"),
             salt=bytes(pbkdf2_params["salt"]["specified"]),
@@ -194,12 +162,8 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
     def test_mac(self):
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        octet_string_safe_contents, tail = OctetStringSafeContents().decode(
-            bytes(pfx["authSafe"]["content"]),
-        )
-        self.assertSequenceEqual(tail, b"")
+        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
         outer_safe_contents = octet_string_safe_contents["safeContents"]
-
         mac_data = pfx["macData"]
         mac_key = gost34112012_pbkdf2(
             password=self.password.encode('utf-8'),
