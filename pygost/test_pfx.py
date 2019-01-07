@@ -30,6 +30,7 @@ try:
     from pygost.asn1schemas.pfx import OctetStringSafeContents
     from pygost.asn1schemas.pfx import PFX
     from pygost.asn1schemas.pfx import PKCS8ShroudedKeyBag
+    from pygost.asn1schemas.pfx import SafeContents
 except ImportError:
     pyderasn_exists = False
 else:
@@ -83,13 +84,12 @@ G2ki9enTqos4KpUU0j9IDpl1UXiaA1YDIwUjlAp+81GkLmyt8Fw6Gt/X5JZySAY=
 
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
-        outer_safe_contents = octet_string_safe_contents["safeContents"]
-        octet_string_safe_contents, tail = OctetStringSafeContents().decode(
+        _, outer_safe_contents = pfx["authSafe"]["content"].defined
+        safe_contents, tail = OctetStringSafeContents().decode(
             bytes(outer_safe_contents[0]["bagValue"]),
         )
         self.assertSequenceEqual(tail, b"")
-        safe_bag = octet_string_safe_contents["safeContents"][0]
+        safe_bag = safe_contents[0]
         shrouded_key_bag, tail = PKCS8ShroudedKeyBag().decode(
             bytes(safe_bag["bagValue"]),
         )
@@ -136,8 +136,7 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
 
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
-        outer_safe_contents = octet_string_safe_contents["safeContents"]
+        _, outer_safe_contents = pfx["authSafe"]["content"].defined
         _, encrypted_data = outer_safe_contents[1]["bagValue"].defined
         _, pbes2_params = encrypted_data["encryptedContentInfo"]["contentEncryptionAlgorithm"]["parameters"].defined
         _, pbkdf2_params = pbes2_params["keyDerivationFunc"]["parameters"].defined
@@ -162,8 +161,7 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
     def test_mac(self):
         pfx, tail = PFX().decode(self.pfx_raw)
         self.assertSequenceEqual(tail, b"")
-        _, octet_string_safe_contents = pfx["authSafe"]["content"].defined
-        outer_safe_contents = octet_string_safe_contents["safeContents"]
+        _, outer_safe_contents = pfx["authSafe"]["content"].defined
         mac_data = pfx["macData"]
         mac_key = gost34112012_pbkdf2(
             password=self.password.encode('utf-8'),
@@ -175,7 +173,7 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
         self.assertSequenceEqual(
             hmac_new(
                 key=mac_key,
-                msg=outer_safe_contents.encode(),
+                msg=SafeContents(outer_safe_contents).encode(),
                 digestmod=GOST34112012512,
             ).digest(),
             bytes(mac_data["mac"]["digest"]),

@@ -169,9 +169,7 @@ class SafeContents(SequenceOf):
     schema = SafeBag()
 
 
-class OctetStringSafeContents(Sequence):
-    tag_default = OctetString.tag_default
-    schema = (("safeContents", SafeContents()),)
+OctetStringSafeContents = SafeContents(expl=OctetString.tag_default)
 
 
 class AuthSafe(Sequence):
