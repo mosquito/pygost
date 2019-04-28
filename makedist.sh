@@ -12,7 +12,7 @@ xz -9 pygost-"$release".tar
 gpg --detach-sign --sign --local-user E6FD1269CD0C009E pygost-"$release".tar.xz
 
 tarball=pygost-"$release".tar.xz
-size=$(( $(wc -c < $tarball) / 1024 ))
+size=$(( $(stat -f %z $tarball) / 1024 ))
 hash=$(gpg --print-md SHA256 < $tarball)
 hashsb=$($HOME/work/gogost/streebog256 < $tarball)
 release_date=$(date "+%Y-%m-%d")
