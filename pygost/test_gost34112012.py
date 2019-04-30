@@ -87,6 +87,14 @@ class TestVectors(TestCase):
             GOST34112012256(m).digest(),
             hexdec("508f7e553c06501d749a66fc28c6cac0b005746d97537fa85d9e40904efed29d")[::-1]
         )
+    def test_habr144(self):
+        """Test vector from https://habr.com/ru/post/450024/
+        """
+        m = hexdec("d0cf11e0a1b11ae1000000000000000000000000000000003e000300feff0900060000000000000000000000010000000100000000000000001000002400000001000000feffffff0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+        self.assertSequenceEqual(
+            GOST34112012256(m).hexdigest(),
+            "c766085540caaa8953bfcf7a1ba220619cee50d65dc242f82f23ba4b180b18e0",
+        )
 
 
 class TestPBKDF2(TestCase):
