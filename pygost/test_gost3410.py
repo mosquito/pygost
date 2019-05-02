@@ -70,8 +70,8 @@ class Test341001(TestCase):
 
         c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
         pubX, pubY = public_key(c, prv)
-        self.assertEqual(long2bytes(pubX), pub_x)
-        self.assertEqual(long2bytes(pubY), pub_y)
+        self.assertSequenceEqual(long2bytes(pubX), pub_x)
+        self.assertSequenceEqual(long2bytes(pubY), pub_y)
         s = sign(c, prv, digest)
         self.assertTrue(verify(c, (pubX, pubY), digest, s))
         self.assertTrue(verify(c, (pubX, pubY), digest, signature))
@@ -213,8 +213,8 @@ class Test34102012(TestCase):
 
         c = GOST3410Curve(p, q, a, b, x, y)
         pubX, pubY = public_key(c, prv)
-        self.assertEqual(long2bytes(pubX), pub_x)
-        self.assertEqual(long2bytes(pubY), pub_y)
+        self.assertSequenceEqual(long2bytes(pubX), pub_x)
+        self.assertSequenceEqual(long2bytes(pubY), pub_y)
         s = sign(c, prv, digest, mode=2012)
         self.assertTrue(verify(c, (pubX, pubY), digest, s, mode=2012))
         self.assertTrue(verify(c, (pubX, pubY), digest, signature, mode=2012))

@@ -32,7 +32,7 @@ class WrapGostTest(TestCase):
             ukm = urandom(8)
             wrapped = wrap_gost(ukm, kek, cek)
             unwrapped = unwrap_gost(kek, wrapped)
-            self.assertEqual(unwrapped, cek)
+            self.assertSequenceEqual(unwrapped, cek)
 
     def test_invalid_length(self):
         with self.assertRaises(ValueError):
@@ -49,4 +49,4 @@ class WrapCryptoproTest(TestCase):
             ukm = urandom(8)
             wrapped = wrap_cryptopro(ukm, kek, cek)
             unwrapped = unwrap_cryptopro(kek, wrapped)
-            self.assertEqual(unwrapped, cek)
+            self.assertSequenceEqual(unwrapped, cek)

@@ -109,9 +109,9 @@ class ECBTest(TestCase):
             0x5a, 0x5f, 0xca, 0x58, 0x9a, 0xb2, 0x2d, 0xb2,
         )))
         encrypted = ecb_encrypt(key, plaintext, sbox=sbox)
-        self.assertEqual(encrypted, ciphertext)
+        self.assertSequenceEqual(encrypted, ciphertext)
         decrypted = ecb_decrypt(key, encrypted, sbox=sbox)
-        self.assertEqual(decrypted, plaintext)
+        self.assertSequenceEqual(decrypted, plaintext)
 
     def test_cryptopp(self):
         """ Test vectors from Crypto++ 5.6.2
@@ -131,14 +131,14 @@ class ECBTest(TestCase):
             key = hexdec(key)
             pt = hexdec(pt)
             ct = hexdec(ct)
-            self.assertEqual(ecb_encrypt(key, pt, sbox=sbox), ct)
+            self.assertSequenceEqual(ecb_encrypt(key, pt, sbox=sbox), ct)
 
     def test_cryptomanager(self):
         """ Test vector from http://cryptomanager.com/tv.html
         """
         sbox = "GostR3411_94_TestParamSet"
         key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
-        self.assertEqual(
+        self.assertSequenceEqual(
             ecb_encrypt(key, hexdec(b"1122334455667788"), sbox=sbox),
             hexdec(b"03251E14F9D28ACB"),
         )
@@ -150,7 +150,7 @@ class CFBTest(TestCase):
         """
         key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
         sbox = "GostR3411_94_TestParamSet"
-        self.assertEqual(
+        self.assertSequenceEqual(
             cfb_encrypt(
                 key,
                 hexdec(b"112233445566778899AABBCCDD800000"),
@@ -159,7 +159,7 @@ class CFBTest(TestCase):
             ),
             hexdec(b"6EE84586DD2BCA0CAD3616940E164242"),
         )
-        self.assertEqual(
+        self.assertSequenceEqual(
             cfb_decrypt(
                 key,
                 hexdec(b"6EE84586DD2BCA0CAD3616940E164242"),
@@ -180,17 +180,17 @@ class CFBTest(TestCase):
         # First full block
         step = encrypt(DEFAULT_SBOX, key, block2ns(iv))
         step = strxor(plaintext[:8], ns2block(step))
-        self.assertEqual(step, ciphertext[:8])
+        self.assertSequenceEqual(step, ciphertext[:8])
 
         # Second full block
         step = encrypt(DEFAULT_SBOX, key, block2ns(step))
         step = strxor(plaintext[8:16], ns2block(step))
-        self.assertEqual(step, ciphertext[8:16])
+        self.assertSequenceEqual(step, ciphertext[8:16])
 
         # Third non-full block
         step = encrypt(DEFAULT_SBOX, key, block2ns(step))
         step = strxor(plaintext[16:] + 4 * b"\x00", ns2block(step))
-        self.assertEqual(step[:4], ciphertext[16:])
+        self.assertSequenceEqual(step[:4], ciphertext[16:])
 
     def test_random(self):
         """ Random data with various sizes
@@ -199,8 +199,9 @@ class CFBTest(TestCase):
         iv = urandom(8)
         for size in (5, 8, 16, 120):
             pt = urandom(size)
-            self.assertEqual(
-                cfb_decrypt(key, cfb_encrypt(key, pt, iv), iv), pt,
+            self.assertSequenceEqual(
+                cfb_decrypt(key, cfb_encrypt(key, pt, iv), iv),
+                pt,
             )
 
 
@@ -280,9 +281,9 @@ class CTRTest(TestCase):
         )))
         iv = b"\x02\x01\x01\x01\x01\x01\x01\x01"
         encrypted = cnt(key, plaintext, iv=iv, sbox=sbox)
-        self.assertEqual(encrypted, ciphertext)
+        self.assertSequenceEqual(encrypted, ciphertext)
         decrypted = cnt(key, encrypted, iv=iv, sbox=sbox)
-        self.assertEqual(decrypted, plaintext)
+        self.assertSequenceEqual(decrypted, plaintext)
 
     def test_gcl2(self):
         """ Test vectors 2 from libgcl3
@@ -309,9 +310,9 @@ class CTRTest(TestCase):
         )))
         iv = 8 * b"\x00"
         encrypted = cnt(key, plaintext, iv=iv, sbox=sbox)
-        self.assertEqual(encrypted, ciphertext)
+        self.assertSequenceEqual(encrypted, ciphertext)
         decrypted = cnt(key, encrypted, iv=iv, sbox=sbox)
-        self.assertEqual(decrypted, plaintext)
+        self.assertSequenceEqual(decrypted, plaintext)
 
 
 class CBCTest(TestCase):
@@ -329,7 +330,7 @@ class CBCTest(TestCase):
         for pt in (b"foo", b"foobarba", b"foobarbaz", 16 * b"x"):
             ct = cbc_encrypt(key, pt, iv)
             dt = cbc_decrypt(key, ct)
-            self.assertEqual(pt, dt)
+            self.assertSequenceEqual(pt, dt)
 
     def test_iv_existence_check(self):
         key = 32 * b"x"
@@ -343,7 +344,7 @@ class CBCTest(TestCase):
         key = urandom(32)
         ct = cbc_encrypt(key, pt)
         dt = cbc_decrypt(key, ct)
-        self.assertEqual(pt, dt)
+        self.assertSequenceEqual(pt, dt)
 
 
 class CFBMeshingTest(TestCase):
@@ -355,28 +356,28 @@ class CFBMeshingTest(TestCase):
         pt = b"\x00"
         ct = cfb_encrypt(self.key, pt, mesh=True)
         dec = cfb_decrypt(self.key, ct, mesh=True)
-        self.assertEqual(pt, dec)
+        self.assertSequenceEqual(pt, dec)
 
     def test_short(self):
         pt = urandom(MESH_MAX_DATA - 1)
         ct = cfb_encrypt(self.key, pt, mesh=True)
         dec = cfb_decrypt(self.key, ct, mesh=True)
         dec_plain = cfb_decrypt(self.key, ct)
-        self.assertEqual(pt, dec)
-        self.assertEqual(pt, dec_plain)
+        self.assertSequenceEqual(pt, dec)
+        self.assertSequenceEqual(pt, dec_plain)
 
     def test_short_iv(self):
         pt = urandom(MESH_MAX_DATA - 1)
         ct = cfb_encrypt(self.key, pt, iv=self.iv, mesh=True)
         dec = cfb_decrypt(self.key, ct, iv=self.iv, mesh=True)
         dec_plain = cfb_decrypt(self.key, ct, iv=self.iv)
-        self.assertEqual(pt, dec)
-        self.assertEqual(pt, dec_plain)
+        self.assertSequenceEqual(pt, dec)
+        self.assertSequenceEqual(pt, dec_plain)
 
     def test_longer_iv(self):
         pt = urandom(MESH_MAX_DATA * 3)
         ct = cfb_encrypt(self.key, pt, iv=self.iv, mesh=True)
         dec = cfb_decrypt(self.key, ct, iv=self.iv, mesh=True)
         dec_plain = cfb_decrypt(self.key, ct, iv=self.iv)
-        self.assertEqual(pt, dec)
+        self.assertSequenceEqual(pt, dec)
         self.assertNotEqual(pt, dec_plain)

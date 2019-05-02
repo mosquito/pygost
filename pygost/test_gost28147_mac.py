@@ -26,25 +26,25 @@ class TestMAC(TestCase):
     k = b"This is message\xFF length\x0032 bytes"
 
     def test_a(self):
-        self.assertEqual(
+        self.assertSequenceEqual(
             MAC(self.k, b"a").hexdigest(),
             "bd5d3b5b2b7b57af",
         )
 
     def test_abc(self):
-        self.assertEqual(
+        self.assertSequenceEqual(
             MAC(self.k, b"abc").hexdigest(),
             "28661e40805b1ff9",
         )
 
     def test_128U(self):
-        self.assertEqual(
+        self.assertSequenceEqual(
             MAC(self.k, 128 * b"U").hexdigest(),
             "1a06d1bad74580ef",
         )
 
     def test_13x(self):
-        self.assertEqual(
+        self.assertSequenceEqual(
             MAC(self.k, 13 * b"x").hexdigest(),
             "917ee1f1a668fbd3",
         )
@@ -53,7 +53,7 @@ class TestMAC(TestCase):
         m = MAC(self.k)
         m.update(b"foo")
         m.update(b"bar")
-        self.assertEqual(m.digest(), MAC(self.k, b"foobar").digest())
+        self.assertSequenceEqual(m.digest(), MAC(self.k, b"foobar").digest())
 
     def test_copy(self):
         m = MAC(self.k, b"foo")
@@ -61,4 +61,4 @@ class TestMAC(TestCase):
         m.update(b"barbaz")
         c.update(b"bar")
         c.update(b"baz")
-        self.assertEqual(m.digest(), c.digest())
+        self.assertSequenceEqual(m.digest(), c.digest())
