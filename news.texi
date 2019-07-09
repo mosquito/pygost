@@ -3,6 +3,13 @@
 
 @table @strong
 
+@anchor{Release 3.16}
+@item 3.16
+    @itemize
+    @item 34.10-2012 TC26 twisted Edwards curve related parameters
+    @item More test vectors
+    @end itemize
+
 @anchor{Release 3.15}
 @item 3.15
     @itemize

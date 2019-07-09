@@ -1,3 +1,7 @@
+3.16:
+    * 34.10-2012 TC26 twisted Edwards curve related parameters.
+    * More test vectors.
+
 3.15:
     * Licence changed back to GNU GPLv3+.
       GNU LGPLv3+ licenced versions are not available anymore
