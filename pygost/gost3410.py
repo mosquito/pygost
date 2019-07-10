@@ -54,9 +54,7 @@ class GOST3410Curve(object):
         self.y = y
         r1 = self.y * self.y % self.p
         r2 = ((self.x * self.x + self.a) * self.x + self.b) % self.p
-        if r2 < 0:
-            r2 += self.p
-        if r1 != r2:
+        if r1 != self._pos(r2):
             raise ValueError("Invalid parameters")
 
     def _pos(self, v):
