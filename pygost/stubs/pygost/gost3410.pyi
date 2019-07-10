@@ -15,12 +15,26 @@ class GOST3410Curve(object):
     b = ...  # type: int
     x = ...  # type: int
     y = ...  # type: int
+    e = ...  # type: int
+    d = ...  # type: int
 
     def __init__(
-        self, p: bytes, q: bytes, a: bytes, b: bytes, x: bytes, y: bytes
+            self,
+            p: int,
+            q: int,
+            a: int,
+            b: int,
+            x: int,
+            y: int,
+            e: int = None,
+            d: int = None,
     ) -> None: ...
 
+    def pos(self, v: int) -> int: ...
+
     def exp(self, degree: int, x: int=..., y: int=...) -> int: ...
+
+    def st(self) -> Tuple[int, int]: ...
 
 
 def public_key(curve: GOST3410Curve, prv: int) -> PublicKey: ...
@@ -45,3 +59,9 @@ def pub_marshal(pub: PublicKey, mode: int=...) -> bytes: ...
 
 
 def pub_unmarshal(pub: bytes, mode: int=...) -> PublicKey: ...
+
+
+def uv2xy(curve: GOST3410Curve, u: int, v: int) -> Tuple[int, int]: ...
+
+
+def xy2uv(curve: GOST3410Curve, x: int, y: int) -> Tuple[int, int]: ...

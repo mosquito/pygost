@@ -22,7 +22,9 @@ from pygost.gost3410 import CURVES
 from pygost.gost3410 import GOST3410Curve
 from pygost.gost3410 import public_key
 from pygost.gost3410 import sign
+from pygost.gost3410 import uv2xy
 from pygost.gost3410 import verify
+from pygost.gost3410 import xy2uv
 from pygost.utils import bytes2long
 from pygost.utils import hexdec
 from pygost.utils import long2bytes
@@ -228,6 +230,22 @@ class Test34102012(TestCase):
             s = sign(c, prv, digest, mode=2012)
             self.assertTrue(verify(c, (pubX, pubY), digest, s, mode=2012))
             self.assertNotIn(b"\x00" * 8, s)
+
+
+class TestUVXYConversion(TestCase):
+    """Twisted Edwards to Weierstrass coordinates conversion and vice versa
+    """
+    def test_curve1(self):
+        c = CURVES["id-tc26-gost-3410-2012-256-paramSetA"]
+        u, v = (0x0D, bytes2long(hexdec("60CA1E32AA475B348488C38FAB07649CE7EF8DBE87F22E81F92B2592DBA300E7")))
+        self.assertEqual(uv2xy(c, u, v), (c.x, c.y))
+        self.assertEqual(xy2uv(c, c.x, c.y), (u, v))
+
+    def test_curve2(self):
+        c = CURVES["id-tc26-gost-3410-2012-512-paramSetC"]
+        u, v = (0x12, bytes2long(hexdec("469AF79D1FB1F5E16B99592B77A01E2A0FDFB0D01794368D9A56117F7B38669522DD4B650CF789EEBF068C5D139732F0905622C04B2BAAE7600303EE73001A3D")))
+        self.assertEqual(uv2xy(c, u, v), (c.x, c.y))
+        self.assertEqual(xy2uv(c, c.x, c.y), (u, v))
 
 
 class Test34102012SESPAKE(TestCase):

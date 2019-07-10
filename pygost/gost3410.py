@@ -44,20 +44,35 @@ class GOST3410Curve(object):
     >>> pub = public_key(curve, prv)
     >>> verify(curve, pub, GOST341194(data).digest(), signature)
     True
+
+    :param long p: characteristic of the underlying prime field
+    :param long q: elliptic curve subgroup order
+    :param long a, b: coefficients of the equation of the elliptic curve in
+                      the canonical form
+    :param long x, y: the coordinate of the point P (generator of the
+                      subgroup of order q) of the elliptic curve in
+                      the canonical form
+    :param long e, d: coefficients of the equation of the elliptic curve in
+                      the twisted Edwards form
     """
-    def __init__(self, p, q, a, b, x, y):
+    def __init__(self, p, q, a, b, x, y, e=None, d=None):
         self.p = p
         self.q = q
         self.a = a
         self.b = b
         self.x = x
         self.y = y
+        self.e = e
+        self.d = d
         r1 = self.y * self.y % self.p
         r2 = ((self.x * self.x + self.a) * self.x + self.b) % self.p
-        if r1 != self._pos(r2):
+        if r1 != self.pos(r2):
             raise ValueError("Invalid parameters")
+        self._st = None
 
-    def _pos(self, v):
+    def pos(self, v):
+        """Make positive number
+        """
         if v < 0:
             return v + self.p
         return v
@@ -67,11 +82,11 @@ class GOST3410Curve(object):
             # double
             t = ((3 * p1x * p1x + self.a) * modinvert(2 * p1y, self.p)) % self.p
         else:
-            tx = self._pos(p2x - p1x) % self.p
-            ty = self._pos(p2y - p1y) % self.p
+            tx = self.pos(p2x - p1x) % self.p
+            ty = self.pos(p2y - p1y) % self.p
             t = (ty * modinvert(tx, self.p)) % self.p
-        tx = self._pos(t * t - p1x - p2x) % self.p
-        ty = self._pos(t * (p1x - tx) - p1y) % self.p
+        tx = self.pos(t * t - p1x - p2x) % self.p
+        ty = self.pos(t * (p1x - tx) - p1y) % self.p
         return tx, ty
 
     def exp(self, degree, x=None, y=None):
@@ -88,6 +103,19 @@ class GOST3410Curve(object):
             degree = degree >> 1
             x, y = self._add(x, y, x, y)
         return tx, ty
+
+    def st(self):
+        """Compute s/t parameters for twisted Edwards curve points conversion
+        """
+        if self.e is None or self.d is None:
+            raise ValueError("non twisted Edwards curve")
+        if self._st is not None:
+            return self._st
+        self._st = (
+            self.pos(self.e - self.d) * modinvert(4, self.p) % self.p,
+            (self.e + self.d) * modinvert(6, self.p) % self.p,
+        )
+        return self._st
 
 
 CURVES = {
@@ -154,6 +182,8 @@ CURVES = {
         b=bytes2long(hexdec("295F9BAE7428ED9CCC20E7C359A9D41A22FCCD9108E17BF7BA9337A6F8AE9513")),
         x=bytes2long(hexdec("91E38443A5E82C0D880923425712B2BB658B9196932E02C78B2582FE742DAA28")),
         y=bytes2long(hexdec("32879423AB1A0375895786C4BB46E9565FDE0B5344766740AF268ADB32322E5C")),
+        e=0x01,
+        d=bytes2long(hexdec("0605F6B7C183FA81578BC39CFAD518132B9DF62897009AF7E522C32D6DC7BFFB")),
     ),
     "id-tc26-gost-3410-12-512-paramSetA": GOST3410Curve(
         p=bytes2long(hexdec("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDC7")),
@@ -178,6 +208,8 @@ CURVES = {
         b=bytes2long(hexdec("B4C4EE28CEBC6C2C8AC12952CF37F16AC7EFB6A9F69F4B57FFDA2E4F0DE5ADE038CBC2FFF719D2C18DE0284B8BFEF3B52B8CC7A5F5BF0A3C8D2319A5312557E1")),
         x=bytes2long(hexdec("E2E31EDFC23DE7BDEBE241CE593EF5DE2295B7A9CBAEF021D385F7074CEA043AA27272A7AE602BF2A7B9033DB9ED3610C6FB85487EAE97AAC5BC7928C1950148")),
         y=bytes2long(hexdec("F5CE40D95B5EB899ABBCCFF5911CB8577939804D6527378B8C108C3D2090FF9BE18E2D33E3021ED2EF32D85822423B6304F726AA854BAE07D0396E9A9ADDC40F")),
+        e=0x01,
+        d=bytes2long(hexdec("9E4F5D8C017D8D9F13A5CF3CDF5BFE4DAB402D54198E31EBDE28A0621050439CA6B39E0A515C06B304E2CE43E79E369E91A0CFC2BC2A22B4CA302DBB33EE7550")),
     ),
 }
 DEFAULT_CURVE = CURVES["id-GostR3410-2001-CryptoPro-A-ParamSet"]
@@ -298,3 +330,24 @@ def pub_unmarshal(pub, mode=2001):
     size = MODE2SIZE[mode]
     pub = pub[::-1]
     return (bytes2long(pub[size:]), bytes2long(pub[:size]))
+
+
+def uv2xy(curve, u, v):
+    """Convert twisted Edwards curve U,V coordinates to Weierstrass X,Y
+    """
+    s, t = curve.st()
+    k1 = (s * (1 + v)) % curve.p
+    k2 = curve.pos(1 - v)
+    x = t + k1 * modinvert(k2, curve.p)
+    y = k1 * modinvert(u * k2, curve.p)
+    return x % curve.p, y % curve.p
+
+
+def xy2uv(curve, x, y):
+    """Convert Weierstrass X,Y coordinates to twisted Edwards curve U,V
+    """
+    s, t = curve.st()
+    xmt = curve.pos(x - t)
+    u = xmt * modinvert(y, curve.p)
+    v = curve.pos(xmt - s) * modinvert(xmt + s, curve.p)
+    return u % curve.p, v % curve.p
