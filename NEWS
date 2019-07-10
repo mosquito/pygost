@@ -24,6 +24,14 @@
       GostR3410_2012_TC26_ParamSetB          -> id-tc26-gost-3410-12-512-paramSetB
       GostR3410_2012_TC26_ParamSetC          -> id-tc26-gost-3410-2012-512-paramSetC
 
+    * Backward incompatible GOST3410Curve initialization: all parameters
+      are passed not as big-endian encoded binaries, but as integers
+    * Backward incompatible change: gost3410.CURVE_PARAMS is
+      disappeared. gost3410.CURVES dictionary holds already initialized
+      GOST3410Curve. Just use
+      CURVES["id-tc26-gost-3410-12-512-paramSetA"] instead of
+      GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
+
 3.15:
     * Licence changed back to GNU GPLv3+.
       GNU LGPLv3+ licenced versions are not available anymore

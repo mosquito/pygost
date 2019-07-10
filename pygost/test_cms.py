@@ -20,8 +20,7 @@ from unittest import skipIf
 from unittest import TestCase
 
 from pygost.gost28147 import cfb_decrypt
-from pygost.gost3410 import CURVE_PARAMS
-from pygost.gost3410 import GOST3410Curve
+from pygost.gost3410 import CURVES
 from pygost.gost3410 import prv_unmarshal
 from pygost.gost3410 import pub_unmarshal
 from pygost.gost3410 import public_key
@@ -68,7 +67,7 @@ class TestSigned(TestCase):
         self.assertIsNotNone(content_info["content"].defined)
         _, signed_data = content_info["content"].defined
         self.assertEqual(len(signed_data["signerInfos"]), 1)
-        curve = GOST3410Curve(*CURVE_PARAMS[curve_name])
+        curve = CURVES[curve_name]
         self.assertTrue(verify(
             curve,
             public_key(curve, prv_unmarshal(prv_key_raw)),
@@ -209,7 +208,7 @@ class TestEnvelopedKTRI(TestCase):
         spk = encrypted_key["transportParameters"]["ephemeralPublicKey"]["subjectPublicKey"]
         self.assertIsNotNone(spk.defined)
         _, pub_key_their = spk.defined
-        curve = GOST3410Curve(*CURVE_PARAMS[curve_name])
+        curve = CURVES[curve_name]
         kek = keker(curve, prv_key_our, bytes(pub_key_their), ukm)
         key_wrapped = bytes(encrypted_key["sessionEncryptedKey"]["encryptedKey"])
         mac = bytes(encrypted_key["sessionEncryptedKey"]["macKey"])
@@ -385,7 +384,7 @@ class TestEnvelopedKARI(TestCase):
         _, pub_key_their = kari["originator"]["originatorKey"]["publicKey"].defined
         ukm = bytes(kari["ukm"])
         rek = kari["recipientEncryptedKeys"][0]
-        curve = GOST3410Curve(*CURVE_PARAMS[curve_name])
+        curve = CURVES[curve_name]
         kek = keker(curve, prv_key_our, bytes(pub_key_their), ukm)
         self.assertIsNotNone(rek["encryptedKey"].defined)
         _, encrypted_key = rek["encryptedKey"].defined

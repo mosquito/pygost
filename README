@@ -27,9 +27,8 @@ Known problems: low performance and non time-constant calculations.
 
 Example 34.10-2012 keypair generation, signing and verifying:
 
-    >>> from pygost.gost3410 import CURVE_PARAMS
-    >>> from pygost.gost3410 import GOST3410Curve
-    >>> curve = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
+    >>> from pygost.gost3410 import CURVES
+    >>> curve = CURVES["id-tc26-gost-3410-12-512-paramSetA"]
     >>> from os import urandom
     >>> prv_raw = urandom(32)
     >>> from pygost.gost3410 import prv_unmarshal

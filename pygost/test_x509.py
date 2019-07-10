@@ -19,8 +19,7 @@ from base64 import b64decode
 from unittest import skipIf
 from unittest import TestCase
 
-from pygost.gost3410 import CURVE_PARAMS
-from pygost.gost3410 import GOST3410Curve
+from pygost.gost3410 import CURVES
 from pygost.gost3410 import prv_unmarshal
 from pygost.gost3410 import pub_unmarshal
 from pygost.gost3410 import public_key
@@ -72,7 +71,7 @@ class TestCertificate(TestCase):
             ),
         })
         self.assertSequenceEqual(tail, b"")
-        curve = GOST3410Curve(*CURVE_PARAMS[curve_name])
+        curve = CURVES[curve_name]
         prv_key = prv_unmarshal(prv_key_raw)
         spk = cert["tbsCertificate"]["subjectPublicKeyInfo"]["subjectPublicKey"]
         self.assertIsNotNone(spk.defined)
