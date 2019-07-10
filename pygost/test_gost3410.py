@@ -69,7 +69,7 @@ class Test341001(TestCase):
         prv = bytes2long(prv)
         signature = signature[32:] + signature[:32]
 
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-TestParamSet"])
         pubX, pubY = public_key(c, prv)
         self.assertSequenceEqual(long2bytes(pubX), pub_x)
         self.assertSequenceEqual(long2bytes(pubY), pub_y)
@@ -78,7 +78,7 @@ class Test341001(TestCase):
         self.assertTrue(verify(c, (pubX, pubY), digest, signature))
 
     def test_sequence(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-TestParamSet"])
         prv = bytes2long(urandom(32))
         pubX, pubY = public_key(c, prv)
         for _ in range(20):
@@ -221,7 +221,7 @@ class Test34102012(TestCase):
         self.assertTrue(verify(c, (pubX, pubY), digest, signature, mode=2012))
 
     def test_sequence(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         prv = bytes2long(urandom(64))
         pubX, pubY = public_key(c, prv)
         for _ in range(20):
@@ -235,7 +235,7 @@ class Test34102012SESPAKE(TestCase):
     """Test vectors for multiplication from :rfc:`8133`
     """
     def test_curve1(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_CryptoPro_A_ParamSet"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-CryptoPro-A-ParamSet"])
         q_ind = (
             0xA69D51CAF1A309FA9E9B66187759B0174C274E080356F23CFCBFE84D396AD7BB,
             0x5D26F29ECC2E9AC0404DCF7986FA55FE94986362170F54B9616426A659786DAC,
@@ -265,7 +265,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve2(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_CryptoPro_B_ParamSet"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-CryptoPro-B-ParamSet"])
         q_ind = (
             0x3D715A874A4B17CB3B517893A9794A2B36C89D2FFC693F01EE4CC27E7F49E399,
             0x1C5A641FCF7CE7E87CDF8CEA38F3DB3096EACE2FAD158384B53953365F4FE7FE,
@@ -295,7 +295,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve3(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_CryptoPro_C_ParamSet"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-CryptoPro-C-ParamSet"])
         q_ind = (
             0x1E36383E43BB6CFA2917167D71B7B5DD3D6D462B43D7C64282AE67DFBEC2559D,
             0x137478A9F721C73932EA06B45CF72E37EB78A63F29A542E563C614650C8B6399,
@@ -325,7 +325,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve4(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         q_ind = (
             0x2A17F8833A32795327478871B5C5E88AEFB91126C64B4B8327289BEA62559425D18198F133F400874328B220C74497CD240586CB249E158532CB8090776CD61C,
             0x728F0C4A73B48DA41CE928358FAD26B47A6E094E9362BAE82559F83CDDC4EC3A4676BD3707EDEAF4CD85E99695C64C241EDC622BE87DC0CF87F51F4367F723C5,
@@ -355,7 +355,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve5(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetB"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetB"])
         q_ind = (
             0x7E1FAE8285E035BEC244BEF2D0E5EBF436633CF50E55231DEA9C9CF21D4C8C33DF85D4305DE92971F0A4B4C07E00D87BDBC720EB66E49079285AAF12E0171149,
             0x2CC89998B875D4463805BA0D858A196592DB20AB161558FF2F4EF7A85725D20953967AE621AFDEAE89BB77C83A2528EF6FCE02F68BDA4679D7F2704947DBC408,
@@ -385,7 +385,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve6(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_256_ParamSetA"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-2012-256-paramSetA"])
         q_ind = (
             0xB51ADF93A40AB15792164FAD3352F95B66369EB2A4EF5EFAE32829320363350E,
             0x74A358CC08593612F5955D249C96AFB7E8B0BB6D8BD2BBE491046650D822BE18,
@@ -415,7 +415,7 @@ class Test34102012SESPAKE(TestCase):
         )
 
     def test_curve7(self):
-        c = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetC"])
+        c = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-2012-512-paramSetC"])
         q_ind = (
             0x489C91784E02E98F19A803ABCA319917F37689E5A18965251CE2FF4E8D8B298F5BA7470F9E0E713487F96F4A8397B3D09A270C9D367EB5E0E6561ADEEB51581D,
             0x684EA885ACA64EAF1B3FEE36C0852A3BE3BD8011B0EF18E203FF87028D6EB5DB2C144A0DCC71276542BFD72CA2A43FA4F4939DA66D9A60793C704A8C94E16F18,

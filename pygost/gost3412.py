@@ -164,7 +164,7 @@ class GOST3412Magma(object):
         """
         # Backward compatibility key preparation for 28147-89 key schedule
         self.key = b"".join(key[i * 4:i * 4 + 4][::-1] for i in range(8))
-        self.sbox = "Gost28147_tc26_ParamZ"
+        self.sbox = "id-tc26-gost-28147-param-Z"
 
     def encrypt(self, blk):
         return gost28147_ns2block(gost28147_encrypt(

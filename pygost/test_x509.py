@@ -105,7 +105,7 @@ dqQfmHrz6TI6Xojdh/t8ckODv/587NS5/6KsM77vc6Wh90NAT2s=
         """)
         prv_key_raw = hexdec("BFCF1D623E5CDD3032A7C6EABB4A923C46E43D640FFEAAF2C3ED39A8FA399924")[::-1]
         self.process_cert(
-            "GostR3410_2001_CryptoPro_XchA_ParamSet",
+            "id-GostR3410-2001-CryptoPro-XchA-ParamSet",
             2001,
             GOST34112012256,
             prv_key_raw,
@@ -133,7 +133,7 @@ o3eUNFkNyHJwQCk2WoOlO16zwGk2tdKH4KmD5w==
         """)
         prv_key_raw = hexdec("3FC01CDCD4EC5F972EB482774C41E66DB7F380528DFE9E67992BA05AEE462435757530E641077CE587B976C8EEB48C48FD33FD175F0C7DE6A44E014E6BCB074B")[::-1]
         self.process_cert(
-            "GostR3410_2012_TC26_ParamSetB",
+            "id-tc26-gost-3410-12-512-paramSetB",
             2012,
             GOST34112012512,
             prv_key_raw,

@@ -1,6 +1,28 @@
-3.16:
-    * 34.10-2012 TC26 twisted Edwards curve related parameters.
-    * More test vectors.
+4.0:
+    * 34.10-2012 TC26 twisted Edwards curve related parameters
+    * More test vectors
+    * Backward incompatible Sbox and curves parameters renaming, to
+      comply with OIDs identifying them:
+
+      Gost2814789_TestParamSet       -> id-Gost28147-89-TestParamSet
+      Gost28147_CryptoProParamSetA   -> id-Gost28147-89-CryptoPro-A-ParamSet
+      Gost28147_CryptoProParamSetB   -> id-Gost28147-89-CryptoPro-B-ParamSet
+      Gost28147_CryptoProParamSetC   -> id-Gost28147-89-CryptoPro-C-ParamSet
+      Gost28147_CryptoProParamSetD   -> id-Gost28147-89-CryptoPro-D-ParamSet
+      Gost28147_tc26_ParamZ          -> id-tc26-gost-28147-param-Z
+      GostR3411_94_TestParamSet      -> id-GostR3411-94-TestParamSet
+      GostR3411_94_CryptoProParamSet -> id-GostR3411-94-CryptoProParamSet
+
+      GostR3410_2001_TestParamSet            -> id-GostR3410-2001-TestParamSet
+      GostR3410_2001_CryptoPro_A_ParamSet    -> id-GostR3410-2001-CryptoPro-A-ParamSet
+      GostR3410_2001_CryptoPro_B_ParamSet    -> id-GostR3410-2001-CryptoPro-B-ParamSet
+      GostR3410_2001_CryptoPro_C_ParamSet    -> id-GostR3410-2001-CryptoPro-C-ParamSet
+      GostR3410_2001_CryptoPro_XchA_ParamSet -> id-GostR3410-2001-CryptoPro-XchA-ParamSet
+      GostR3410_2001_CryptoPro_XchB_ParamSet -> id-GostR3410-2001-CryptoPro-XchB-ParamSet
+      GostR3410_2012_TC26_256_ParamSetA      -> id-tc26-gost-3410-2012-256-paramSetA
+      GostR3410_2012_TC26_ParamSetA          -> id-tc26-gost-3410-12-512-paramSetA
+      GostR3410_2012_TC26_ParamSetB          -> id-tc26-gost-3410-12-512-paramSetB
+      GostR3410_2012_TC26_ParamSetC          -> id-tc26-gost-3410-2012-512-paramSetC
 
 3.15:
     * Licence changed back to GNU GPLv3+.

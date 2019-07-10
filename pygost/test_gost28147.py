@@ -38,7 +38,7 @@ class ECBTest(TestCase):
     def test_gcl(self):
         """ Test vectors from libgcl3
         """
-        sbox = "Gost2814789_TestParamSet"
+        sbox = "id-Gost28147-89-TestParamSet"
         key = hexdec(b"0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
@@ -136,7 +136,7 @@ class ECBTest(TestCase):
     def test_cryptomanager(self):
         """ Test vector from http://cryptomanager.com/tv.html
         """
-        sbox = "GostR3411_94_TestParamSet"
+        sbox = "id-GostR3411-94-TestParamSet"
         key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
         self.assertSequenceEqual(
             ecb_encrypt(key, hexdec(b"1122334455667788"), sbox=sbox),
@@ -149,7 +149,7 @@ class CFBTest(TestCase):
         """ Test vector from http://cryptomanager.com/tv.html
         """
         key = hexdec(b"75713134B60FEC45A607BB83AA3746AF4FF99DA6D1B53B5B1B402A1BAA030D1B")
-        sbox = "GostR3411_94_TestParamSet"
+        sbox = "id-GostR3411-94-TestParamSet"
         self.assertSequenceEqual(
             cfb_encrypt(
                 key,
@@ -209,7 +209,7 @@ class CTRTest(TestCase):
     def test_gcl(self):
         """ Test vectors from libgcl3
         """
-        sbox = "Gost2814789_TestParamSet"
+        sbox = "id-Gost28147-89-TestParamSet"
         key = hexdec(b"0475f6e05038fbfad2c7c390edb3ca3d1547124291ae1e8a2f79cd9ed2bcefbd")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
@@ -288,7 +288,7 @@ class CTRTest(TestCase):
     def test_gcl2(self):
         """ Test vectors 2 from libgcl3
         """
-        sbox = "Gost2814789_TestParamSet"
+        sbox = "id-Gost28147-89-TestParamSet"
         key = hexdec(b"fc7ad2886f455b50d29008fa622b57d5c65b3c637202025799cadf0768519e8a")
         plaintext = bytes(bytearray((
             0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,

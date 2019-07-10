@@ -110,7 +110,7 @@ G2ki9enTqos4KpUU0j9IDpl1UXiaA1YDIwUjlAp+81GkLmyt8Fw6Gt/X5JZySAY=
                 key,
                 bytes(shrouded_key_bag["encryptedData"]),
                 iv=bytes(enc_scheme_params["iv"]),
-                sbox="Gost28147_tc26_ParamZ",
+                sbox="id-tc26-gost-28147-param-Z",
             ),
             private_key_info_expected,
         )
@@ -153,7 +153,7 @@ ATAMBggqhQMHAQEDAgUAA0EA9oq0Vvk8kkgIwkp0x0J5eKtia4MNTiwKAm7jgnCZIx3O98BThaTX
                 key,
                 bytes(encrypted_data["encryptedContentInfo"]["encryptedContent"]),
                 iv=bytes(enc_scheme_params["iv"]),
-                sbox="Gost28147_tc26_ParamZ",
+                sbox="id-tc26-gost-28147-param-Z",
             ),
             cert_bag_expected,
         )

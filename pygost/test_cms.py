@@ -90,7 +90,7 @@ VNwDQ8enFItJZ8DEX4blZ8QtziNCMl5HbA==
         self.process_cms(
             content_info_raw,
             prv_key_raw,
-            "GostR3410_2001_CryptoPro_XchA_ParamSet",
+            "id-GostR3410-2001-CryptoPro-XchA-ParamSet",
             GOST34112012256,
             2001,
         )
@@ -109,7 +109,7 @@ PS+KRYxT8vhcsBLWWxDkc1McI7aF09hqtED36mQOfACzeJjEoUjALpmJob1V
         self.process_cms(
             content_info_raw,
             prv_key_raw,
-            "GostR3410_2012_TC26_ParamSetB",
+            "id-tc26-gost-3410-12-512-paramSetB",
             GOST34112012512,
             2012,
         )
@@ -166,7 +166,7 @@ class TestEnvelopedKTRI(TestCase):
             keker,
             plaintext_expected,
     ):
-        sbox = "Gost28147_tc26_ParamZ"
+        sbox = "id-tc26-gost-28147-param-Z"
         content_info, tail = ContentInfo().decode(content_info_raw, ctx={
             "defines_by_path": [
                 (
@@ -294,7 +294,7 @@ pRmMVN+YtRsrEHwH3ToQ/i4vrtgA+eONuKT2uKZFikxA+VNmeeGdhkgqETMihQ==
         self.process_cms(
             content_info_raw,
             prv_key_our,
-            "GostR3410_2001_CryptoPro_XchA_ParamSet",
+            "id-GostR3410-2001-CryptoPro-XchA-ParamSet",
             keker,
             b"Test data to encrypt.\n" * 100,
         )
@@ -325,7 +325,7 @@ FTAVBAj+1QzaXaN9FwYJKoUDBwECBQEBgAyK54euw0sHhEVEkA0=
         self.process_cms(
             content_info_raw,
             prv_key_our,
-            "GostR3410_2012_TC26_ParamSetB",
+            "id-tc26-gost-3410-12-512-paramSetB",
             keker,
             b"Test message",
         )
@@ -346,7 +346,7 @@ class TestEnvelopedKARI(TestCase):
             keker,
             plaintext_expected,
     ):
-        sbox = "Gost28147_tc26_ParamZ"
+        sbox = "id-tc26-gost-28147-param-Z"
         content_info, tail = ContentInfo().decode(content_info_raw, ctx={
             "defines_by_path": [
                 (
@@ -427,7 +427,7 @@ UNjyuY+54uVcHw==
         self.process_cms(
             content_info_raw,
             prv_key_our,
-            "GostR3410_2001_CryptoPro_XchA_ParamSet",
+            "id-GostR3410-2001-CryptoPro-XchA-ParamSet",
             keker,
             b"Test message",
         )
@@ -458,7 +458,7 @@ WFUZEnEuAKcuG6dTOawEBLhi9hIwOgYJKoZIhvcNAQcBMB8GBiqFAwICFTAVBAiD
         self.process_cms(
             content_info_raw,
             prv_key_our,
-            "GostR3410_2012_TC26_ParamSetB",
+            "id-tc26-gost-3410-12-512-paramSetB",
             keker,
             b"Test message",
         )

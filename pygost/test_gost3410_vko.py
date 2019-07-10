@@ -33,7 +33,7 @@ from pygost.utils import hexdec
 
 class TestVKO34102001(TestCase):
     def test_vector(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-TestParamSet"])
         ukm = ukm_unmarshal(hexdec("5172be25f852a233"))
         prv1 = prv_unmarshal(hexdec("1df129e43dab345b68f6a852f4162dc69f36b2f84717d08755cc5c44150bf928"))
         prv2 = prv_unmarshal(hexdec("5b9356c6474f913f1e83885ea0edd5df1a43fd9d799d219093241157ac9ed473"))
@@ -44,7 +44,7 @@ class TestVKO34102001(TestCase):
         self.assertSequenceEqual(kek_34102001(curve, prv2, pub1, ukm), kek)
 
     def test_sequence(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2001_TestParamSet"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-GostR3410-2001-TestParamSet"])
         for _ in range(10):
             ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))
@@ -63,7 +63,7 @@ class TestVKO34102012256(TestCase):
     """RFC 7836
     """
     def test_vector(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         ukm = ukm_unmarshal(hexdec("1d80603c8544c727"))
         prvA = prv_unmarshal(hexdec("c990ecd972fce84ec4db022778f50fcac726f46708384b8d458304962d7147f8c2db41cef22c90b102f2968404f9b9be6d47c79692d81826b32b8daca43cb667"))
         pubA = pub_unmarshal(hexdec("aab0eda4abff21208d18799fb9a8556654ba783070eba10cb9abb253ec56dcf5d3ccba6192e464e6e5bcb6dea137792f2431f6c897eb1b3c0cc14327b1adc0a7914613a3074e363aedb204d38d3563971bd8758e878c9db11403721b48002d38461f92472d40ea92f9958c0ffa4c93756401b97f89fdbe0b5e46e4a4631cdb5a"), mode=2012)
@@ -74,7 +74,7 @@ class TestVKO34102012256(TestCase):
         self.assertSequenceEqual(kek_34102012256(curve, prvB, pubA, ukm), vko)
 
     def test_sequence(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         for _ in range(10):
             ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))
@@ -93,7 +93,7 @@ class TestVKO34102012512(TestCase):
     """RFC 7836
     """
     def test_vector(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         ukm = ukm_unmarshal(hexdec("1d80603c8544c727"))
         prvA = prv_unmarshal(hexdec("c990ecd972fce84ec4db022778f50fcac726f46708384b8d458304962d7147f8c2db41cef22c90b102f2968404f9b9be6d47c79692d81826b32b8daca43cb667"))
         pubA = pub_unmarshal(hexdec("aab0eda4abff21208d18799fb9a8556654ba783070eba10cb9abb253ec56dcf5d3ccba6192e464e6e5bcb6dea137792f2431f6c897eb1b3c0cc14327b1adc0a7914613a3074e363aedb204d38d3563971bd8758e878c9db11403721b48002d38461f92472d40ea92f9958c0ffa4c93756401b97f89fdbe0b5e46e4a4631cdb5a"), mode=2012)
@@ -104,7 +104,7 @@ class TestVKO34102012512(TestCase):
         self.assertSequenceEqual(kek_34102012512(curve, prvB, pubA, ukm), vko)
 
     def test_sequence(self):
-        curve = GOST3410Curve(*CURVE_PARAMS["GostR3410_2012_TC26_ParamSetA"])
+        curve = GOST3410Curve(*CURVE_PARAMS["id-tc26-gost-3410-12-512-paramSetA"])
         for _ in range(10):
             ukm = ukm_unmarshal(urandom(8))
             prv1 = bytes2long(urandom(32))

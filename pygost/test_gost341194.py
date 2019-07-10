@@ -45,55 +45,55 @@ class TestHMACPEP247(TestCase):
 class TestVectors(TestCase):
     def test_empty(self):
         self.assertSequenceEqual(
-            GOST341194(b"", "GostR3411_94_TestParamSet").hexdigest(),
+            GOST341194(b"", "id-GostR3411-94-TestParamSet").hexdigest(),
             "ce85b99cc46752fffee35cab9a7b0278abb4c2d2055cff685af4912c49490f8d",
         )
 
     def test_a(self):
         self.assertSequenceEqual(
-            GOST341194(b"a", "GostR3411_94_TestParamSet").hexdigest(),
+            GOST341194(b"a", "id-GostR3411-94-TestParamSet").hexdigest(),
             "d42c539e367c66e9c88a801f6649349c21871b4344c6a573f849fdce62f314dd",
         )
 
     def test_abc(self):
         self.assertSequenceEqual(
-            GOST341194(b"abc", "GostR3411_94_TestParamSet").hexdigest(),
+            GOST341194(b"abc", "id-GostR3411-94-TestParamSet").hexdigest(),
             "f3134348c44fb1b2a277729e2285ebb5cb5e0f29c975bc753b70497c06a4d51d",
         )
 
     def test_message_digest(self):
         self.assertSequenceEqual(
-            GOST341194(b"message digest", "GostR3411_94_TestParamSet").hexdigest(),
+            GOST341194(b"message digest", "id-GostR3411-94-TestParamSet").hexdigest(),
             "ad4434ecb18f2c99b60cbe59ec3d2469582b65273f48de72db2fde16a4889a4d",
         )
 
     def test_Us(self):
         self.assertSequenceEqual(
-            GOST341194(128 * b"U", "GostR3411_94_TestParamSet").hexdigest(),
+            GOST341194(128 * b"U", "id-GostR3411-94-TestParamSet").hexdigest(),
             "53a3a3ed25180cef0c1d85a074273e551c25660a87062a52d926a9e8fe5733a4",
         )
 
     def test_dog(self):
         self.assertSequenceEqual(
-            GOST341194(b"The quick brown fox jumps over the lazy dog", "GostR3411_94_TestParamSet",).hexdigest(),
+            GOST341194(b"The quick brown fox jumps over the lazy dog", "id-GostR3411-94-TestParamSet",).hexdigest(),
             "77b7fa410c9ac58a25f49bca7d0468c9296529315eaca76bd1a10f376d1f4294",
         )
 
     def test_cog(self):
         self.assertSequenceEqual(
-            GOST341194(b"The quick brown fox jumps over the lazy cog", "GostR3411_94_TestParamSet",).hexdigest(),
+            GOST341194(b"The quick brown fox jumps over the lazy cog", "id-GostR3411-94-TestParamSet",).hexdigest(),
             "a3ebc4daaab78b0be131dab5737a7f67e602670d543521319150d2e14eeec445",
         )
 
     def test_rfc32(self):
         self.assertSequenceEqual(
-            GOST341194(b"This is message, length=32 bytes", "GostR3411_94_TestParamSet",).hexdigest(),
+            GOST341194(b"This is message, length=32 bytes", "id-GostR3411-94-TestParamSet",).hexdigest(),
             "b1c466d37519b82e8319819ff32595e047a28cb6f83eff1c6916a815a637fffa",
         )
 
     def test_rfc50(self):
         self.assertSequenceEqual(
-            GOST341194(b"Suppose the original message has length = 50 bytes", "GostR3411_94_TestParamSet",).hexdigest(),
+            GOST341194(b"Suppose the original message has length = 50 bytes", "id-GostR3411-94-TestParamSet",).hexdigest(),
             "471aba57a60a770d3a76130635c1fbea4ef14de51f78b4ae57dd893b62f55208",
         )
 
@@ -103,49 +103,49 @@ class TestVectorsCryptoPro(TestCase):
     """
     def test_empty(self):
         self.assertSequenceEqual(
-            GOST341194(b"", "GostR3411_94_CryptoProParamSet").hexdigest(),
+            GOST341194(b"", "id-GostR3411-94-CryptoProParamSet").hexdigest(),
             "981e5f3ca30c841487830f84fb433e13ac1101569b9c13584ac483234cd656c0",
         )
 
     def test_a(self):
         self.assertSequenceEqual(
-            GOST341194(b"a", "GostR3411_94_CryptoProParamSet").hexdigest(),
+            GOST341194(b"a", "id-GostR3411-94-CryptoProParamSet").hexdigest(),
             "e74c52dd282183bf37af0079c9f78055715a103f17e3133ceff1aacf2f403011",
         )
 
     def test_abc(self):
         self.assertSequenceEqual(
-            GOST341194(b"abc", "GostR3411_94_CryptoProParamSet").hexdigest(),
+            GOST341194(b"abc", "id-GostR3411-94-CryptoProParamSet").hexdigest(),
             "b285056dbf18d7392d7677369524dd14747459ed8143997e163b2986f92fd42c",
         )
 
     def test_message_digest(self):
         self.assertSequenceEqual(
-            GOST341194(b"message digest", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            GOST341194(b"message digest", "id-GostR3411-94-CryptoProParamSet",).hexdigest(),
             "bc6041dd2aa401ebfa6e9886734174febdb4729aa972d60f549ac39b29721ba0",
         )
 
     def test_dog(self):
         self.assertSequenceEqual(
-            GOST341194(b"The quick brown fox jumps over the lazy dog", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            GOST341194(b"The quick brown fox jumps over the lazy dog", "id-GostR3411-94-CryptoProParamSet",).hexdigest(),
             "9004294a361a508c586fe53d1f1b02746765e71b765472786e4770d565830a76",
         )
 
     def test_32(self):
         self.assertSequenceEqual(
-            GOST341194(b"This is message, length=32 bytes", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            GOST341194(b"This is message, length=32 bytes", "id-GostR3411-94-CryptoProParamSet",).hexdigest(),
             "2cefc2f7b7bdc514e18ea57fa74ff357e7fa17d652c75f69cb1be7893ede48eb",
         )
 
     def test_50(self):
         self.assertSequenceEqual(
-            GOST341194(b"Suppose the original message has length = 50 bytes", "GostR3411_94_CryptoProParamSet",).hexdigest(),
+            GOST341194(b"Suppose the original message has length = 50 bytes", "id-GostR3411-94-CryptoProParamSet",).hexdigest(),
             "c3730c5cbccacf915ac292676f21e8bd4ef75331d9405e5f1a61dc3130a65011",
         )
 
     def test_Us(self):
         self.assertSequenceEqual(
-            GOST341194(128 * b"U", "GostR3411_94_CryptoProParamSet").hexdigest(),
+            GOST341194(128 * b"U", "id-GostR3411-94-CryptoProParamSet").hexdigest(),
             "1c4ac7614691bbf427fa2316216be8f10d92edfd37cd1027514c1008f649c4e8",
         )
 

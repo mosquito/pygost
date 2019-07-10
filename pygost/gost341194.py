@@ -37,7 +37,7 @@ from pygost.utils import strxor
 from pygost.utils import xrange  # pylint: disable=redefined-builtin
 
 
-DEFAULT_SBOX = "GostR3411_94_TestParamSet"
+DEFAULT_SBOX = "id-GostR3411-94-CryptoProParamSet"
 BLOCKSIZE = 32
 C2 = 32 * b"\x00"
 C3 = hexdec(b"ff00ffff000000ffff0000ff00ffff0000ff00ff00ff00ffff00ff00ff00ff00")
@@ -187,7 +187,7 @@ def new(data=b"", sbox=DEFAULT_SBOX):
     return GOST341194(data, sbox)
 
 
-PBKDF2_HASHER = partial(GOST341194, sbox="GostR3411_94_CryptoProParamSet")
+PBKDF2_HASHER = partial(GOST341194, sbox="id-GostR3411-94-CryptoProParamSet")
 
 
 def pbkdf2(password, salt, iterations, dklen):

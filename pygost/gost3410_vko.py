@@ -56,7 +56,7 @@ def kek_34102001(curve, prv, pub, ukm):
     """
     return GOST341194(
         kek(curve, prv, pub, ukm, mode=2001),
-        "GostR3411_94_CryptoProParamSet",
+        "id-GostR3411-94-CryptoProParamSet",
     ).digest()
 
 
