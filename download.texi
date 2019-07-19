@@ -6,16 +6,21 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature:
 
 @verbatim
-% wget http://pygost.cypherpunks.ru/pygost-3.15.tar.xz
-% wget http://pygost.cypherpunks.ru/pygost-3.15.tar.xz.sig
-% gpg --verify pygost-3.15.tar.xz.sig pygost-3.15.tar.xz
-% xz -d < pygost-3.15.tar.xz | tar xf -
-% cd pygost-3.15
+% wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz
+% wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz.sig
+% gpg --verify pygost-4.0.tar.xz.sig pygost-4.0.tar.xz
+% xz -d < pygost-4.0.tar.xz | tar xf -
+% cd pygost-4.0
 % python setup.py install
 @end verbatim
 
 @multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
 @headitem Version @tab Date @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
+
+@item @ref{Release 4.0, 4.0} @tab 2019-07-19 @tab 61 KiB
+@tab @url{pygost-4.0.tar.xz, link} @url{pygost-4.0.tar.xz.sig, sign}
+@tab @code{E4A329A9 AB0A781A 254AF940 10237D4C 9EEB37CB F849BA1C EA7BAF60 E3BB98B3}
+@tab @code{d2646d1815338bb5e2b41388e34f2f445828d10c3253e1996fc5d8d865cdf94f}
 
 @item @ref{Release 3.15, 3.15} @tab 2018-12-09 @tab 54 KiB
 @tab @url{pygost-3.15.tar.xz, link} @url{pygost-3.15.tar.xz.sig, sign}
