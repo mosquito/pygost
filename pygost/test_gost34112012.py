@@ -87,6 +87,7 @@ class TestVectors(TestCase):
             GOST34112012256(m).digest(),
             hexdec("508f7e553c06501d749a66fc28c6cac0b005746d97537fa85d9e40904efed29d")[::-1]
         )
+
     def test_habr144(self):
         """Test vector from https://habr.com/ru/post/450024/
         """
