@@ -369,7 +369,7 @@ class TestEnvelopedKARI(TestCase):
                             },
                         ),
                     ),
-                ) for spki_algorithm in (
+                ) for _ in (
                     id_tc26_gost3410_2012_256,
                     id_tc26_gost3410_2012_512,
                 )
