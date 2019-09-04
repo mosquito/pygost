@@ -36,6 +36,7 @@ from pygost.asn1schemas.oids import id_signedData
 from pygost.asn1schemas.oids import id_tc26_gost3410_2012_256
 from pygost.asn1schemas.oids import id_tc26_gost3410_2012_512
 from pygost.asn1schemas.x509 import AlgorithmIdentifier
+from pygost.asn1schemas.x509 import Certificate
 from pygost.asn1schemas.x509 import SubjectPublicKeyInfo
 
 
@@ -270,12 +271,26 @@ class SignerInfos(SetOf):
     schema = SignerInfo()
 
 
+class CertificateChoices(Choice):
+    schema = (
+        ('certificate', Certificate()),
+        # ('extendedCertificate', ExtendedCertificate(impl=tag_ctxp(0))),
+        # ('v1AttrCert', AttributeCertificateV1(impl=tag_ctxc(1))),  # V1 is osbolete
+        # ('v2AttrCert', AttributeCertificateV2(impl=tag_ctxc(2))),
+        # ('other', OtherCertificateFormat(impl=tag_ctxc(3))),
+    )
+
+
+class CertificateSet(SetOf):
+    schema = CertificateChoices()
+
+
 class SignedData(Sequence):
     schema = (
         ("version", CMSVersion()),
         ("digestAlgorithms", DigestAlgorithmIdentifiers()),
         ("encapContentInfo", EncapsulatedContentInfo()),
-        # ("certificates", CertificateSet(impl=tag_ctxc(0), optional=True)),
+        ("certificates", CertificateSet(impl=tag_ctxc(0), optional=True)),
         # ("crls", RevocationInfoChoices(impl=tag_ctxc(1), optional=True)),
         ("signerInfos", SignerInfos()),
     )
