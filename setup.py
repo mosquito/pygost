@@ -10,11 +10,11 @@ setup(
     author="Sergey Matveev",
     author_email="stargrave@stargrave.org",
     url="http://pygost.cypherpunks.ru/",
-    license="GPLv3+",
+    license="GPLv3",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2",
