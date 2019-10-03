@@ -3,16 +3,16 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature from official
 website:
 
-    % wget http://pygost.cypherpunks.ru/pygost-3.7.tar.xz
-    % wget http://pygost.cypherpunks.ru/pygost-3.7.tar.xz.sig
-    % gpg --verify pygost-3.7.tar.xz.sig pygost-3.7.tar.xz
-    % xz -d < pygost-3.7.tar.xz | tar xf -
-    % cd pygost-3.7
-    % python setup.py install
+    $ wget http://pygost.cypherpunks.ru/pygost-3.7.tar.xz
+    $ wget http://pygost.cypherpunks.ru/pygost-3.7.tar.xz.sig
+    $ gpg --verify pygost-3.7.tar.xz.sig pygost-3.7.tar.xz
+    $ xz -d < pygost-3.7.tar.xz | tar xf -
+    $ cd pygost-3.7
+    $ python setup.py install
 
 But also you can use PIP (NO authentication is performed!):
 
-    % pip install pygost==3.7
+    $ pip install pygost==3.7
 
 You have to verify downloaded tarballs integrity and authenticity to be
 sure that you retrieved trusted and untampered software. GNU Privacy
@@ -27,5 +27,5 @@ resources.
     uid   PyGOST releases <pygost at cypherpunks dot ru>
 
     Look in PUBKEY.asc file.
-    % gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
-    % gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
+    $ gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
+    $ gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru

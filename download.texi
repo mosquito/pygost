@@ -6,12 +6,12 @@ No additional dependencies except Python 2.7/3.x interpreter are required.
 Preferable way is to download tarball with the signature:
 
 @verbatim
-% wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz
-% wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz.sig
-% gpg --verify pygost-4.0.tar.xz.sig pygost-4.0.tar.xz
-% xz -d < pygost-4.0.tar.xz | tar xf -
-% cd pygost-4.0
-% python setup.py install
+$ wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz
+$ wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz.sig
+$ gpg --verify pygost-4.0.tar.xz.sig pygost-4.0.tar.xz
+$ xz -d < pygost-4.0.tar.xz | tar xf -
+$ cd pygost-4.0
+$ python setup.py install
 @end verbatim
 
 @multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
@@ -95,7 +95,7 @@ Preferable way is to download tarball with the signature:
 But also you can use PIP (@strong{no} authentication is performed!):
 
 @verbatim
-% pip install pygost==3.15
+$ pip install pygost==3.15
 @end verbatim
 
 You @strong{have to} verify downloaded tarballs integrity and
@@ -119,8 +119,8 @@ uid   PyGOST releases <pygost at cypherpunks dot ru>
 
 @item
 @verbatim
-% gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
-% gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
+$ gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
+$ gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
 @end verbatim
 
 @item
