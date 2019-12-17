@@ -100,7 +100,7 @@ $ pip install pygost==3.15
 
 You @strong{have to} verify downloaded tarballs integrity and
 authenticity to be sure that you retrieved trusted and untampered
-software. @url{https://www.gnupg.org/, The GNU Privacy Guard} is used
+software. @url{https://www.gnupg.org/, GNU Privacy Guard} is used
 for that purpose.
 
 For the very first time it is necessary to get signing public key and

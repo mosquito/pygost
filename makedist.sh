@@ -9,7 +9,7 @@ cp dist/pygost-"$release".tar.gz $tmp
 cd $tmp
 gunzip pygost-"$release".tar.gz
 xz -9 pygost-"$release".tar
-gpg --detach-sign --sign --local-user E6FD1269CD0C009E pygost-"$release".tar.xz
+gpg --detach-sign --sign --local-user pygost@cypherpunks.ru pygost-"$release".tar.xz
 
 tarball=pygost-"$release".tar.xz
 size=$(( $(stat -f %z $tarball) / 1024 ))
