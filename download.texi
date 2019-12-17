@@ -19,6 +19,11 @@ $ python setup.py install
 @multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
 @headitem Version @tab Date @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
 
+@item @ref{Release 4.1, 4.1} @tab 2019-12-17 @tab 60 KiB
+@tab @url{pygost-4.1.tar.xz, link} @url{pygost-4.1.tar.xz.sig, sign}
+@tab @code{CF029E30 8207DF45 884DD118 843A9E5A 33C5D979 F1D05FEA 17B81628 41257A64}
+@tab @code{5ac0ab2989f5dd5ed3f941f40db5e6e0eba7d84708b376b95eb7396427b2511e}
+
 @item @ref{Release 4.0, 4.0} @tab 2019-07-19 @tab 61 KiB
 @tab @url{pygost-4.0.tar.xz, link} @url{pygost-4.0.tar.xz.sig, sign}
 @tab @code{E4A329A9 AB0A781A 254AF940 10237D4C 9EEB37CB F849BA1C EA7BAF60 E3BB98B3}
@@ -98,9 +103,7 @@ But also you can use pip (@strong{no} OpenPGP authentication is
 performed!) with PyPI:
 
 @example
-$ cat > requirements.txt <<EOF
-pygost==@value{VERSION} --hash=sha256:TODO
-EOF
+$ echo pygost==@value{VERSION} --hash=sha256:9e8daad58a7fca0c3addd357268bff4c506074dd300887ebf96c0f1c21123835 > requirements.txt
 $ pip install --requirement requirements.txt
 @end example
 
