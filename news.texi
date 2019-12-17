@@ -3,6 +3,22 @@
 
 @table @strong
 
+@anchor{Release 4.1}
+@item 4.1
+    @itemize
+    @item PEP-396 compatible module's @code{__version__}
+    @item Curve parameters aliases:
+@verbatim
+id-GostR3410-2001-CryptoPro-XchA-ParamSet -> id-GostR3410-2001-CryptoPro-A-ParamSet
+id-GostR3410-2001-CryptoPro-XchB-ParamSet -> id-GostR3410-2001-CryptoPro-C-ParamSet
+id-tc26-gost-3410-2012-256-paramSetB      -> id-GostR3410-2001-CryptoPro-A-ParamSet
+id-tc26-gost-3410-2012-256-paramSetC      -> id-GostR3410-2001-CryptoPro-B-ParamSet
+id-tc26-gost-3410-2012-256-paramSetD      -> id-GostR3410-2001-CryptoPro-C-ParamSet
+@end verbatim
+    @item Forbid any later GNU GPL version autousage (project's licence
+        now is GNU GPLv3 only)
+    @end itemize
+
 @anchor{Release 4.0}
 @item 4.0
     @itemize

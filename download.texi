@@ -1,18 +1,20 @@
 @node Download
 @unnumbered Download
 
+@set VERSION 4.1
+
 No additional dependencies except Python 2.7/3.x interpreter are required.
 
 Preferable way is to download tarball with the signature:
 
-@verbatim
-$ wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz
-$ wget http://pygost.cypherpunks.ru/pygost-4.0.tar.xz.sig
-$ gpg --verify pygost-4.0.tar.xz.sig pygost-4.0.tar.xz
-$ xz -d < pygost-4.0.tar.xz | tar xf -
-$ cd pygost-4.0
+@example
+$ [fetch|wget] http://pygost.cypherpunks.ru/pygost-@value{VERSION}.tar.xz
+$ [fetch|wget] http://pygost.cypherpunks.ru/pygost-@value{VERSION}.tar.xz.sig
+$ gpg --verify pygost-@value{VERSION}.tar.xz.sig pygost-@value{VERSION}.tar.xz
+$ xz --decompress --stdout pygost-@value{VERSION}.tar.xz | tar xf -
+$ cd pygost-@value{VERSION}
 $ python setup.py install
-@end verbatim
+@end example
 
 @multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
 @headitem Version @tab Date @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
@@ -92,11 +94,15 @@ $ python setup.py install
 
 @end multitable
 
-But also you can use PIP (@strong{no} authentication is performed!):
+But also you can use pip (@strong{no} OpenPGP authentication is
+performed!) with PyPI:
 
-@verbatim
-$ pip install pygost==3.15
-@end verbatim
+@example
+$ cat > requirements.txt <<EOF
+pygost==@value{VERSION} --hash=sha256:TODO
+EOF
+$ pip install --requirement requirements.txt
+@end example
 
 You @strong{have to} verify downloaded tarballs integrity and
 authenticity to be sure that you retrieved trusted and untampered
@@ -118,10 +124,10 @@ uid   PyGOST releases <pygost at cypherpunks dot ru>
 @item @url{https://lists.cypherpunks.ru/mailman/listinfo/gost, gost} maillist
 
 @item
-@verbatim
+@example
 $ gpg --auto-key-locate dane --locate-keys pygost at cypherpunks dot ru
 $ gpg --auto-key-locate wkd --locate-keys pygost at cypherpunks dot ru
-@end verbatim
+@end example
 
 @item
 @verbatiminclude PUBKEY.asc

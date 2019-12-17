@@ -60,7 +60,7 @@ Currently supported algorithms are:
 
 Example 34.10-2012 keypair generation, signing and verifying:
 
-@verbatim
+@example
 >>> from pygost.gost3410 import CURVES
 >>> curve = CURVES["id-tc26-gost-3410-12-512-paramSetA"]
 >>> from os import urandom
@@ -80,7 +80,7 @@ Example 34.10-2012 keypair generation, signing and verifying:
 >>> from pygost.gost3410 import verify
 >>> verify(curve, pub, dgst, signature, mode=2012)
 True
-@end verbatim
+@end example
 
 Please send questions, bug reports and patches to
 @url{https://lists.cypherpunks.ru/mailman/listinfo/gost, gost}
