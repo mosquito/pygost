@@ -5,6 +5,7 @@ tmp=$(mktemp -d)
 release=$1
 [ -n "$release" ]
 
+pip_hash=$(pip hash dist/pygost-"$release".tar.gz | sed -n '$p')
 cp dist/pygost-"$release".tar.gz $tmp
 cd $tmp
 gunzip pygost-"$release".tar.gz
