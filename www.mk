@@ -7,6 +7,7 @@ CSS != cat style.css
 pygost.html: *.texi
 	rm -f pygost.html/*.html
 	$(MAKEINFO) --html \
+		--set-customization-variable EXTRA_HEAD='<link rev="made" href="mailto:webmaster@cypherpunks.ru">' \
 		--set-customization-variable CSS_LINES='$(CSS)' \
 		--set-customization-variable SHOW_TITLE=0 \
 		--set-customization-variable USE_ACCESSKEY=0 \
