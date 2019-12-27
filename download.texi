@@ -80,3 +80,8 @@
 @tab @code{42cfd0cdf357997a909a9114ca14391b4c5e8b62e298675f899b80a8a26d690f}
 
 @end multitable
+
+Also there is example P2P F2F E2EE IM written on Python, that uses
+PyGOST with @url{http://pyderasn.cypherpunks.ru/, PyDERASN}:
+@url{gostim.txz, GOSTIM} (@url{gostim.txz.sig, sign}) (17 KiB). It is
+described on russian an @url{https://habr.com/ru/post/452200/, that article}.
