@@ -3,6 +3,10 @@
 
 @table @strong
 
+@anchor{Release 4.3}
+@item 4.3
+Dummy release with fixed @code{pygost.__version__}.
+
 @anchor{Release 4.2}
 @item 4.2
     @itemize

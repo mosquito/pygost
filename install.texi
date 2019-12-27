@@ -1,7 +1,7 @@
 @node Download
 @unnumbered Download
 
-@set VERSION 4.2
+@set VERSION 4.3
 
 No additional dependencies except Python 2.7/3.x interpreter are required.
 
