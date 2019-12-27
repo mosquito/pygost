@@ -22,7 +22,7 @@ But also you can use pip (@strong{no} OpenPGP authentication is
 performed!) with PyPI:
 
 @example
-$ echo pygost==@value{VERSION} --hash=sha256:8e11248a0945534635a2812c146eaf32cb3bdfcd8af9a224d2c2ffaa35e6f3d0 > requirements.txt
+$ echo pygost==@value{VERSION} --hash=sha256:84b9788684f4131b3e685f5aab20ca08bcc385ff88ca193bb5334d9e1f7224a7 > requirements.txt
 $ pip install --requirement requirements.txt
 @end example
 
