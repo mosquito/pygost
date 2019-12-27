@@ -74,7 +74,7 @@ Example 34.10-2012 keypair generation, signing and verifying:
 >>> print "Public key is:", hexenc(pub_marshal(pub))
 >>> from pygost import gost34112012256
 >>> data_for_signing = b"some data"
->>> dgst = gost34112012256.new(data_for_signing).digest()
+>>> dgst = gost34112012256.new(data_for_signing).digest()[::-1]
 >>> from pygost.gost3410 import sign
 >>> signature = sign(curve, prv, dgst, mode=2012)
 >>> from pygost.gost3410 import verify
