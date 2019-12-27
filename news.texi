@@ -185,7 +185,7 @@ Fixed 34.13 mypy stub.
 Typo and pylint fixes.
 
 @item 2.2
-GOST R 34.13-2015 padding methods
+GOST R 34.13-2015 padding methods.
 
 @item 2.1
 Documentation and supplementary files refactoring.

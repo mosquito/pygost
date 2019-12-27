@@ -2,7 +2,6 @@ include AUTHORS
 include COPYING
 include INSTALL
 include NEWS
-include PUBKEY.asc
 include README
 include THANKS
 include VERSION
