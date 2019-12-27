@@ -32,7 +32,6 @@ setup(
             "COPYING",
             "INSTALL",
             "NEWS",
-            "PUBKEY.asc",
             "README",
             "THANKS",
             "VERSION",

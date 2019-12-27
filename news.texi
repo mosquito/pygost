@@ -3,6 +3,14 @@
 
 @table @strong
 
+@anchor{Release 4.2}
+@item 4.2
+    @itemize
+    @item @code{pygost.gost3410.sign} accepts predefined @code{rand}om
+        data used for k/r generation
+    @item More test vectors for 34.10-2012
+    @end itemize
+
 @anchor{Release 4.1}
 @item 4.1
     @itemize

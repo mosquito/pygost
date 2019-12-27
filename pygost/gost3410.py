@@ -214,13 +214,15 @@ def public_key(curve, prv):
     return curve.exp(prv)
 
 
-def sign(curve, prv, digest, mode=2001):
+def sign(curve, prv, digest, rand=None, mode=2001):
     """ Calculate signature for provided digest
 
     :param GOST3410Curve curve: curve to use
     :param long prv: private key
     :param digest: digest for signing
     :type digest: bytes, 32 or 64 bytes
+    :param rand: optional predefined random data used for k/r generation
+    :type rand: bytes, 32 or 64 bytes
     :returns: signature
     :rtype: bytes, 64 or 128 bytes
     """
@@ -230,7 +232,11 @@ def sign(curve, prv, digest, mode=2001):
     if e == 0:
         e = 1
     while True:
-        k = bytes2long(urandom(size)) % q
+        if rand is None:
+            rand = urandom(size)
+        elif len(rand) != size:
+            raise ValueError("rand length != %d" % size)
+        k = bytes2long(rand) % q
         if k == 0:
             continue
         r, _ = curve.exp(k)

@@ -40,7 +40,13 @@ class GOST3410Curve(object):
 def public_key(curve: GOST3410Curve, prv: int) -> PublicKey: ...
 
 
-def sign(curve: GOST3410Curve, prv: int, digest: bytes, mode: int=...) -> bytes: ...
+def sign(
+        curve: GOST3410Curve,
+        prv: int,
+        digest: bytes,
+        rand: bytes=None,
+        mode: int=...,
+) -> bytes: ...
 
 
 def verify(
