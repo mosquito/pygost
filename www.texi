@@ -88,6 +88,7 @@ mailing list. Announcements also go to this mailing list.
 
 @insertcopying
 
+@include faq.texi
 @include news.texi
 @include install.texi
 

@@ -1,0 +1,29 @@
+@node FAQ
+@unnumbered Frequently asked questions
+
+@set ItIsGOSTBaby It is GOST: do you expect serialization unification?
+
+@table @asis
+
+@item My signature is not validated by other implementations. What is wrong?
+
+Try to reverse it (@code{sign[::-1]}).
+Try to swap its halves (@code{sign[len(sign)/2:] + sign[:len(sign)/2]}).
+Try to reverse its swapped halves too.
+
+@value{ItIsGOSTBaby}!
+
+@item My signature is @strong{still} not validated by other implementations!
+
+Try to reverse digest you are signing/verifying (@code{dgst[::-1]}).
+
+@value{ItIsGOSTBaby}!
+
+@item Everything above did not help me. Does PyGOST sucks?
+
+No way! You still have not tried to reverse your binary private key,
+public key and swap its halves.
+
+@value{ItIsGOSTBaby}!
+
+@end table

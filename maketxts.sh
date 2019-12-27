@@ -29,6 +29,15 @@ cat > $texi <<EOF
 EOF
 makeinfo --plaintext -o INSTALL $texi
 
+cat > $texi <<EOF
+\input texinfo
+@documentencoding UTF-8
+@settitle FAQ
+@include faq.texi
+@bye
+EOF
+makeinfo --plaintext -o FAQ $texi
+
 rm -f $texi
 
 git checkout download.texi install.texi
