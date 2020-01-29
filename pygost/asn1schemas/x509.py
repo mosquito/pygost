@@ -112,6 +112,19 @@ class Validity(Sequence):
     )
 
 
+id_tc26_gost_28147_param_Z = ObjectIdentifier("1.2.643.7.1.2.5.1.1")
+
+
+class GostR34102012PublicKeyParameters(Sequence):
+    schema = (
+        ("publicKeyParamSet", ObjectIdentifier()),
+        ("digestParamSet", ObjectIdentifier()),
+        ("encryptionParamSet", ObjectIdentifier(
+            default=id_tc26_gost_28147_param_Z,
+        )),
+    )
+
+
 class SubjectPublicKeyInfo(Sequence):
     schema = (
         ("algorithm", AlgorithmIdentifier()),
@@ -120,6 +133,14 @@ class SubjectPublicKeyInfo(Sequence):
 
 
 class UniqueIdentifier(BitString):
+    pass
+
+
+class KeyIdentifier(OctetString):
+    pass
+
+
+class SubjectKeyIdentifier(KeyIdentifier):
     pass
 
 
