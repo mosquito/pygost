@@ -3,6 +3,15 @@
 
 @table @strong
 
+@anchor{Release 4.4}
+@item 4.4
+    @itemize
+    @item @code{id-tc26-gost-3410-2012-512-paramSetTest} curve
+    @item Simple FAQ
+    @item More test vectors for 34.10-2012
+    @item More X.509, PKCS #10 and corresponding ASN.1 helper structures
+    @end itemize
+
 @anchor{Release 4.3}
 @item 4.3
 Dummy release with fixed @code{pygost.__version__}.

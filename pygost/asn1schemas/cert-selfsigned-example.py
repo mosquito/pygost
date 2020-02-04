@@ -7,17 +7,16 @@ from datetime import timedelta
 from os import urandom
 from sys import argv
 from sys import exit as sys_exit
-from sys import stderr
 from textwrap import fill
 
 from pyderasn import Any
 from pyderasn import BitString
 from pyderasn import Integer
-from pyderasn import ObjectIdentifier
 from pyderasn import OctetString
 from pyderasn import PrintableString
 from pyderasn import UTCTime
 
+from pygost.asn1schemas.oids import id_at_commonName
 from pygost.asn1schemas.oids import id_ce_subjectKeyIdentifier
 from pygost.asn1schemas.oids import id_tc26_gost3410_2012_512
 from pygost.asn1schemas.oids import id_tc26_gost3410_2012_512_paramSetA
@@ -52,11 +51,12 @@ from pygost.gost3410 import sign
 from pygost.gost34112012512 import GOST34112012512
 
 if len(argv) != 2:
-    print("Usage: cert-selfsigned-example.py COMMON-NAME", file=stderr)
-    sys_exit(1)
+    sys_exit("Usage: cert-selfsigned-example.py COMMON-NAME")
+
 
 def pem(obj):
     return fill(standard_b64encode(obj.encode()).decode('ascii'), 64)
+
 
 key_params = GostR34102012PublicKeyParameters((
     ("publicKeyParamSet", id_tc26_gost3410_2012_512_paramSetA),
@@ -78,7 +78,6 @@ print("-----END PRIVATE KEY-----")
 prv = prv_unmarshal(prv_raw)
 curve = CURVES["id-tc26-gost-3410-12-512-paramSetA"]
 pub_raw = pub_marshal(public_key(curve, prv), mode=2012)
-id_at_commonName = ObjectIdentifier("2.5.4.3")
 subj = Name(("rdnSequence", RDNSequence([
     RelativeDistinguishedName((
         AttributeTypeAndValue((

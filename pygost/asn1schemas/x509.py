@@ -112,16 +112,10 @@ class Validity(Sequence):
     )
 
 
-id_tc26_gost_28147_param_Z = ObjectIdentifier("1.2.643.7.1.2.5.1.1")
-
-
 class GostR34102012PublicKeyParameters(Sequence):
     schema = (
         ("publicKeyParamSet", ObjectIdentifier()),
-        ("digestParamSet", ObjectIdentifier()),
-        ("encryptionParamSet", ObjectIdentifier(
-            default=id_tc26_gost_28147_param_Z,
-        )),
+        ("digestParamSet", ObjectIdentifier(optional=True)),
     )
 
 
@@ -142,6 +136,13 @@ class KeyIdentifier(OctetString):
 
 class SubjectKeyIdentifier(KeyIdentifier):
     pass
+
+
+class BasicConstraints(Sequence):
+    schema = (
+        ('cA', Boolean(default=False)),
+        # ('pathLenConstraint', PathLenConstraint(optional=True)),
+    )
 
 
 class Extension(Sequence):
@@ -175,6 +176,31 @@ class TBSCertificate(Sequence):
 class Certificate(Sequence):
     schema = (
         ("tbsCertificate", TBSCertificate()),
+        ("signatureAlgorithm", AlgorithmIdentifier()),
+        ("signatureValue", BitString()),
+    )
+
+
+class RevokedCertificates(SequenceOf):
+    # schema = RevokedCertificate()
+    schema = OctetString()  # dummy
+
+
+class TBSCertList(Sequence):
+    schema = (
+        ("version", Version(optional=True)),
+        ("signature", AlgorithmIdentifier()),
+        ("issuer", Name()),
+        ("thisUpdate", Time()),
+        ("nextUpdate", Time(optional=True)),
+        ("revokedCertificates", RevokedCertificates(optional=True)),
+        ("crlExtensions", Extensions(expl=tag_ctxc(0), optional=True)),
+    )
+
+
+class CertificateList(Sequence):
+    schema = (
+        ("tbsCertList", TBSCertList()),
         ("signatureAlgorithm", AlgorithmIdentifier()),
         ("signatureValue", BitString()),
     )
