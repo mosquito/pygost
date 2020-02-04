@@ -1,6 +1,11 @@
 @multitable {XXXXX} {XXXX-XX-XX} {XXXX KiB} {link sign} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} {xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
 @headitem Version @tab Date @tab Size @tab Tarball @tab SHA256 checksum @tab Streebog-256 checksum
 
+@item @ref{Release 4.4, 4.4} @tab 2020-02-04 @tab 67 KiB
+@tab @url{pygost-4.4.tar.xz, link} @url{pygost-4.4.tar.xz.sig, sign}
+@tab @code{0AAA6CA6 1E886296 DF1D45E7 4D037BA5 DCA6CB08 0DAB1CAD EBB959E5 57A2624C}
+@tab @code{68a25f2ea4a9e5dccc1445c37cea17a5c23337bb5fac66601e183f4050e43f27}
+
 @item @ref{Release 4.3, 4.3} @tab 2019-12-27 @tab 61 KiB
 @tab @url{pygost-4.3.tar.xz, link} @url{pygost-4.3.tar.xz.sig, sign}
 @tab @code{37D2CA54 4565B53B CDAC5175 E6411DDB 765D187E D67D8188 7060EC4D 9D93BD73}
