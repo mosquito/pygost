@@ -275,7 +275,6 @@ class TestRFC4491bis(TestCase):
             ("signatureAlgorithm", ai_sign),
             ("signatureValue", BitString(sign)),
         ))
-        open("/tmp/1", "wb").write(cert.encode())
         self.assertSequenceEqual(cert.encode(), b64decode(c_b64))
 
         # CRL
