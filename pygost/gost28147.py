@@ -28,7 +28,7 @@ from pygost.gost3413 import pad_size
 from pygost.gost3413 import unpad2
 from pygost.utils import hexdec
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 
 KEYSIZE = 32

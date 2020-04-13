@@ -9,7 +9,7 @@ PyGOST does not register itself in hashlib anyway, so use it instead.
 from pygost.utils import bytes2long
 from pygost.utils import long2bytes
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 
 def pbkdf2(hasher, password, salt, iterations, dklen):

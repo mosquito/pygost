@@ -26,11 +26,10 @@ from struct import unpack
 from pygost.iface import PEP247
 from pygost.utils import hexdec
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 
 BLOCKSIZE = 64
-# pylint: disable=bad-whitespace,bad-continuation
 Pi = bytearray((
     252, 238, 221,  17, 207, 110,  49,  22, 251, 196, 250,
     218,  35, 197,   4,  77, 233, 119, 240, 219, 147,  46,
@@ -87,7 +86,6 @@ Tau = (
     6, 14, 22, 30, 38, 46, 54, 62,
     7, 15, 23, 31, 39, 47, 55, 63,
 )
-# pylint: disable=bad-whitespace,bad-continuation
 
 C = [hexdec("".join(s))[::-1] for s in (
     (

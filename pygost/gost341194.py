@@ -33,7 +33,7 @@ from pygost.pbkdf2 import pbkdf2 as pbkdf2_base
 from pygost.utils import hexdec
 from pygost.utils import hexenc
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 
 DEFAULT_SBOX = "id-GostR3411-94-CryptoProParamSet"

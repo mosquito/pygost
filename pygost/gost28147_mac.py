@@ -29,7 +29,7 @@ from pygost.gost28147 import xcrypt
 from pygost.gost3413 import pad1
 from pygost.iface import PEP247
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 digest_size = 8
 SEQ_MAC = (

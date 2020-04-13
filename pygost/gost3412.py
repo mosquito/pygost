@@ -23,7 +23,7 @@ from pygost.gost28147 import decrypt as gost28147_decrypt
 from pygost.gost28147 import encrypt as gost28147_encrypt
 from pygost.gost28147 import ns2block as gost28147_ns2block
 from pygost.utils import strxor
-from pygost.utils import xrange  # pylint: disable=redefined-builtin
+from pygost.utils import xrange
 
 
 LC = bytearray((
