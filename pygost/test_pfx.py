@@ -22,7 +22,6 @@ from unittest import TestCase
 from pygost.gost28147 import cfb_decrypt
 from pygost.gost34112012512 import GOST34112012512
 from pygost.gost34112012512 import pbkdf2 as gost34112012_pbkdf2
-from pygost.utils import hexdec
 
 
 try:
